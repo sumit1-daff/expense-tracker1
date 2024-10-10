@@ -27,7 +27,7 @@ export default function Signup() {
     if(response.ok){
       reset();
       alert("User was added successfully");
-      setTimeout(()=> navigate('/auth/login'),2000);
+      navigate('/auth/login');
 
     }else{
       console.log("Sign Up Failed");
