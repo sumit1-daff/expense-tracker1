@@ -1,7 +1,6 @@
 const model = require('../models/users.js');
 const User = model.User;
 const bcrypt = require('bcryptjs');
-const {status} = require('express');
 const jwt = require('jsonwebtoken');
 
 exports.addUser = async (req,res)=>{

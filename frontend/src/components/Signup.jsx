@@ -106,8 +106,8 @@ export default function Signup() {
                 message: "Invalid E-mail",
               },
               pattern: {
-                value: /^[a-zA-Z0-9_@.]+$/,
-                message: "Email can only contain letters, numbers, _ and @",
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Invalid email address"
               },
               validate : () => isEmailAvailable || "Email is already registered."
             })}

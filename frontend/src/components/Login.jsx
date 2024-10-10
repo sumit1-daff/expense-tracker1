@@ -54,6 +54,10 @@ export default function Login() {
             placeholder="Enter your registered Email"
             {...register("username", {
               required: { value: true, message: "**Required Field" },
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Invalid email address"
+              },
               minLength: { value: 4, message: "The minimum length of username should be 4" }
             })}
           />

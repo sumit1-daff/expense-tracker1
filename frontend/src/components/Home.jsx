@@ -10,7 +10,6 @@ export default function Home() {
         <p className='mt-2 text-1xl'>Login to your account for better experience!</p>
     </div>
     </div>
-
     </>
   )
 }
