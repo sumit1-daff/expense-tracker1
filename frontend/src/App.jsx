@@ -22,7 +22,7 @@ function App() {
       element: <Signup/>
     },
     {
-      path : "/user/:username/dashboard",
+      path : "/user/dashboard",
       element : <DashBoard/>
     }
   ]);
