@@ -18,7 +18,7 @@ async function main() {
 }
 app.use(express.json());
 
-import authRouter from './src/routes/users.js'
+import authRouter from './src/routes/usersRouter.js'
 app.use("/auth/", authRouter);
 app.get("/", (req, res) => {
   res.send("BACKEND FOR THE EXPENSE TRACKER APP");
