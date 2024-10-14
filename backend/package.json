@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "backend for expense application",
   "main": "server.js",
-  "type": "module",
   "scripts": {
-    "start": "node --watch server.js",
+    "start": "node --watch server.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "sumit",

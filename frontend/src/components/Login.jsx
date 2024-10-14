@@ -111,8 +111,8 @@ export default function Login() {
     const onSubmit = async (data) => {
       const { username, password } = data;
       let response = await authenticateUser(username, password);
-      const result = await response.json()
       if (response.ok) {
+        const result = await response.json();
         console.log(result);
         
         // setAuthError(null);

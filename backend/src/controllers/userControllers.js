@@ -2,24 +2,15 @@ const model = require("../models/usersModel.js");
 const User = model.User;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
+const userService = require('../services/user.services.js')
 exports.addUser = async (req, res) => {
-  const salt = await bcrypt.genSalt(10);
-  const { name, email, password } = req.body;
-  const hashedPassword = await bcrypt.hash(password, salt);
-  const user = new User({
-    name: name,
-    email: email,
-    password: hashedPassword,
-  });
-  user.save();
-  console.log("added sucessfully");
+  const user = userService.createUser(req.body);
   res.json(user);
 };
 
 exports.checkIfExists = async (req, res) => {
   const { email } = req.body;
-  const user = await User.findOne({ email: { $eq: email } });
+  const user = await User.findOne({ email });
   if (user) {
     return res.status(400).json({ message: "user already exists" });
   }

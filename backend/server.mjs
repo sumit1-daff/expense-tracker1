@@ -17,7 +17,6 @@ async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/expense-tracker")
 }
 app.use(express.json());
-
 import authRouter from './src/routes/usersRouter.js'
 app.use("/auth/", authRouter);
 app.get("/", (req, res) => {
