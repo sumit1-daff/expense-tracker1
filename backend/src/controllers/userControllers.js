@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 const userService = require('../services/user.services.js')
 exports.addUser = async (req, res) => {
   const user = userService.createUser(req.body);
+  console.log(user);
+  
   res.json(user);
 };
 

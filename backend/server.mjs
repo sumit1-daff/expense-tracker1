@@ -14,8 +14,11 @@ app.use(cors(corsOption))
 
 import mongoose from "mongoose";
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/expense-tracker")
+  await mongoose.connect("mongodb://127.0.0.1:27017/expense-tracker").then(()=>{
+    console.log("Db connected Successfully");
+  })
 }
+main()
 app.use(express.json());
 import authRouter from './src/routes/usersRouter.js'
 app.use("/auth/", authRouter);

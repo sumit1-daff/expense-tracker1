@@ -9,6 +9,6 @@ exports.createUser = async (userBody) => {
     email: email,
     password: hashedPassword,
   });
-  user.save();
+  await user.save();
   console.log("added sucessfully");
 };
