@@ -53,11 +53,11 @@ export default function Signup() {
   }
   const emailValue = watch("email");
 
-  useEffect(()=>{
-    if(emailValue){
-    checkIfExists(emailValue);
-    }
-  },[emailValue]);
+  // useEffect(()=>{
+  //   if(emailValue){
+  //   checkIfExists(emailValue);
+  //   }
+  // },[emailValue]);
 
   return (
     <div className="flex h-screen justify-center items-center">
@@ -184,7 +184,6 @@ export default function Signup() {
           />
         </form>
         <div className="text-center mt-6 hover:underline text-white hover:text-blue-200 cursor-pointer">
-          {/* <a href="/auth/login">Already have an account? Log In</a> */}
           <Link to="/auth/login">Already have an account? Log In</Link>
         </div>
       </div>
