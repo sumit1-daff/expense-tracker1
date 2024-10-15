@@ -114,10 +114,6 @@ export default function Login() {
       if (response.ok) {
         const result = await response.json();
         console.log(result);
-        
-        // setAuthError(null);
-        // console.log(user, token);
-        // navigate(`/user/dashboard`);  
       } else {
         console.log("Authentication failed");
         setAuthError("Invalid credentials, please try again.");

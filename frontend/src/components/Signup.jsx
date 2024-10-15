@@ -23,7 +23,8 @@ export default function Signup() {
         "Content-type": "application/json",
       },
     });
-    console.log(response);
+    const result =  checkIfExists(data.email);
+    
     if(response.ok){
       reset();
       alert("User was added successfully");
@@ -53,11 +54,11 @@ export default function Signup() {
   }
   const emailValue = watch("email");
 
-  // useEffect(()=>{
-  //   if(emailValue){
-  //   checkIfExists(emailValue);
-  //   }
-  // },[emailValue]);
+  useEffect(()=>{
+    if(emailValue){
+    checkIfExists(emailValue);
+    }
+  },[emailValue]);
 
   return (
     <div className="flex h-screen justify-center items-center">
