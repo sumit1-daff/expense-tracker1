@@ -23,7 +23,7 @@ export default function Signup() {
         "Content-type": "application/json",
       },
     });
-    const result =  checkIfExists(data.email);
+    const result = checkIfExists(data.email);
     
     if(response.ok){
       reset();
@@ -49,6 +49,7 @@ export default function Signup() {
       body : JSON.stringify({email})
     });
     const result = await response.json();
+    console.log(result);
     setEmailAvailable(response.ok);
     setIsEmailChecking(false);
   }
@@ -56,6 +57,7 @@ export default function Signup() {
 
   useEffect(()=>{
     if(emailValue){
+      console.log("checking email!!");
     checkIfExists(emailValue);
     }
   },[emailValue]);

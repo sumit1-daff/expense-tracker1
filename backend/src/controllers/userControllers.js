@@ -14,8 +14,11 @@ exports.checkIfExists = async (req, res) => {
   const { email } = req.body;
   const user = await User.findOne({ email });
   if (user) {
+    console.log("user exists");
     return res.status(400).json({ message: "user already exists" });
   }
+  console.log("free email");
+  
   return res.status(200).json({ message: "Email is available" });
 };
 
