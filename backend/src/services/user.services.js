@@ -13,3 +13,7 @@ exports.createUser = async (userBody) => {
   await user.save();
   console.log("added sucessfully");
 };
+
+exports.something = () =>{
+  console.log("Hii this is someting wahichni am creating !!!!!");
+}
