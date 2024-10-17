@@ -21,7 +21,7 @@ function App() {
       element: <Signup/>
     },
     {
-      path : "/user/dashboard",
+      path : "/dashboard",
       element : <DashBoard/>
     }
   ]);

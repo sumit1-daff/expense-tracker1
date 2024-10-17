@@ -1,28 +1,31 @@
 import express from "express";
 import dotenv from "dotenv";
-const app = express();
 import cookieParser from "cookie-parser";
+import authRouter from './src/routes/usersRouter.js' 
+import mongoose from "mongoose";
+import cors from "cors";
+
+const app = express();
+app.use(express.json());
 app.use(cookieParser());
 dotenv.config();
 
-import cors from "cors";
 const corsOption = {
   origin: process.env.CLIENT_URL,
   credentials: true,
 };
 app.use(cors(corsOption))
 
-import mongoose from "mongoose";
 async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/expense-tracker").then(()=>{
     console.log("Db connected Successfully");
   })
 }
 main()
-app.use(express.json());
-import authRouter from './src/routes/usersRouter.js'
 app.use("/auth/", authRouter);
 app.get("/", (req, res) => {
+  // res.cookie("cookie","cookievalue");
+  // res.cookie("sumit","singh");
   res.send("BACKEND FOR THE EXPENSE TRACKER APP");
 });
 
