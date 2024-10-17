@@ -7,11 +7,13 @@ import { GrTransaction } from "react-icons/gr";
 import { MdManageAccounts } from "react-icons/md";
 import { IoToggle } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
+import Navbar from './Navbar';
 export default function DashBoard(props) {
     const {username} = useParams();
   return (
   <>
-    <div className="h-screen border-solid border-2 shadow-xl w-80 justify-center">
+  <Navbar/>
+    <div className="h-fit-content border-solid border-2 shadow-xl w-80 justify-center">
       <div className="heading text-center p-9 text-4xl ml-8 font-bold flex items-center ">
         <p className='text-center'>Sub
         <span className='text-blue-500'>Trackr</span></p>

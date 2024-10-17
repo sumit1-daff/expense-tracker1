@@ -187,7 +187,7 @@ export default function Signup() {
           />
         </form>
         <div className="text-center mt-6 hover:underline text-white hover:text-blue-200 cursor-pointer">
-          <Link to="/auth/login">Already have an account? Log In</Link>
+          <Link to="/login">Already have an account? Log In</Link>
         </div>
       </div>
     </div>

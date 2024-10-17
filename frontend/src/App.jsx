@@ -13,11 +13,11 @@ function App() {
       ),
     },
     {
-      path: "/auth/login",
+      path: "/login",
       element: <Login/>
     },
     {
-      path: "/auth/signup",
+      path: "/signup",
       element: <Signup/>
     },
     {

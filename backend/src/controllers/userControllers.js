@@ -22,8 +22,8 @@ exports.checkIfExists = async (req, res) => {
 };
 
 exports.authenticateUser = async (req, res) => {
-  const { email, password } = req.body;
   try {
+    const { email, password } = req.body;
     const user = await User.findOne({ email: { $eq: email } });
     if (!user) {
       return res
@@ -39,9 +39,9 @@ exports.authenticateUser = async (req, res) => {
       expiresIn: '1h',
     })
     const options = {
-      secure: false, // Use true in production
+      secure: false,
       httpOnly: true,
-      maxAge: 3600000, // 1 hour
+      maxAge: 3600000,
     }
     const userResponse = {
       id: user._id,
@@ -55,6 +55,6 @@ exports.authenticateUser = async (req, res) => {
     });
   } catch (error) {
     console.error("Error during authentication:", error);
-    return res.statuscookie("token",token,options)(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
