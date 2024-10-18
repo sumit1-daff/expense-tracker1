@@ -1,13 +1,13 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import DrawerItem from './DrawerItem';
+import DrawerItem from '../components/DrawerItem';
 import { LuLayoutDashboard } from "react-icons/lu";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { GrTransaction } from "react-icons/gr";
 import { MdManageAccounts } from "react-icons/md";
 import { IoToggle } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
-import Navbar from './Navbar';
+import Navbar from '../components/Navbar';
 import { isAuthenticated } from '../utils/isAuthenticated';
 export default function DashBoard(props) {
    const isAuthenticated = isAuthenticated();

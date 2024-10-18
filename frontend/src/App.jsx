@@ -1,10 +1,10 @@
 
-import Login from './components/Login'
+import Login from './screens/Login'
 import { createBrowserRouter, RouterProvider , Link} from 'react-router-dom'
-import Signup from './components/Signup';
-import DashBoard from "./components/DashBoard";
+import Signup from './screens/Signup';
+import DashBoard from "./screens/DashBoard";
 import authLoader from './utils/authLoader';
-import Home from './components/Home';
+import Home from './screens/Home';
 function App() {
   const router = createBrowserRouter([
     {

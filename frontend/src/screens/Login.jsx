@@ -10,8 +10,7 @@ export default function Login() {
       const { username, password } = data;
       let response = await authenticateUser(username, password);
       if (response.ok) {
-        const result = await response.json();
-        console.log(result);
+        console.log("redirecting to dashboard!!");
         navigate('/dashboard');
       } else {
         setAuthError("Invalid credentials, please try again.");
