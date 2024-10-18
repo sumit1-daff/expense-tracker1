@@ -4,9 +4,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const userService = require("../services/user.services.js");
 exports.addUser = async (req, res) => {
-  console.log(req.body);
-  const user = userService.createUser(req.body);
-  res.json(user);
+  const user = await userService.createUser(req.body);
+  res.status(200).json(user);
 };
 
 exports.checkIfExists = async (req, res) => {
@@ -26,29 +25,31 @@ exports.authenticateUser = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email: { $eq: email } });
     if (!user) {
-      return res
-        .status(401)
-        .json({ message: "Invalid credentials." });
+      return res.status(401).json({ message: "Invalid credentials." });
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid credentials." });
     }
 
-    const token = jwt.sign({id : user._id, username : user.email}, process.env.JWT_SECRET,{
-      expiresIn: '1h',
-    })
+    const token = jwt.sign(
+      { id: user._id, username: user.email },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
     const options = {
       secure: false,
       httpOnly: true,
       maxAge: 3600000,
-    }
+    };
     const userResponse = {
       id: user._id,
       email: user.email,
       name: user.name,
     };
-    res.cookie("authToken",token,options);
+    res.cookie("authToken", token, options);
     return res.status(200).json({
       message: "User authenticated",
       user: userResponse,

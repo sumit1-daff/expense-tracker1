@@ -11,13 +11,12 @@ export default function () {
 
   const onSubmit = async (data) => {
     try {
-      
-     const {name, email, password} = data;
+      console.log(data);
       const response = await fetch("http://localhost:3000/auth/signup", {
         method: "POST",
         body: JSON.stringify(data),
-        header: {
-          "Content-Type": "application/json",
+        headers: {
+          "Content-type": "application/json",
         },
       });
       const result = response.json();
