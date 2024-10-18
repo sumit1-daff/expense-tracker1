@@ -57,7 +57,7 @@ export default function Login() {
           <div className="flex w-full">
             <h4 className="mt-2 md:mt-5 text-xl">Log In</h4>
           </div>
-          <div className="h-6">
+          <div className="h-3">
              {authError && <span className="text-red-300">{authError}</span>}
          </div>
           <div>
@@ -76,7 +76,7 @@ export default function Login() {
             })}
           />
           </div>
-          <div className="h-6">
+          <div className="h-3">
              {errors.username && <span className="text-red-300">{errors.username.message}</span>}
          </div>
           <div>
@@ -88,7 +88,7 @@ export default function Login() {
             {...register("password", { required: true })}
           />
           </div>
-         <div className="h-6">
+         <div className="h-3">
            {errors.password && <span className="text-red-300">**Required Field</span>}
           </div>
           <div className="w-full flex ">

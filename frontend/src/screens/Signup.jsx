@@ -23,12 +23,10 @@ export default function Signup() {
         "Content-type": "application/json",
       },
     });
-    const result = checkIfExists(data.email);
-    
     if(response.ok){
       reset();
       alert("User was added successfully");
-      navigate('/auth/login');
+      navigate('/login');
 
     }else{
       console.log("Sign Up Failed");
@@ -39,28 +37,28 @@ export default function Signup() {
    }
   };
 
-  const checkIfExists = async (email) =>{
-    setIsEmailChecking(true);
-    let response = await fetch('http://localhost:3000/auth/check-email',{
-      method:"POST",
-      headers : {
-        'Content-type': "application/json"
-      },
-      body : JSON.stringify({email})
-    });
-    const result = await response.json();
-    console.log(result);
-    setEmailAvailable(response.ok);
-    setIsEmailChecking(false);
-  }
-  const emailValue = watch("email");
+  // const checkIfExists = async (email) =>{
+  //   setIsEmailChecking(true);
+  //   let response = await fetch('http://localhost:3000/auth/check-email',{
+  //     method:"POST",
+  //     headers : {
+  //       'Content-type': "application/json"
+  //     },
+  //     body : JSON.stringify({email})
+  //   });
+  //   const result = await response.json();
+  //   console.log(result);
+  //   setEmailAvailable(response.ok);
+  //   setIsEmailChecking(false);
+  // }
+  // const emailValue = watch("email");
 
-  useEffect(()=>{
-    if(emailValue){
-      console.log("checking email!!");
-    checkIfExists(emailValue);
-    }
-  },[emailValue]);
+  // useEffect(()=>{
+  //   if(emailValue){
+  //     console.log("checking email!!");
+  //   checkIfExists(emailValue);
+  //   }
+  // },[emailValue]);
 
   return (
     <div className="flex h-screen justify-center items-center">

@@ -8,10 +8,7 @@ import { MdManageAccounts } from "react-icons/md";
 import { IoToggle } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
 import Navbar from '../components/Navbar';
-import { isAuthenticated } from '../utils/isAuthenticated';
 export default function DashBoard(props) {
-   const isAuthenticated = isAuthenticated();
-   if(isAuthenticated){
     return (
       <>
       <Navbar/>
@@ -35,11 +32,4 @@ export default function DashBoard(props) {
         </div>
       </>
     )
-   }
-   else{
-    return(
-      <div>You need to login first!!</div>
-    )
-   }
-  
 }

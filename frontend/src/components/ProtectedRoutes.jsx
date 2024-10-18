@@ -1,33 +1,37 @@
-// import React, { useState, useEffect} from 'react'
-// import {Route, useNavigate} from "react-router-dom";
-// import { isAuthenticated } from '../utils/isAuthenticated';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
+const ProtectedRoute = ({ element: Element, ...rest }) => {
+    const [isAuth, setIsAuth] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/auth/dashboard', {
+                    credentials: 'include',
+                });
+                if (response.ok) {
+                    setIsAuth(true); 
+                } else {
+                    alert('You need to log in first');
+                    navigate('/login');  
+                }
+            } catch (error) {
+                console.error('Authentication failed', error);
+                alert('You need to log in first');
+                navigate('/login');
+            }
+            setLoading(false);
+        };
 
+        checkAuth();
+    }, [navigate]);
 
-// export default function ProtectedRoutes({component : Component, ...rest }) {
-  
-//         const [isAuth, setIsAuth] = useState(false);
-//         const [loading, setloading] = useState(true);
-//         const navigate = useNavigate();
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
-//         useEffect(()=>{
-//             const checkAuth = async ()=>{
-//                 const authenticated = await isAuthenticated();
-//                 setIsAuth(authenticated);
-//                 setloading(false);
-//                 if(!authenticated){
-//                     navigate('/login');
-//                 }
-//             };
-//             checkAuth();
-//         },[navigate]);
-        
-//         if(loading) return <div>Loading............</div>
-        
-//     return (
-//     <Route
-//         {...rest}
-//         element = {<Component/>}
-//         />
-//   )
-// }
+    return isAuth ? <Element {...rest} /> : null;
+};
+export default ProtectedRoute;
