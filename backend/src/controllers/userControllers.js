@@ -4,8 +4,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const userService = require("../services/user.services.js");
 exports.addUser = async (req, res) => {
+  console.log(req.body);
   const user = userService.createUser(req.body);
-  console.log(user);
   res.json(user);
 };
 

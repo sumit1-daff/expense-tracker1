@@ -37,6 +37,7 @@ export default function Login() {
     };
   return (
     <div className="flex flex-col w-full h-screen items-center justify-center">
+      <div className="border border-slate-300 p-10 w-1/2 flex flex-col justify-center items-center">
       <div className="flex flex-col text-center gap-3 mb-5">
         <div className="flex">
           <span className="text-3xl md:text-5xl font-bold">Welcome back</span>
@@ -64,7 +65,7 @@ export default function Login() {
           <input
             autoComplete="off"
             type="email"
-            className="email border-solid border-2 outline-none border-gray-300 focus:border-gray-500 my-4 w-full h-12 md:h-15 p-4"
+            className="email border-solid border-2 outline-none border-gray-300 focus:border-gray-500 w-full h-12 md:h-15 p-4"
             placeholder="Enter your registered Email"
             {...register("username", {
               required: { value: true, message: "**Required Field" },
@@ -76,39 +77,43 @@ export default function Login() {
             })}
           />
           </div>
-          <div className="h-3">
+          <div className="h-8">
              {errors.username && <span className="text-red-300">{errors.username.message}</span>}
          </div>
           <div>
              <input
             autoComplete="off"
             type="password"
-            className="mail border-solid border-2 outline-none border-gray-300 focus:border-gray-500 my-4 w-full h-12 md:h-15 p-4 "
+            className="mail border-solid border-2 outline-none border-gray-300 focus:border-gray-500 w-full h-12 md:h-15 p-4 "
             placeholder="Enter your password"
             {...register("password", { required: true })}
           />
           </div>
-         <div className="h-3">
+         <div className="h-8">
            {errors.password && <span className="text-red-300">**Required Field</span>}
           </div>
-          <div className="w-full flex ">
+          <div className="w-full">
             <button
             disabled={isSubmitting}
               type="submit"
-              className="self-start w-32 md:w-40 px-6 py-3 text-white bg-blue-500 h-12 md:h-15 cursor-pointer active:scale-90"
+              className="self-start w-full md:w-full px-6 py-3 text-white bg-blue-500 h-12 md:h-15 cursor-pointer active:scale-90"
             >
               Login
             </button>
+            <div className="text-right mt-1"><Link to={'/forgot-password'} className="text-blue-500 underline decoration-2 hover:text-blue-800">Forgot Password?</Link></div>
           </div>
+          <div className="underline text-blue-500 decoration-2 text-center mt-5 hover:text-blue-800"><Link to={'/signup'}>Don't have an Account? Sign Up</Link></div>
         </form>
       </div>
-      <div className="text-center w-full mt-5">
+      <hr className="border-gray-200 border w-1/2 mt-6" />
+      <div className="text-center w-full mt-2">
         <p>Or Continue With</p>
       </div>
       <div className="flex flex-row mt-5 justify-center gap-12 h-8 md:h-10">
         <img className="w-8 md:w-10 " src="/facebook.png" alt="" />
         <img className="w-8 md:w-10 " src="/google.png" alt="" />
         <img className="w-8 md:w-10 " src="/microsoft.png" alt="" />
+      </div>
       </div>
     </div>
   );

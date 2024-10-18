@@ -6,6 +6,7 @@ import DashBoard from "./screens/DashBoard";
 import Home from './screens/Home';
 import ProtectedRoute from './components/ProtectedRoutes';
 import SignUp1 from './screens/SignUp1';
+import ForgotPassword from './screens/ForgotPassword';
 function App() {
   const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ function App() {
     {
       path : '/signup1',
       element : <SignUp1/>
+    },
+    {
+      path : '/forgot-password',
+      element : <ForgotPassword/>
     }
   ]);
   

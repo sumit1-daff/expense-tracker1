@@ -1,157 +1,176 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-export default function SignUp1() {
+export default function () {
   const {
     register,
+    watch,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm();
-  const [authError, setAuthError] = useState(null);
-  const navigate = useNavigate();
-  const onSubmit = async (data) => {
-    const { username, password } = data;
-    let response = await authenticateUser(username, password);
-    if (response.ok) {
-      console.log("redirecting to dashboard!!");
-      navigate("/dashboard");
-    } else {
-      setAuthError("Invalid credentials, please try again.");
-    }
-  };
 
-  const authenticateUser = async (email, password) => {
+  const onSubmit = async (data) => {
     try {
-      let response = await fetch("http://localhost:3000/auth/login", {
+      
+     const {name, email, password} = data;
+      const response = await fetch("http://localhost:3000/auth/signup", {
         method: "POST",
-        headers: {
+        body: JSON.stringify(data),
+        header: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
-        body: JSON.stringify({ email, password }),
       });
+      const result = response.json();
 
-      return response;
-    } catch (error) {
-      console.error("Error authenticating user", error);
-      return { ok: false };
+      if (response.ok) {
+        reset();
+        alert("User added successfully!!!");
+      } else {
+        alert("Some error occurred.");
+      }
+    } catch (err) {
+      console.log("Invalid Credentials. Please try again later!");
     }
   };
+
   return (
     <>
-      <div className="flex flex-col w-full h-screen items-center justify-center">
-        <div className="flex flex-col text-center gap-3 mb-5">
-          <div className="flex">
-            <span className="text-3xl md:text-5xl font-bold">Welcome</span>
-            <span className="h-full flex items-center">
-              <img
-                className="m-1 h-8 md:m-2 md:h-10 md:w-30"
-                src="/wave.png"
-                alt="Logo"
-              />
-            </span>
+      <div className="h-dvh w-full flex items-center justify-center">
+        <div className="border border-slate-300 p-10">
+          <div className="text-center mb-5">
+            <div className="text-4xl font-bold flex justify-center">
+              <span className="font-bold">Welcome</span>
+              <span className="h-full flex items-center">
+                <img
+                  className="m-1 h-8 md:m-2 md:h-10 md:w-30"
+                  src="/wave.png"
+                  alt="Logo"
+                />
+              </span>
+            </div>
+            <div className="text-4xl font-bold">To </div>
+            <div className="text-4xl font-bold">
+              Expense <span className="text-blue-500">Trackr</span>{" "}
+            </div>
           </div>
-          <div className="text md:text-2xl">
-            <p>To</p>
+          <div className="text-xl">Sign Up</div>
+          <div className="mt-5 justify-center flex flex-col ">
+            <form action="#" onSubmit={handleSubmit(onSubmit)}>
+              <div className="flex w-full">
+                <input
+                  autoComplete="off"
+                  className="email border-solid border-2 outline-none border-gray-300 focus:border-gray-500 w-full h-12 md:h-15 p-4"
+                  placeholder="Enter your Full name"
+                  {...register("name", {
+                    required: { value: true, message: "**Required Field" },
+                    minLength: {
+                      value: 4,
+                      message: "The minimum length of user's name should be 4",
+                    },
+                    pattern: {
+                      value: /^[a-zA-Z ]+$/,
+                      message: "Name can only contain letters.",
+                    },
+                  })}
+                />
+              </div>
+              <div className="h-4 flex w-full">
+                  {errors.name && (
+                    <span className="text-red-500 w-1/2">
+                      {errors.name.message}
+                    </span>
+                  )}
+                </div>
+              <div className="mt-4">
+                <input
+                  autoComplete="off"
+                  type="email"
+                  className="email border-solid border-2 outline-none border-gray-300 focus:border-gray-500 w-full h-12 md:h-15 p-4"
+                  placeholder="Enter your Email"
+                  {...register("email", {
+                    required: { value: true, message: "**Required Field" },
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "Invalid email address",
+                    },
+                  })}
+                />
+              </div>
+              <div className="h-4 w-full">
+                {errors.email && (
+                  <span className="text-red-500 w-1/2">
+                    {errors.email.message}
+                  </span>
+                )}
+              </div>
+              <div className="mt-4">
+                <input
+                  autoComplete="off"
+                  type="password"
+                  className="mail border-solid border-2 outline-none border-gray-300 focus:border-gray-500 w-full h-12 md:h-15 p-4 "
+                  placeholder="Enter your password"
+                  {...register("password", {
+                    required: { value: true, message: "**Required Field" },
+                    pattern: {
+                      value:
+                        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                      message:
+                        "Password should be atleast 8 character long and have special characters.",
+                    },
+                  })}
+                />
+              </div>
+              <div className="h-4 w-full">
+                {errors.password && (
+                  <span className="text-red-500 w-1/2">
+                    {errors.password.message}
+                  </span>
+                )}
+              </div>
+              <div className="mt-4">
+                <input
+                  autoComplete="off"
+                  type="password"
+                  className="mail border-solid border-2 outline-none border-gray-300 focus:border-gray-500 w-full h-12 md:h-15 p-4 "
+                  placeholder="Confirm password"
+                  {...register("confirm_password", {
+                    required: { value: true, message: "**Required Field" },
+                    validate: (value) => {
+                      const password = watch("password");
+                      return value === password || "Passwords do not match";
+                    },
+                  })}
+                />
+              </div>
+              <div className="h-4 w-full">
+                {errors.confirm_password && (
+                  <span className="text-red-500 w-1/2">
+                    {errors.confirm_password.message}
+                  </span>
+                )}
+              </div>
+              <div className="w-full mt-2">
+                <button
+                  className="w-full bg-blue-500 text-white h-12 py-3 hover:bg-blue-700 active:scale-95"
+                  disabled={isSubmitting}
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
           </div>
-          <div className="text-3xl md:text-5xl font-bold">
-            <span>Sub</span>
-            <span className="text-blue-500">Trackr</span>
+          <div className="text-blue-500 text-center mt-5 underline decoration-2 ">
+            <Link to={"/login"}>Already have an Account? Log In</Link>
           </div>
-        </div>
-        <div className="w-60 md:w-96">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            autoComplete="off"
-            action=""
-            className="flex flex-col"
-          >
-            <div className="flex w-full">
-              <h4 className="mt-2 md:mt-5 text-xl">Sign Up</h4>
-            </div>
-            <div className="h-3">
-              {authError && <span className="text-red-300">{authError}</span>}
-            </div>
-            <div>
-              <input
-                autoComplete="off"
-                type="text"
-                className="email border-solid border-2 outline-none border-gray-300 focus:border-gray-500 my-4 w-full h-12 md:h-15 p-4"
-                placeholder="Enter your Full Name"
-                {...register("username", {
-                  required: { value: true, message: "**Required Field" },
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "Invalid email address",
-                  },
-                  minLength: {
-                    value: 4,
-                    message: "The minimum length of username should be 4",
-                  },
-                })}
-              />
-            </div>
-            <div className="h-3">
-              {errors.username && (
-                <span className="text-red-300">{errors.username.message}</span>
-              )}
-            </div>
-            <div>
-              <input
-                autoComplete="off"
-                type="email"
-                className="email border-solid border-2 outline-none border-gray-300 focus:border-gray-500 my-4 w-full h-12 md:h-15 p-4"
-                placeholder="Enter your registered Email"
-                {...register("username", {
-                  required: { value: true, message: "**Required Field" },
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "Invalid email address",
-                  },
-                  minLength: {
-                    value: 4,
-                    message: "The minimum length of username should be 4",
-                  },
-                })}
-              />
-            </div>
-            <div className="h-3">
-              {errors.username && (
-                <span className="text-red-300">{errors.username.message}</span>
-              )}
-            </div>
-            <div>
-              <input
-                autoComplete="off"
-                type="password"
-                className="mail border-solid border-2 outline-none border-gray-300 focus:border-gray-500 my-4 w-full h-12 md:h-15 p-4 "
-                placeholder="Enter your password"
-                {...register("password", { required: true })}
-              />
-            </div>
-            <div className="h-3">
-              {errors.password && (
-                <span className="text-red-300">**Required Field</span>
-              )}
-            </div>
-            <div className="w-full flex ">
-              <button
-                disabled={isSubmitting}
-                type="submit"
-                className="self-start w-32 md:w-40 px-6 py-3 text-white bg-blue-500 h-12 md:h-15 cursor-pointer active:scale-90"
-              >
-                Login
-              </button>
-            </div>
-          </form>
-        </div>
-        <div className="text-center w-full mt-5">
-          <p>Or Continue With</p>
-        </div>
-        <div className="flex flex-row mt-5 justify-center gap-12 h-8 md:h-10">
-          <img className="w-8 md:w-10 " src="/facebook.png" alt="" />
-          <img className="w-8 md:w-10 " src="/google.png" alt="" />
-          <img className="w-8 md:w-10 " src="/microsoft.png" alt="" />
+          <hr className="border-gray-200 border w-1/2 mx-auto mt-2" />
+          <div className="text-center w-full mt-2">
+            <p>Or Continue With</p>
+          </div>
+          <div className="flex flex-row mt-5 justify-center gap-12 h-8 md:h-10">
+            <img className="w-8 md:w-10 " src="/facebook.png" alt="" />
+            <img className="w-8 md:w-10 " src="/google.png" alt="" />
+            <img className="w-8 md:w-10 " src="/microsoft.png" alt="" />
+          </div>
         </div>
       </div>
     </>
