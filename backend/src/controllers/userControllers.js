@@ -48,7 +48,7 @@ exports.authenticateUser = async (req, res) => {
       email: user.email,
       name: user.name,
     };
-    res.cookie("token",token,options);
+    res.cookie("authToken",token,options);
     return res.status(200).json({
       message: "User authenticated",
       user: userResponse,
@@ -58,3 +58,16 @@ exports.authenticateUser = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+exports.authCheck = (req, res) =>{
+  const token = req.cookies.authToken;
+  if(!token){
+    return res.status(400).send("Access Denied");
+  }
+  try{
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    return res.status(200).send("User is authenticated!!");
+  }catch(err){
+      return res.status(400).sned("Invalid Token");
+  }
+}

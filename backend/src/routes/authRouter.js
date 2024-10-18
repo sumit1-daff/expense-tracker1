@@ -9,5 +9,5 @@ router = express.Router();
 router.post('/signup', userController.addUser);
 router.post('/check-email',userController.checkIfExists);
 router.post('/login',userController.authenticateUser);
-
+router.get('/auth-check',userController.authCheck);
 module.exports = router;
