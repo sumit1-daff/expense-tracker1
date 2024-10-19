@@ -37,7 +37,7 @@ export default function Login() {
     };
   return (
     <div className="flex flex-col w-full h-screen items-center justify-center">
-      <div className="border border-slate-300 p-10 w-1/2 flex flex-col justify-center items-center">
+      <div className="p-10 w-1/2 flex flex-col justify-center items-center">
       <div className="flex flex-col text-center gap-3 mb-5">
         <div className="flex">
           <span className="text-3xl md:text-5xl font-bold">Welcome back</span>
@@ -58,8 +58,8 @@ export default function Login() {
           <div className="flex w-full">
             <h4 className="mt-2 md:mt-5 text-xl">Log In</h4>
           </div>
-          <div className="h-3">
-             {authError && <span className="text-red-300">{authError}</span>}
+          <div className="h-6">
+             {authError && <span className="text-red-500">{authError}</span>}
          </div>
           <div>
           <input
@@ -78,7 +78,7 @@ export default function Login() {
           />
           </div>
           <div className="h-8">
-             {errors.username && <span className="text-red-300">{errors.username.message}</span>}
+             {errors.username && <span className="text-red-500">{errors.username.message}</span>}
          </div>
           <div>
              <input
@@ -90,7 +90,7 @@ export default function Login() {
           />
           </div>
          <div className="h-8">
-           {errors.password && <span className="text-red-300">**Required Field</span>}
+           {errors.password && <span className="text-red-500">**Required Field</span>}
           </div>
           <div className="w-full">
             <button

@@ -4,20 +4,14 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const userService = require("../services/user.services.js");
 exports.addUser = async (req, res) => {
-  const user = await userService.createUser(req.body);
-  res.status(200).json(user);
-};
-
-exports.checkIfExists = async (req, res) => {
-  const { email } = req.body;
-  const user = await User.findOne({ email });
-  if (user) {
-    console.log("user exists");
-    return res.status(400).json({ message: "user already exists" });
+  const emailExists = await userService.checkEmail(req.body);
+  if(emailExists){
+    return res.status(400).json({message : "User with Email already exists"});
   }
-  console.log("free email");
-
-  return res.status(200).json({ message: "Email is available" });
+  else{
+    const user = await userService.createUser(req.body);
+    return res.status(200).json({user, "message": "user created successfully"});
+  }
 };
 
 exports.authenticateUser = async (req, res) => {

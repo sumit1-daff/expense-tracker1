@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 export default function () {
@@ -10,6 +10,7 @@ export default function () {
     formState: { errors, isSubmitting },
   } = useForm();
   const navigate = useNavigate();
+  const [emailError,setEmailError] = useState(null);
   const onSubmit = async (data) => {
     try {
       const response = await fetch("http://localhost:3000/auth/signup", {
@@ -19,24 +20,31 @@ export default function () {
           "Content-type": "application/json",
         },
       })
+
+      const result = await response.json();
+     
       if (response.ok) {
         reset();
         alert("User added successfully!!!");
         navigate('/login');
-      } else {
+      }else if(result.message === 'User with Email already exists'){
+         setEmailError("User already Exists!!");
+      }
+       else {
         alert("Some error occurred.");
       }
     } catch (err) {
+      console.log(err);
       console.log("Invalid Credentials. Please try again later!");
     }
   };
 
   return (
     <>
-      <div className="h-dvh w-full flex items-center justify-center">
-        <div className="border border-slate-300 p-10">
+      <div className="h-dvh w-full flex items-center justify-center overflow-hidden">
+        <div className=" w-1/3 p-10">
           <div className="text-center mb-5">
-            <div className="text-4xl font-bold flex justify-center">
+            <div className="text-4xl w-full font-bold flex justify-center">
               <span className="font-bold">Welcome</span>
               <span className="h-full flex items-center">
                 <img
@@ -72,9 +80,9 @@ export default function () {
                   })}
                 />
               </div>
-              <div className="h-4 flex w-full">
+              <div className="h-4 flex">
                   {errors.name && (
-                    <span className="text-red-500 w-1/2">
+                    <span className="text-red-500">
                       {errors.name.message}
                     </span>
                   )}
@@ -100,6 +108,9 @@ export default function () {
                     {errors.email.message}
                   </span>
                 )}
+                { emailError &&  (<span className="text-red-500 w-1/2">
+                    {emailError}
+                  </span>)}
               </div>
               <div className="mt-4">
                 <input
