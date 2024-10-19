@@ -41,7 +41,7 @@ exports.authenticateUser = async (req, res) => {
     );
     const options = {
       secure: false,
-      httpOnly: true,
+      httpOnly: false,
       maxAge: 3600000,
     };
     const userResponse = {
