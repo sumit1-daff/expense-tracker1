@@ -14,6 +14,15 @@ exports.addUser = async (req, res) => {
   }
 };
 
+exports.logout = async (req, res)=>{
+    res.clearCookie("authToken",{
+      httpOnly: false,
+      secure : false,
+    });
+    res.status(200).json({message : "logged out !!"});
+  }
+
+
 exports.authenticateUser = async (req, res) => {
   try {
     const { email, password } = req.body;

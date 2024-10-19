@@ -11,7 +11,6 @@ import Navbar from '../components/Navbar';
 export default function DashBoard(props) {
     return (
       <>
-      <Navbar/>
         <div className="h-fit-content border-solid border-2 shadow-xl w-80 justify-center">
           <div className="heading text-center p-9 text-4xl ml-8 font-bold flex items-center ">
             <p className='text-center'>Sub

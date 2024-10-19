@@ -12,10 +12,16 @@ import DashBoard from "./screens/DashBoard";
 import Home from "./screens/Home";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import ForgotPassword from "./screens/ForgotPassword";
+import About from "./screens/About";
+import ContactUs from "./screens/ContactUs";
+import Services from "./screens/Services";
+import Navbar from "./components/Navbar";
 function App() {
   const isLoggedIn = Cookies.get("authToken");
   return (
+    <>
     <Router>
+    {isLoggedIn ? (<Navbar isLoggedIn={isLoggedIn} />) : <></>}
       <div className="App">
         <Routes>
           {!isLoggedIn && (
@@ -23,23 +29,29 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
             </>
           )}
           {/* Protected Routes */}
           <Route element={<ProtectedRoute />}>
-            <Route path="/dashboard" element={<DashBoard />} />
-            <Route path="/home" element={<Home />} />
-
+            <Route
+              path="/dashboard"
+              element={<DashBoard isLoggedIn={isLoggedIn} />}
+            />
+            <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
             <Route path="*" element={<Navigate to={"/dashboard"} />} />
           </Route>
-          {/* <Route
+          <Route
             path="*"
             element={isLoggedIn ? <DashBoard /> : <Navigate to="/" />}
-          /> */}
+          />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/services" element={<Services />} />
         </Routes>
       </div>
     </Router>
+    </>
   );
 }
 

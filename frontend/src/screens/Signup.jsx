@@ -20,13 +20,17 @@ export default function () {
           "Content-type": "application/json",
         },
       })
-
       const result = await response.json();
-     
       if (response.ok) {
         reset();
         alert("User added successfully!!!");
-        navigate('/login');
+        const {email, password} = data;
+        const response2 = await authenticateUser(email, password);
+        if(response2.ok){
+          navigate('/dashboard');
+        }else{
+          console.log("Error in redirecting to the dashboard");
+        }
       }else if(result.message === 'User with Email already exists'){
          setEmailError("User already Exists!!");
       }
@@ -38,6 +42,23 @@ export default function () {
       console.log("Invalid Credentials. Please try again later!");
     }
   };
+
+  const authenticateUser = async (email, password)=>{
+    try {
+      let response = await fetch('http://localhost:3000/auth/login', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: 'include',
+        body: JSON.stringify({ email, password })
+      });
+      return response;
+    } catch (error) {
+      console.error("Error authenticating user", error);
+      return { ok: false };
+    }
+  }
 
   return (
     <>
