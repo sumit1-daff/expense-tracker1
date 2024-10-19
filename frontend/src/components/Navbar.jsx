@@ -52,14 +52,12 @@ export default function Navbar({ isLoggedIn }) {
                 className="text-white border-solid border-white border-2 rounded-3xl bg-transparent h-10 p-1 w-20 m-2 hover:scale-110"
                 onClick={handleLogOut}
               >
-                {" "}
-                <Link to="/logout">Log Out</Link>{" "}
+                Log Out
               </button>
             </>
           ) : (
             <button className="text-white border-solid border-white border-2 rounded-3xl bg-transparent h-10 p-1 w-20 m-2 hover:scale-110">
-              {" "}
-              <Link to="/login">Log In</Link>{" "}
+              <Link to="/login">Log In</Link>
             </button>
           )}
         </div>

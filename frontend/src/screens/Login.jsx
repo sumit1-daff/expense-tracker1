@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import ForgotPassword from "./ForgotPassword";
 
 export default function Login() {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
@@ -49,7 +50,7 @@ export default function Login() {
           <p>To</p>
         </div>
         <div className="text-3xl md:text-5xl font-bold">
-          <span>Sub</span>
+          <span>Expense</span>
           <span className="text-blue-500">Trackr</span>
         </div>
       </div>
@@ -100,8 +101,9 @@ export default function Login() {
             >
               Login
             </button>
-            <div className="text-right mt-1"><Link to={'/forgot-password'} className="text-blue-500 underline decoration-2 hover:text-blue-800">Forgot Password?</Link></div>
+            {/* <div className="text-right mt-1"><Link to={'/forgot-password'} className="text-blue-500 underline decoration-2 hover:text-blue-800">Forgot Password?</Link></div> */}
           </div>
+          <div className="text-right mt-2"><ForgotPassword/></div>
           <div className="underline text-blue-500 decoration-2 text-center mt-5 hover:text-blue-800"><Link to={'/signup'}>Don't have an Account? Sign Up</Link></div>
         </form>
       </div>

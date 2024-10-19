@@ -28,6 +28,7 @@ export default function () {
         const response2 = await authenticateUser(email, password);
         if(response2.ok){
           navigate('/dashboard');
+          reload();
         }else{
           console.log("Error in redirecting to the dashboard");
         }
