@@ -8,7 +8,7 @@ import { MdManageAccounts } from "react-icons/md";
 import { IoToggle } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
 import Navbar from './Navbar';
-export default function DashBoard(props) {
+export default function SideDrawer(props) {
   const handleLogout = async () => {
     try {
       let response = await fetch("http://localhost:3000/auth/logout", {

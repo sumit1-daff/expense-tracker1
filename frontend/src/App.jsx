@@ -9,14 +9,16 @@ import Cookies from "js-cookie";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
 import DashBoard from "./screens/DashBoard";
-import SideDrawer from "./components/SideDrawer";
 import Home from "./screens/Home";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import ForgotPassword from "./screens/ForgotPassword";
 import About from "./screens/About";
 import ContactUs from "./screens/ContactUs";
 import Services from "./screens/Services";
-import Navbar from "./components/Navbar";
+import AddExpense from "./screens/AddExpense";
+import SwitchAccount from "./screens/SwitchAccount";
+import Transactions from "./screens/Transactions";
+import UserProfile from "./screens/UserProfile";
 function App() {
   const isLoggedIn = Cookies.get("authToken");
   return (
@@ -36,9 +38,13 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route
               path="/dashboard"
-              element={<DashBoard isLoggedIn={isLoggedIn} />}
+              element={<DashBoard/>}
             />
             <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
+            <Route path="/addexpense" element={<AddExpense/>} />
+            <Route path="/switch-account" element={<SwitchAccount/>} />
+            <Route path="/transactions" element={<Transactions/>} />
+            <Route path="/profile" element={<UserProfile/>} />  
             <Route path="*" element={<Navigate to={"/dashboard"} />} />
           </Route>
           <Route

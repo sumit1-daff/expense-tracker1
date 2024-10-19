@@ -1,7 +1,12 @@
 import React from 'react'
-
+import SideDrawer from '../components/SideDrawer'
 export default function Transactions() {
   return (
-    <div>Transactions</div>
+    <>
+    <div className="flex">
+    <SideDrawer/>
+    <div>transactions!!</div>
+    </div>
+  </>
   )
 }
