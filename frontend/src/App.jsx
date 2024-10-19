@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
 import DashBoard from "./screens/DashBoard";
+import SideDrawer from "./components/SideDrawer";
 import Home from "./screens/Home";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import ForgotPassword from "./screens/ForgotPassword";
@@ -21,7 +22,6 @@ function App() {
   return (
     <>
     <Router>
-    {isLoggedIn ? (<Navbar isLoggedIn={isLoggedIn} />) : <></>}
       <div className="App">
         <Routes>
           {!isLoggedIn && (
