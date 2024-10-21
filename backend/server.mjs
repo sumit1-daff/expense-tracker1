@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import authRouter from './src/routes/authRouter.js' 
 import mongoose from "mongoose";
 import cors from "cors";
-
+import transactionRouter from './src/routes/transRouter.js'
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
@@ -23,6 +23,7 @@ async function main() {
 }
 main()
 app.use("/auth/", authRouter);
+app.use('/transactions/',transactionRouter);
 app.get("/", (req, res) => {
   // res.cookie("cookie","cookievalue");
   // res.cookie("sumit","singh");

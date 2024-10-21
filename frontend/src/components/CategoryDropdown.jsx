@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-
-const CategoryDropdown = () => {
+import React, { useEffect, useState } from 'react';
+const CategoryDropdown = ({ onDataPass }) => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedSubcategory, setSelectedSubcategory] = useState('');
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
@@ -15,7 +14,7 @@ const CategoryDropdown = () => {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
-    setSelectedSubcategory(''); // Reset subcategory when new category is selected
+    setSelectedSubcategory('');
     setIsCategoryOpen(false);
   };
 
@@ -24,15 +23,23 @@ const CategoryDropdown = () => {
     setIsSubcategoryOpen(false);
   };
 
+  useEffect(() => {
+    if (selectedCategory && selectedSubcategory) {
+      onDataPass({
+        category: selectedCategory,
+        subcategory: selectedSubcategory,
+      });
+    }
+  }, [selectedCategory, selectedSubcategory, onDataPass]);
+
   return (
-    <div className="space-y-4 w-full justify-between">
-      {/* Category Dropdown */}
-      <div className="relative w-1/3 mr-5 inline-block">
+    <div className="flex justify-between">
+      <div className="relative box-border mr-2 w-1/2 inline-block">
         <div
-          className="border border-gray-300 bg-white p-3 cursor-pointer"
+          className="border rounded-lg  border-slate-500 bg-white p-3 cursor-pointer"
           onClick={() => setIsCategoryOpen(!isCategoryOpen)}
         >
-          {selectedCategory || 'Category'}
+          {selectedCategory || <span className="text-gray-400">Category</span>}
         </div>
         {isCategoryOpen && (
           <ul className="absolute left-0 mt-1 w-full border border-gray-300 bg-white z-10">
@@ -49,18 +56,19 @@ const CategoryDropdown = () => {
         )}
       </div>
 
-      {/* Subcategory Dropdown (Visible but empty until a category is selected) */}
-      <div className="relative w-1/3 ml-5 inline-block">
+      <div className="relative box-border ml-2 w-1/2 inline-block">
         <div
-          className={`border border-gray-300 bg-white p-3 ${
+          className={`border rounded-lg  border-slate-500 bg-white p-3 ${
             selectedCategory ? 'cursor-pointer' : 'cursor-not-allowed'
           }`}
           onClick={() => selectedCategory && setIsSubcategoryOpen(!isSubcategoryOpen)}
         >
           {selectedSubcategory ||
-            (selectedCategory
-              ? `Sub Category (${selectedCategory})`
-              : 'Sub Category')}
+            (selectedCategory ? (
+              <span>Sub Category ({selectedCategory})</span>
+            ) : (
+              <span className="text-gray-400">Sub Category</span>
+            ))}
         </div>
         {isSubcategoryOpen && selectedCategory && (
           <ul className="absolute left-0 mt-1 w-full border border-gray-300 bg-white z-10">
