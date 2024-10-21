@@ -15,7 +15,7 @@ import ForgotPassword from "./screens/ForgotPassword";
 import About from "./screens/About";
 import ContactUs from "./screens/ContactUs";
 import Services from "./screens/Services";
-import AddExpense from "./screens/AddExpense";
+import AddTransaction from "./screens/AddTransaction";
 import SwitchAccount from "./screens/SwitchAccount";
 import Transactions from "./screens/Transactions";
 import UserProfile from "./screens/UserProfile";
@@ -41,7 +41,7 @@ function App() {
               element={<DashBoard/>}
             />
             <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
-            <Route path="/addexpense" element={<AddExpense/>} />
+            <Route path="/addtransaction" element={<AddTransaction/>} />
             <Route path="/switch-account" element={<SwitchAccount/>} />
             <Route path="/transactions" element={<Transactions/>} />
             <Route path="/profile" element={<UserProfile/>} />  

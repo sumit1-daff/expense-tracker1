@@ -36,7 +36,7 @@ export default function SideDrawer(props) {
           </div>
          <div className='my-5'>
          <Link to={'/dashboard'}><DrawerItem icon={<LuLayoutDashboard />} title="DashBoard" /></Link>
-          <Link to={'/addexpense'}><DrawerItem icon={<IoIosAddCircleOutline />} title="Add New" /></Link>
+          <Link to={'/addtransaction'}><DrawerItem icon={<IoIosAddCircleOutline />} title="Add New" /></Link>
           <Link to={'/transactions'}><DrawerItem icon={<GrTransaction />} title="Transactions" /></Link>
           <Link to={'/profile'}><DrawerItem icon={<MdManageAccounts />} title="Account" /></Link>
          </div>
