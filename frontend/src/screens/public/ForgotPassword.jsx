@@ -7,7 +7,6 @@ export default function ForgotPassword() {
 
   const handleForgotPassword = (e) => {
     e.preventDefault();
-    console.log("Forgot password email:", email);
     setModalOpen(false);
   };
 

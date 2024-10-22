@@ -3,7 +3,10 @@ const Transaction = model.Transaction;
 
 exports.addTransactions = async (req, res) =>{
     const {name , description, date, category , subcategory, amount} = req.body;
-    const transaction = new Transaction({
+    console.log(typeof(req.user._id));
+    
+    const transactionData = new Transaction({
+        owner: req.user._id,
         title : name,
         transaction_type : category,
         category : subcategory,
@@ -11,7 +14,9 @@ exports.addTransactions = async (req, res) =>{
         date : date,
         description : description
     });
-    await transaction.save();
+    console.log(transactionData);
+    
+    await transactionData.save();
     res.status(200).json({message : 'Transaction added '});
 }
 

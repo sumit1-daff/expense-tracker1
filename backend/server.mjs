@@ -21,12 +21,12 @@ async function main() {
     console.log("Db connected Successfully");
   })
 }
-main()
-app.use("/auth/", authRouter);
-app.use('/transactions/',transactionRouter);
+main();
+
+app.use("/auth", authRouter);
+app.use('/transactions',transactionRouter);
+
 app.get("/", (req, res) => {
-  // res.cookie("cookie","cookievalue");
-  // res.cookie("sumit","singh");
   res.send("BACKEND FOR THE EXPENSE TRACKER APP");
 });
 

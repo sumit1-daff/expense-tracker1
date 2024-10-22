@@ -12,12 +12,16 @@ const Transactions = () => {
   const [isSubcategoryOpen, setIsSubcategoryOpen] = useState(false);
 
   const navigate = useNavigate();
-
-  // Fetch transactions
   const fetchTransactions = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3000/transactions/get-transactions"
+        "http://localhost:3000/transactions/get-transactions",
+        {
+          credentials: "include",
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -31,26 +35,14 @@ const Transactions = () => {
       setLoading(false);
     }
   };
-
-  // Fetch transactions when component mounts
   useEffect(() => {
     fetchTransactions();
   }, []);
 
-  if (loading) {
-    return <p>Please wait while the transactions are being loaded....</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
-
-  // Handle edit action
   const handleEdit = (id) => {
     navigate(`/edit-transaction/${id}`);
   };
 
-  // Handle delete action
   const handleDelete = async (id) => {
     const confirmation = confirm(
       "Are you sure you want to delete this transaction?"
@@ -61,6 +53,7 @@ const Transactions = () => {
           `http://localhost:3000/transactions/delete-transaction/${id}`,
           {
             method: "DELETE",
+            credentials: "include",
             headers: {
               "Content-type": "application/json",
             },
@@ -106,6 +99,20 @@ const Transactions = () => {
     setIsSubcategoryOpen(false);
   };
 
+  const [selectedDate, setSelectedDate] = useState("");
+  const handleFilter = async () => {
+    console.log(selectedCategory, selectedDate, selectedSubcategory);
+    const filterArray = [selectedDate, selectedCategory, selectedSubcategory];
+
+    const response = await fetch(
+      `http://localhost:3000/transactions/get-transaction/filter`,
+      {
+        method: "POST",
+        body: filterArray,
+      }
+    );
+  };
+
   return (
     <>
       <div className="flex">
@@ -116,6 +123,9 @@ const Transactions = () => {
             <div className="h-14 flex w-full justify-between mb-5">
               <div className="h-12">
                 <input
+                  onChange={(e) => {
+                    setSelectedDate(e.target.value);
+                  }}
                   type="month"
                   placeholder="Month"
                   className="h-12 mb-2 mr-2 border border-slate-300 rounded-lg p-2"
@@ -180,7 +190,10 @@ const Transactions = () => {
                   )}
                 </div>
               </div>
-              <button className="bg-blue-500 w-20 hover:bg-blue-800 active:scale-90 h-12 p-2 text-white rounded-lg">
+              <button
+                onClick={handleFilter}
+                className="bg-blue-500 w-20 hover:bg-blue-800 active:scale-90 h-12 p-2 text-white rounded-lg"
+              >
                 Filter
               </button>
             </div>

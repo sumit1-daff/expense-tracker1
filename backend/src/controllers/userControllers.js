@@ -36,19 +36,19 @@ exports.authenticateUser = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: user._id, username: user.email },
+      { _id: user._id, username: user.email },
       process.env.JWT_SECRET,
       {
         expiresIn: "1h",
       }
     );
     const options = {
-      secure: false,
-      httpOnly: false,
+      secure: true,
+      httpOnly: true,
       maxAge: 3600000,
     };
     const userResponse = {
-      id: user._id,
+      _id: user._id,
       email: user.email,
       name: user.name,
     };

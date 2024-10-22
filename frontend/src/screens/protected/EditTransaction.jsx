@@ -72,6 +72,7 @@ export default function EditTransaction() {
       headers : {
         "Content-type" : "application/json"
       },
+      credentials : 'include',
       body : JSON.stringify(data)
     });
     if(response.ok){

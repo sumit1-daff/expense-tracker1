@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import DrawerItem from './DrawerItem';
 import { LuLayoutDashboard } from "react-icons/lu";
 import { IoIosAddCircleOutline } from "react-icons/io";
@@ -11,7 +11,7 @@ import Navbar from './Navbar';
 
 export default function SideDrawer(props) {
   const location = useLocation(); 
-
+  const navigate = useNavigate();
   const handleLogout = async () => {
     try {
       let response = await fetch("http://localhost:3000/auth/logout", {
@@ -19,10 +19,8 @@ export default function SideDrawer(props) {
         credentials: "include",
       });
       if (response.ok) {
-        location.reload();
-        const navigate = useNavigate();
+        console.log(response);
         navigate("/");
-        isLoggedIn = false;
       } else {
         console.log("Some error occurred during log out");
       }

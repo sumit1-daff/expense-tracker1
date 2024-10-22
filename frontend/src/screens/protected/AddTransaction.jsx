@@ -22,6 +22,7 @@ export default function AddExpense() {
         headers: {
           'Content-type': 'application/json',
         },
+        credentials : 'include'
       });
 
       if (response.ok) {
