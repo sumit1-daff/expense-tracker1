@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import SideDrawer from "../components/SideDrawer";
+import SideDrawer from "../../components/SideDrawer";
 import { useForm } from "react-hook-form";
 
 export default function EditTransaction() {

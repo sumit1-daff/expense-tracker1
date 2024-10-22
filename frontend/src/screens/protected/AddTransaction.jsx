@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import SideDrawer from '../components/SideDrawer';
+import SideDrawer from '../../components/SideDrawer';
 import { useForm } from 'react-hook-form';
-import CategoryDropdown from '../components/CategoryDropdown';
+import CategoryDropdown from '../../components/CategoryDropdown';
 
 export default function AddExpense() {
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm();

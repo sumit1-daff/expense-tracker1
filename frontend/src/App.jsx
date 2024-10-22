@@ -6,20 +6,20 @@ import {
 } from "react-router-dom";
 import React from "react";
 import Cookies from "js-cookie";
-import Login from "./screens/Login";
-import Signup from "./screens/Signup";
-import DashBoard from "./screens/DashBoard";
-import Home from "./screens/Home";
+import Login from "./screens/public/Login";
+import Signup from "./screens/public/Signup";
+import DashBoard from "./screens/protected/DashBoard";
+import Home from "./screens/public/Home";
 import ProtectedRoute from "./components/ProtectedRoutes";
-import EditTransaction from "./screens/EditTransaction";
-import ForgotPassword from "./screens/ForgotPassword";
-import About from "./screens/About";
-import ContactUs from "./screens/ContactUs";
-import Services from "./screens/Services";
-import AddTransaction from "./screens/AddTransaction";
-import SwitchAccount from "./screens/SwitchAccount";
-import Transactions from "./screens/Transactions";
-import UserProfile from "./screens/UserProfile";
+import EditTransaction from "./screens/protected/EditTransaction";
+import ForgotPassword from "./screens/public/ForgotPassword";
+import About from "./screens/public/About";
+import ContactUs from "./screens/public/ContactUs";
+import Services from "./screens/public/Services";
+import AddTransaction from "./screens/protected/AddTransaction";
+import SwitchAccount from "./screens/protected/SwitchAccount";
+import Transactions from "./screens/protected/Transactions";
+import UserProfile from "./screens/protected/UserProfile";
 function App() {
   const isLoggedIn = Cookies.get("authToken");
   return (

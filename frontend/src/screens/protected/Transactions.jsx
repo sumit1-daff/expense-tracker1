@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SideDrawer from '../components/SideDrawer';
+import SideDrawer from '../../components/SideDrawer';
 import { useNavigate } from 'react-router-dom';
 import EditTransaction from './EditTransaction';
 const Transactions = () => {
