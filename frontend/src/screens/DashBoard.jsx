@@ -6,7 +6,7 @@ export default function DashBoard() {
    <>
      <div className="flex">
      <SideDrawer/>
-     <div className='mx-10 my-10 flex flex-col w-full '>
+     <div className='mx-10 my-10 flex flex-col w-full'>
         <div className='flex mb-10 '>
           <div className='mr-5 w-1/2 h-72 bg-slate-300'>
             <h1 className='font-bold text-2xl p-3'>Income</h1>

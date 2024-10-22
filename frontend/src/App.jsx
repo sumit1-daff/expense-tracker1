@@ -11,6 +11,7 @@ import Signup from "./screens/Signup";
 import DashBoard from "./screens/DashBoard";
 import Home from "./screens/Home";
 import ProtectedRoute from "./components/ProtectedRoutes";
+import EditTransaction from "./screens/EditTransaction";
 import ForgotPassword from "./screens/ForgotPassword";
 import About from "./screens/About";
 import ContactUs from "./screens/ContactUs";
@@ -44,6 +45,7 @@ function App() {
             <Route path="/addtransaction" element={<AddTransaction/>} />
             <Route path="/switch-account" element={<SwitchAccount/>} />
             <Route path="/transactions" element={<Transactions/>} />
+            <Route path="/edit-transaction/:id" element={<EditTransaction/>} />
             <Route path="/profile" element={<UserProfile/>} />  
             <Route path="*" element={<Navigate to={"/dashboard"} />} />
           </Route>
