@@ -11,8 +11,8 @@ export default function Login() {
       const { username, password } = data;
       let response = await authenticateUser(username, password);
       if (response.ok) {
+        console.log("navigating to the dahboard");
         navigate('/dashboard');
-        location.reload();
       } else {
         setAuthError("Invalid credentials, please try again.");
       }
@@ -20,7 +20,6 @@ export default function Login() {
   
     const authenticateUser = async (email, password) => {
       try {
-        
         let response = await fetch('http://localhost:3000/auth/login', {
           method: "POST",
           headers: {
@@ -29,7 +28,6 @@ export default function Login() {
           credentials: 'include',
           body: JSON.stringify({ email, password })
         });
-        
         return response;
       } catch (error) {
         console.error("Error authenticating user", error);
