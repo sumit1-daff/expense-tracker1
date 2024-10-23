@@ -10,7 +10,7 @@ const Transactions = () => {
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isSubcategoryOpen, setIsSubcategoryOpen] = useState(false);
-
+  const [selectedDate, setSelectedDate] = useState("");
   const navigate = useNavigate();
   const fetchTransactions = async () => {
     try {
@@ -62,7 +62,7 @@ const Transactions = () => {
         if (response.ok) {
           console.log("Transaction deleted");
           alert("Transaction deleted successfully");
-          fetchTransactions(); // Refresh transactions after deletion
+          fetchTransactions();
         } else {
           console.log("Unable to delete");
         }
@@ -99,18 +99,35 @@ const Transactions = () => {
     setIsSubcategoryOpen(false);
   };
 
-  const [selectedDate, setSelectedDate] = useState("");
   const handleFilter = async () => {
-    console.log(selectedCategory, selectedDate, selectedSubcategory);
-    const filterArray = [selectedDate, selectedCategory, selectedSubcategory];
-
-    const response = await fetch(
-      `http://localhost:3000/transactions/get-transaction/filter`,
-      {
-        method: "POST",
-        body: filterArray,
+    const filterArray = {
+      date: selectedDate,
+      category: selectedCategory,
+      subcategory: selectedSubcategory,
+    };
+    try {
+      console.log("fetch sending");
+      
+      const response = await fetch(
+        `http://localhost:3000/transactions/get-transactions/filter`,
+        {
+          method: "POST",
+          body: JSON.stringify(filterArray),
+          credentials: "include",
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
+      console.log("fetch sent");
+      
+      if (response) {
+        const filteredTransaction = await response.json();
+        setTransactions(filteredTransaction);
       }
-    );
+    } catch(err){
+      console.error("Error occurered ", err);
+    }
   };
 
   return (

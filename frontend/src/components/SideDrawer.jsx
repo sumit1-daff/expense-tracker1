@@ -19,7 +19,6 @@ export default function SideDrawer(props) {
         credentials: "include",
       });
       if (response.ok) {
-        console.log(response);
         navigate("/");
       } else {
         console.log("Some error occurred during log out");

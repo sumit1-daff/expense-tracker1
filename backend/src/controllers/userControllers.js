@@ -16,8 +16,8 @@ exports.addUser = async (req, res) => {
 
 exports.logout = async (req, res)=>{
     res.clearCookie("authToken",{
-      httpOnly: false,
-      secure : false,
+      httpOnly: true,
+      secure : true,
     });
     res.status(200).json({message : "logged out !!"});
   }

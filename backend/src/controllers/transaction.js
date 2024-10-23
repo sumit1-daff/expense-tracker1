@@ -63,3 +63,25 @@ exports.deleteTransaction = async (req, res)=>{
     }
     return res.status(400).json({message : "Failed to delete the transaction"});
 }
+
+exports.getTransactionsFiltered = async (req, res) =>{
+    const {date , category , subcategory } = req.body;
+    let query = {};
+    if(date){
+        const start_date = new Date(date + '-01');
+        const end_date = new Date(date + '-31');
+        query.date = {$gte: start_date , $lte : end_date};
+    }
+    if(category) {
+        query.transaction_type = category;
+    }
+    if(subcategory){
+        query.category = subcategory;
+    }
+    try {
+        const transactions = await Transaction.find(query);
+        res.status(200).json(transactions)
+    } catch (error) {
+        console.error("transaction fetching exception ",error)
+    }
+} 
