@@ -4,7 +4,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import React, { useEffect } from "react";
+import React from "react";
 import Login from "./screens/public/Login";
 import Signup from "./screens/public/Signup";
 import DashBoard from "./screens/protected/DashBoard";
@@ -25,7 +25,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/addtransaction" element={<AddTransaction />} />
@@ -33,17 +32,14 @@ function App() {
           <Route path="/transactions" element={<Transactions />} />
           <Route path="/edit-transaction/:id" element={<EditTransaction />} />
           <Route path="/profile" element={<UserProfile />} />
-          <Route path="/change-password" element={<ChangePasword/>} />
-          <Route path="/update-account" element={<UpdateAccount/>} />
+          <Route path="/change-password" element={<ChangePasword />} />
+          <Route path="/update-account" element={<UpdateAccount />} />
           <Route path="*" element={<Navigate to={"/dashboard"} />} />
         </Route>
-        <>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/" element={<Home/>} />
-        </>
-       
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/services" element={<Services />} />
