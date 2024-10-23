@@ -59,11 +59,11 @@ export default function SideDrawer(props) {
           </Link>
         </div>
         <div className="mt-20">
-          <Link to="/switch-account">
+          {/* <Link to="/switch-account">
             <div className={isActive('/switch-account')}>
               <DrawerItem icon={<IoToggle />} title="Switch Accounts" />
             </div>
-          </Link>
+          </Link> */}
           <Link onClick={handleLogout} to="/logout">
             <div className={isActive('/logout')}>
               <DrawerItem icon={<IoIosLogOut />} title="Log Out" />

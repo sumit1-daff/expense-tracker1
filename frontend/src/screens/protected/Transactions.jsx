@@ -10,7 +10,8 @@ const Transactions = () => {
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isSubcategoryOpen, setIsSubcategoryOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [resetAvailable, setResetAvailable] = useState(false);
   const navigate = useNavigate();
   const fetchTransactions = async () => {
     try {
@@ -106,8 +107,6 @@ const Transactions = () => {
       subcategory: selectedSubcategory,
     };
     try {
-      console.log("fetch sending");
-      
       const response = await fetch(
         `http://localhost:3000/transactions/get-transactions/filter`,
         {
@@ -119,17 +118,22 @@ const Transactions = () => {
           },
         }
       );
-      console.log("fetch sent");
-      
       if (response) {
         const filteredTransaction = await response.json();
         setTransactions(filteredTransaction);
+        setResetAvailable(true)
       }
     } catch(err){
       console.error("Error occurered ", err);
     }
   };
-
+  const handleResetFilter = async () =>{
+    fetchTransactions();
+    setResetAvailable(false);
+    setSelectedCategory('');
+    setSelectedSubcategory('');
+    setSelectedDate(null);
+  }
   return (
     <>
       <div className="flex">
@@ -140,6 +144,7 @@ const Transactions = () => {
             <div className="h-14 flex w-full justify-between mb-5">
               <div className="h-12">
                 <input
+                  value={selectedDate ? selectedDate : ''}
                   onChange={(e) => {
                     setSelectedDate(e.target.value);
                   }}
@@ -207,12 +212,20 @@ const Transactions = () => {
                   )}
                 </div>
               </div>
+              <div className="flex gap-2">
+             {resetAvailable &&  <button
+                onClick={handleResetFilter}
+                className={`bg-red-500 w-20 hover:bg-red-800 active:scale-90 h-12 p-2 text-white rounded-lg`}
+              >
+                Reset
+              </button> }
               <button
                 onClick={handleFilter}
                 className="bg-blue-500 w-20 hover:bg-blue-800 active:scale-90 h-12 p-2 text-white rounded-lg"
               >
                 Filter
               </button>
+              </div>
             </div>
             <table className="border border-black" border="1" cellPadding="10">
               <thead>
