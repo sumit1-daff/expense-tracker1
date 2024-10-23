@@ -62,3 +62,23 @@ exports.authenticateUser = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+exports.getDetails = async (req, res) =>{
+  const token = req.cookies.authToken;
+
+  if (!token) {
+    return res
+      .status(401)
+      .json({ message: "Authentication failed. Please log in." });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const {_id} = decoded;
+    const user = await User.findById(_id);
+    res.status(200).send(user);
+    
+  } catch (err) {
+    return res.status(403).json({ message: "Invalid token. Please log in." });
+  }
+}

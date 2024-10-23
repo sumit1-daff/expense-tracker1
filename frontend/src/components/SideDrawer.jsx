@@ -31,7 +31,7 @@ export default function SideDrawer(props) {
 
   return (
     <>
-      <div className="h-screen border-solid border-2 shadow-xl w-80 justify-center">
+      <div className="h-screen border-solid border-2 shadow-xl w-80 justify-center bg-white">
         <div className="text-center p-6 text-4xl font-bold flex items-center ">
           <p className="text-center">Expense
             <span className="text-blue-500">Trackr</span></p>

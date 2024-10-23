@@ -12,8 +12,6 @@ export default function ProtectedRoute() {
           method: 'GET',
           credentials: 'include', // Include cookies if needed for auth
         });
-        const result = await response.json();
-
         if (response.ok) {
           setIsLoggedIn(true);
         } else {

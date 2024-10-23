@@ -61,12 +61,8 @@ const Transactions = () => {
           }
         );
         if (response.ok) {
-          console.log("Transaction deleted");
-          alert("Transaction deleted successfully");
           fetchTransactions();
-        } else {
-          console.log("Unable to delete");
-        }
+        } 
       } catch (err) {
         console.log(err);
         console.log("Error occurred during deleting the transaction");
@@ -137,9 +133,11 @@ const Transactions = () => {
   return (
     <>
       <div className="flex">
+        <div style={{ position: "fixed", left: 0, top: 0, bottom: 0, width: "250px" }}>
         <SideDrawer />
-        <div className="mx-auto w-2/3 flex flex-col my-10 items-center">
-          <h1 className="text-5xl font-bold my-10">Transactions History</h1>
+        </div>
+        <div className="w-2/3 flex flex-col my-10 items-center ml-96">
+          <h1 className="text-5xl font-bold mt-5 mb-10">Transactions History</h1>
           <div className="w-full flex flex-col jusitfy-center">
             <div className="h-14 flex w-full justify-between mb-5">
               <div className="h-12">

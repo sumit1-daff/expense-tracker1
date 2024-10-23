@@ -108,7 +108,7 @@ export default function AddExpense() {
                     {...register('description', {
                       required: { value: true, message: '**Required Field' },
                       pattern: {
-                        value: /^[a-zA-Z ]+$/,
+                        value: /^[a-zA-Z 0-9]+$/,
                         message: 'Invalid data',
                       },
                     })}

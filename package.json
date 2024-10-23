@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "chart.js": "^4.4.5",
     "joi": "^17.13.3",
-    "js-cookie": "^3.0.5"
+    "js-cookie": "^3.0.5",
+    "react-chartjs-2": "^5.2.0"
   }
 }

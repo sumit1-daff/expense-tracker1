@@ -27,7 +27,9 @@ export default function EditTransaction() {
   const fetchTransaction = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/transactions/get-transaction/${id}`
+        `http://localhost:3000/transactions/get-transaction/${id}` , {
+          credentials : 'include',
+        }
       );
       if (response.ok) {
         const result = await response.json();
