@@ -82,3 +82,8 @@ exports.getDetails = async (req, res) =>{
     return res.status(403).json({ message: "Invalid token. Please log in." });
   }
 }
+
+exports.changePassword = async (req, res) =>{
+  const { currentPassword, newPassword } = req.body;
+  console.log(currentPassword, newPassword);
+}

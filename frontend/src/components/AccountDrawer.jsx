@@ -1,14 +1,9 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import DrawerItem from './DrawerItem';
-import { LuLayoutDashboard } from "react-icons/lu";
-import { IoIosAddCircleOutline } from "react-icons/io";
-import { GrTransaction } from "react-icons/gr";
-import { MdManageAccounts } from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
 
-
-export default function SideDrawer(props) {
+export default function AccountDrawer(props) {
   const location = useLocation(); 
   const navigate = useNavigate();
   const handleLogout = async () => {
@@ -38,22 +33,22 @@ export default function SideDrawer(props) {
         <div className="my-5">
           <Link to="/dashboard">
             <div className={isActive('/dashboard')}>
-              <DrawerItem icon={<LuLayoutDashboard />} title="DashBoard" />
-            </div>
-          </Link>
-          <Link to="/addtransaction">
-            <div className={isActive('/addtransaction')}>
-              <DrawerItem icon={<IoIosAddCircleOutline />} title="Add New" />
-            </div>
-          </Link>
-          <Link to="/transactions">
-            <div className={isActive('/transactions') || isActive('/edit-transaction/')}>
-              <DrawerItem icon={<GrTransaction />} title="Transactions" />
+              <DrawerItem title="Back to Dashboard" />
             </div>
           </Link>
           <Link to="/profile">
             <div className={isActive('/profile')}>
-              <DrawerItem icon={<MdManageAccounts />} title="Account" />
+              <DrawerItem title="Account Details" />
+            </div>
+          </Link>
+          <Link to="/update-account">
+            <div className={isActive('/update-account') || isActive('/edit-transaction/')}>
+              <DrawerItem title="Update Details" />
+            </div>
+          </Link>
+          <Link to="/change-password">
+            <div className={isActive('/change-password')}>
+              <DrawerItem  title="Change Password" />
             </div>
           </Link>
         </div>
