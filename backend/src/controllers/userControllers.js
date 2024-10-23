@@ -84,6 +84,19 @@ exports.getDetails = async (req, res) =>{
 }
 
 exports.changePassword = async (req, res) =>{
-  const { currentPassword, newPassword } = req.body;
-  console.log(currentPassword, newPassword);
+  const { currentPassword, newPassword, confirmPassword } = req.body;
+  const user = req.user;
+  console.log(user);
+  const isMatch = bcrypt.compare(currentPassword, user.password);
+  if(!isMatch){
+    console.log("Invalid current password");
+    return res.status(401).json({"message" : "Incorrect current password"});
+  }else{
+    console.log("Password match successfull");
+  }
+  if(!newPassword.localeCompare(confirmPassword)){
+    console.log("The new password and confirm password are not same");
+    return res.status(403).json({message : "New password and Confirm password does not match"});
+  }
+  return res.status(200).send("Succesfuly changed the password");
 }

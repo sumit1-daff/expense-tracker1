@@ -9,7 +9,6 @@ export default function UserProfile() {
   });
   const navigate = useNavigate();
   const fetchUser = async () => {
-    console.log("fetch user func");
     try {
       const response = await fetch("http://localhost:3000/auth/user-details", {
         method: "GET",

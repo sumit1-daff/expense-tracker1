@@ -7,15 +7,16 @@ export default function ChangePassword() {
   const [newPassword, setNewpassword] = useState('');
   const [confirmPassword, setConfirmpassword] = useState('');
   const formData = {
-    curentPassword : currentPassword,
+    currentPassword : currentPassword,
     newPassword : newPassword,
     confirmPassword : confirmPassword
   }
   const handleChangePassword = async ()=>{
+    event.preventDefault();
     try{
-      const response = fetch('https://localhost:3000/auth/change-password',{
+      const response = await fetch('http://localhost:3000/auth/change-password',{
         method : "POST",
-        credentials : true,
+        credentials : "include",
         headers : {
           "Content-type" : "application/json",
         },
