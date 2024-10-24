@@ -29,9 +29,8 @@ export default function SideDrawer(props) {
   const isActive = (path) => location.pathname === path ? 'bg-blue-500 text-white rounded-3xl' : '';
 
   return (
-    <>
-      <div className="h-screen border-solid border-2 shadow-xl w-80 justify-center bg-white">
-        <div className="text-center p-6 text-4xl font-bold flex items-center ">
+      <div className="h-screen border-solid border-2 shadow-xl w-60 justify-center bg-white">
+        <div className="text-center  p-4 text-3xl font-bold flex items-center ">
           <p className="text-center">Expense
             <span className="text-blue-500">Trackr</span></p>
         </div>
@@ -58,11 +57,6 @@ export default function SideDrawer(props) {
           </Link>
         </div>
         <div className="mt-20">
-          {/* <Link to="/switch-account">
-            <div className={isActive('/switch-account')}>
-              <DrawerItem icon={<IoToggle />} title="Switch Accounts" />
-            </div>
-          </Link> */}
           <Link onClick={handleLogout} to="/logout">
             <div className={isActive('/logout')}>
               <DrawerItem icon={<IoIosLogOut />} title="Log Out" />
@@ -70,8 +64,7 @@ export default function SideDrawer(props) {
           </Link>
         </div>
       </div>
-      <div></div>
-    </>
+    
   );
 }
 

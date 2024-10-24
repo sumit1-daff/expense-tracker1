@@ -11,12 +11,3 @@ exports.createUser = async (userBody) => {
   });
   await user.save();
 };
-
-exports.checkEmail = async (userBody) =>{
-  const {email} = userBody;
-  const user = await User.findOne({email});
-  if(user){
-    return true;
-  }
-  return false;
-}

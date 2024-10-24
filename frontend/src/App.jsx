@@ -16,7 +16,6 @@ import About from "./screens/public/About";
 import ContactUs from "./screens/public/ContactUs";
 import Services from "./screens/public/Services";
 import AddTransaction from "./screens/protected/AddTransaction";
-import SwitchAccount from "./screens/protected/SwitchAccount";
 import Transactions from "./screens/protected/Transactions";
 import UserProfile from "./screens/protected/UserProfile";
 import ChangePasword from "./components/ChangePasword";
@@ -28,7 +27,6 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/addtransaction" element={<AddTransaction />} />
-          <Route path="/switch-account" element={<SwitchAccount />} />
           <Route path="/transactions" element={<Transactions />} />
           <Route path="/edit-transaction/:id" element={<EditTransaction />} />
           <Route path="/profile" element={<UserProfile />} />
