@@ -234,7 +234,7 @@ export default function DashBoard() {
           {transactions.map((transaction) => (
             <div
               key={transaction._id}
-              className="w-60 h-32 border border-black p-2 bg-white drop-shadow-lg rounded-lg "
+              className="w-60 h-32 p-2 border-none bg-white drop-shadow-lg rounded-lg "
             >
               <h3 className="text-xl font-bold">{transaction.title}</h3>
               <p

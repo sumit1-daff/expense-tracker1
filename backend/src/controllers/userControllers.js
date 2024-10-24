@@ -2,7 +2,7 @@ const model = require("../models/usersModel.js");
 const User = model.User;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const userService = require("../services/user.services.js");
+const userService = require("../services/user.js");
 exports.addUser = async (req, res) => {
   const emailExists = await userService.checkEmail(req.body);
   if(emailExists){
@@ -84,19 +84,17 @@ exports.getDetails = async (req, res) =>{
 }
 
 exports.changePassword = async (req, res) =>{
-  const { currentPassword, newPassword, confirmPassword } = req.body;
+  const {newPassword} = req.body;
   const user = req.user;
-  console.log(user);
-  const isMatch = bcrypt.compare(currentPassword, user.password);
-  if(!isMatch){
-    console.log("Invalid current password");
-    return res.status(401).json({"message" : "Incorrect current password"});
-  }else{
-    console.log("Password match successfull");
+  const { _id } = user;
+  try{
+  const userData = await User.findById(_id);
+  const salt = await bcrypt.genSalt(10);
+  const hashPassword = await bcrypt.hash(newPassword, salt);
+  await User.findOneAndUpdate(userData , {password : hashPassword});
+  return res.status(200).json({message : "Succesfuly changed the password"});
+  }catch(error){
+    console.error("Error occurred" ,error);
+    return res.status(500).json({message : "error occurred "});
   }
-  if(!newPassword.localeCompare(confirmPassword)){
-    console.log("The new password and confirm password are not same");
-    return res.status(403).json({message : "New password and Confirm password does not match"});
-  }
-  return res.status(200).send("Succesfuly changed the password");
 }

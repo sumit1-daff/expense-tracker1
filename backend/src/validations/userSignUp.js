@@ -6,6 +6,15 @@ const userSignUpSchema = joi.object().keys({
     confirm_password : joi.ref("password"),
 });
 
-module.exports = {
-    userSignUpSchema
+const validateSignup = (userSignUpSchema) =>(req, res , next)=>{
+    const { error } = userSignUpSchema.validate(req.body);
+    if(error){
+        console.log("user details are not validated");
+        res.status(403).send(error.details[0].message);
+    }else{
+        console.log("User validated at signup!!");
+        next();
+    }
 }
+
+module.exports = validateSignup(userSignUpSchema);
