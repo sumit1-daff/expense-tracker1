@@ -3,9 +3,9 @@ import Modal from "./Modal";
 
 export default function ChangePassword() {
   const [isModalOpen, setModalOpen] = useState(false);
-  const [currentPassword, setCurrentpassword] = useState("sumit1234");
-  const [newPassword, setNewpassword] = useState("sumit@1234");
-  const [confirmPassword, setConfirmpassword] = useState("sumit@1234");
+  const [currentPassword, setCurrentpassword] = useState("");
+  const [newPassword, setNewpassword] = useState("");
+  const [confirmPassword, setConfirmpassword] = useState("");
   const [errorMessage, setErrorMessage] = useState({
     currentPasswordError: null,
     newPasswordError: null,

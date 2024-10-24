@@ -27,8 +27,6 @@ export default function AddExpense() {
       if (response.ok) {
         alert('Transaction added!');
         reset();
-        setCategory('');
-        setSubcategory('');
       } else {
         alert('Transaction could not be added');
         console.log('Transaction not added');

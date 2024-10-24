@@ -190,7 +190,7 @@ export default function () {
               </div>
             </form>
           </div>
-          <div className="text-blue-500 text-center mt-5 underline decoration-2 ">
+          <div className="text-blue-500 hover:text-blue-700 text-center mt-5 underline decoration-2 ">
             <Link to={"/login"}>Already have an Account? Log In</Link>
           </div>
           <hr className="border-gray-200 border w-1/2 mx-auto mt-2" />

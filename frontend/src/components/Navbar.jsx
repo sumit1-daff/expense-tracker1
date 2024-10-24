@@ -56,9 +56,11 @@ export default function Navbar({ isLoggedIn }) {
               </button>
             </>
           ) : (
+            <Link to="/login">
             <button className="text-white border-solid border-white border-2 rounded-3xl bg-transparent h-10 p-1 w-20 m-2 hover:scale-110">
-              <Link to="/login">Log In</Link>
+              Log In
             </button>
+            </Link>
           )}
         </div>
       </div>

@@ -2,8 +2,8 @@ const model = require("../models/usersModel.js");
 const User = model.User;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const checkEmail = require("../services/users/checkEmail.js");
-const createUser = require("../services/users/createUser.js");
+const {checkEmail} = require("../services/users/checkEmail.js");
+const {createUser} = require("../services/users/createUser.js");
 const mongoose = require('mongoose');
 exports.addUser = async (req, res) => {
   const emailExists = await checkEmail(req.body);

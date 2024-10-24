@@ -97,7 +97,7 @@ export default function Login() {
             <button
             disabled={isSubmitting}
               type="submit"
-              className="self-start w-full md:w-full px-6 py-3 text-white bg-blue-500 h-12 md:h-15 cursor-pointer active:scale-90"
+              className="self-start w-full md:w-full px-6 py-3 text-white bg-blue-500 hover:bg-blue-800 h-12 md:h-15 cursor-pointer active:scale-90"
             >
               Login
             </button>

@@ -8,7 +8,8 @@ exports.addTransactions = async (req, res) =>{
 }
 
 exports.getTransactions = async (req, res) =>{
-    const transactions = await Transaction.find();
+    const {_id} = req.user;
+    const transactions = await Transaction.find({owner : _id});
     res.status(200).json(transactions);
 }
 
@@ -64,6 +65,7 @@ exports.getTransactionsFiltered = async (req, res) =>{
     if(subcategory){
         query.category = subcategory;
     }
+    query.owner = req.user._id;
     try {
         const transactions = await Transaction.find(query);
         res.status(200).json(transactions)
