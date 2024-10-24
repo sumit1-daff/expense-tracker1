@@ -2,6 +2,7 @@ const model = require("../models/usersModel.js");
 const User = model.User;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const nodeMailer = require('nodemailer');
 const {checkEmail} = require("../services/users/checkEmail.js");
 const {createUser} = require("../services/users/createUser.js");
 const mongoose = require('mongoose');
@@ -11,6 +12,7 @@ exports.addUser = async (req, res) => {
     return res.status(400).json({ message: "User with Email already exists" });
   } else {
     const user = await createUser(req.body);
+
     return res.status(200).json({ user, message: "user created successfully" });
   }
 };

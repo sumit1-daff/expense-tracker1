@@ -10,4 +10,5 @@ exports.createUser = async (userBody) => {
     password: hashedPassword,
   });
   await user.save();
+  return user;
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SideDrawer from "../../components/SideDrawer";
 import { useNavigate } from "react-router-dom";
-
+import { FaPlus } from "react-icons/fa";
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -276,6 +276,7 @@ const Transactions = () => {
             </table>
           </div>
         </div>
+            <button onClick={()=> navigate('/addtransaction')} style={{"borderRadius" : "100%"}} className="bg-blue-500 flex items-center justify-center fixed text-white text-4xl w-20 h-20 bottom-4 right-10" title="Add New"><FaPlus /></button>
       </div>
   );
 };
