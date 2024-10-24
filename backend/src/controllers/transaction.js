@@ -1,21 +1,8 @@
 const model = require('../models/transaction');
 const Transaction = model.Transaction;
-
+const {createTransaction} = require('../services/transactions/createtransaction.js')
 exports.addTransactions = async (req, res) =>{
-    const {name , description, date, category , subcategory, amount} = req.body;
-    console.log(typeof(req.user._id));
-    
-    const transactionData = new Transaction({
-        owner: req.user._id,
-        title : name,
-        transaction_type : category,
-        category : subcategory,
-        amount : amount,
-        date : date,
-        description : description
-    });
-    console.log(transactionData);
-    
+    const transactionData = await createTransaction(req.body , req.user._id);
     await transactionData.save();
     res.status(200).json({message : 'Transaction added '});
 }
@@ -32,13 +19,12 @@ exports.getTransaction = async (req, res) =>{
         if(transaction){
             return res.status(200).json(transaction);
         }else{
-            console.log("no transaction found with this id");
+            return res.status(400).json({message : "failed to get the transaction"});
         }
     }catch(err){
         console.log("Error occured while loading the transaction");
         
     }
-    return res.status(400).json({message : "failed to edit the transaction"});
 }
 
 exports.updateTransaction = async (req, res) =>{

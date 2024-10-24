@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import SideDrawer from '../../components/SideDrawer'
 import { useNavigate } from "react-router-dom";
+import UpdateAccount from '../../components/UpdateAccount'
 import ChangePassword from "../../components/ChangePasword";
 export default function UserProfile() {
   const [user, setUser] = useState({
     name: "sdfddsfdsvumit",
     email: "sngsumit2003@gmail.com",
   });
-  const navigate = useNavigate();
   const fetchUser = async () => {
     try {
       const response = await fetch("http://localhost:3000/auth/user-details", {
@@ -23,17 +23,9 @@ export default function UserProfile() {
     }
   };
 
-  const handleEdit = () =>{
-      navigate('/update-account');
-  } 
-
-  const handleChangePassword = () =>{
-    navigate('/change-password');
-
-  }
   useEffect(() => {
     fetchUser();
-  }, []);
+  }, [<UpdateAccount/>]);
 
   return (
       <div className="flex bg-gray-100 h-screen">
@@ -78,7 +70,7 @@ export default function UserProfile() {
             </div>
             <div className="right-0 justify-end  flex gap-5 mx-10 my-10">
               <ChangePassword/>
-              <button onClick={handleEdit} className="bg-blue-500 rounded-md  text-white w-40 h-12 hover:bg-blue-800 active:scale-95">Edit</button>
+              <UpdateAccount />
             </div>
           </div>
         </div>

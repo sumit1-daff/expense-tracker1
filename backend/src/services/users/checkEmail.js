@@ -1,4 +1,4 @@
-const { User } = require('../models/usersModel.js')
+const { User } = require('../../models/usersModel.js')
 exports.checkEmail = async (userBody) =>{
     const {email} = userBody;
     const user = await User.findOne({email});

@@ -18,8 +18,6 @@ import Services from "./screens/public/Services";
 import AddTransaction from "./screens/protected/AddTransaction";
 import Transactions from "./screens/protected/Transactions";
 import UserProfile from "./screens/protected/UserProfile";
-import ChangePasword from "./components/ChangePasword";
-import UpdateAccount from "./components/UpdateAccount";
 function App() {
   return (
     <Router>
@@ -30,8 +28,6 @@ function App() {
           <Route path="/transactions" element={<Transactions />} />
           <Route path="/edit-transaction/:id" element={<EditTransaction />} />
           <Route path="/profile" element={<UserProfile />} />
-          <Route path="/change-password" element={<ChangePasword />} />
-          <Route path="/update-account" element={<UpdateAccount />} />
           <Route path="*" element={<Navigate to={"/dashboard"} />} />
         </Route>
         <Route path="/login" element={<Login />} />

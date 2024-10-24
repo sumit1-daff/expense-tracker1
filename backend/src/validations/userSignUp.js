@@ -6,7 +6,7 @@ const userSignUpSchema = joi.object().keys({
     confirm_password : joi.ref("password"),
 });
 
-const validateSignup = (userSignUpSchema) =>(req, res , next)=>{
+const validateSignup = (req, res , next)=>{
     const { error } = userSignUpSchema.validate(req.body);
     if(error){
         console.log("user details are not validated");
