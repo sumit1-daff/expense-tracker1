@@ -137,9 +137,9 @@ const Transactions = () => {
         <SideDrawer />
         </div>
         <div className="w-2/3 flex flex-col my-10 items-center ml-96">
-          <h1 className="text-5xl font-bold mt-5 mb-10">Transactions History</h1>
+          <h1 className="text-5xl font-bold mt-5 mb-20">Transactions History</h1>
           <div className="w-full flex flex-col jusitfy-center">
-            <div className="h-14 flex w-full justify-between mb-5">
+            <div className="h-14 flex w-full justify-between mb-7">
               <div className="h-12">
                 <input
                   value={selectedDate ? selectedDate : ''}
