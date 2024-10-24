@@ -5,7 +5,6 @@ import CategoryDropdown from '../../components/CategoryDropdown';
 
 export default function AddExpense() {
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm();
-
   const [category, setCategory] = useState('');
   const [subcategory, setSubcategory] = useState('');
 
@@ -13,8 +12,8 @@ export default function AddExpense() {
     try {
       const formData = {
         ...data,
-        category,   
-        subcategory
+        category,
+        subcategory,
       };
       const response = await fetch('http://localhost:3000/transactions/addtransaction', {
         method: 'POST',
@@ -22,21 +21,20 @@ export default function AddExpense() {
         headers: {
           'Content-type': 'application/json',
         },
-        credentials : 'include'
+        credentials: 'include',
       });
 
       if (response.ok) {
         alert('Transaction added!');
         reset();
         setCategory('');
-        setSubcategory(''); 
+        setSubcategory('');
       } else {
         alert('Transaction could not be added');
         console.log('Transaction not added');
       }
     } catch (err) {
-      console.log('Some error occurred');
-      console.log(err);
+      console.log('Some error occurred', err);
     }
   };
 
@@ -44,94 +42,94 @@ export default function AddExpense() {
     setCategory(category);
     setSubcategory(subcategory);
   };
+
   return (
     <>
-      <div className="flex w-full h-screen">
+      <div className="flex w-full h-screen bg-gray-100">
         <SideDrawer />
-        <div className="w-full h-screen">
-          <div className="mx-auto my-10 w-4/5">
-            <h1 className="text-center font-bold text-5xl mx-auto my-10">Add Transaction</h1>
-            <div className="my-10">
-              <form onSubmit={handleSubmit(handleAddTransaction)} className="mx-auto">
-                <div className={`w-4/5 mx-auto my-4`}>
-                  <input
-                    type="text"
-                    {...register(`name`, {
-                      required: { value: true, message: '**Required Field' },
-                      pattern: {
-                        value: /^[a-zA-Z ]+$/,
-                        message: 'Invalid data',
-                      },
-                    })}
-                    className="mx-auto w-full h-12 p-2 border border-slate-500 rounded-lg"
-                    placeholder="Enter Expense Name"
-                  />
-                  <div className="h-3">
-                    {errors.name && <span className="text-sm text-red-500">{errors.name.message}</span>}
-                  </div>
-                </div>
-                <div className="w-4/5 mx-auto my-4">
-                  <CategoryDropdown onDataPass={handleCategory} />
-                </div>
-                <div className="w-4/5 mx-auto my-4">
-                  <input
-                    type="number"
-                    {...register('amount', {
-                      required: { value: true, message: '**Required Field' },
-                      pattern: {
-                        value: /^[0-9]+$/,
-                        message: 'Enter Valid Amount',
-                      },
-                    })}
-                    className="mx-auto w-full h-12 p-2 border border-slate-500 rounded-lg"
-                    placeholder="Enter Amount"
-                  />
-                  <div className="h-3 text-sm text-red-500">
-                    {errors.amount && <span>{errors.amount.message}</span>}
-                  </div>
-                </div>
-                <div className="w-4/5 mx-auto my-4">
-                  <input
-                    type="date"
-                    {...register('date', {
-                      required: { value: true, message: '**Required Field' },
-                    })}
-                    className="mx-auto w-full h-12 p-2 border text-gray-400 border-slate-500 rounded-lg"
-                  />
-                  <div className="h-3 text-sm text-red-500">
-                    {errors.date && <span>{errors.date.message}</span>}
-                  </div>
-                </div>
-                <div className={`w-4/5 mx-auto my-4`}>
-                  <input
-                    type="text"
-                    {...register('description', {
-                      required: { value: true, message: '**Required Field' },
-                      pattern: {
-                        value: /^[a-zA-Z 0-9]+$/,
-                        message: 'Invalid data',
-                      },
-                    })}
-                    className="mx-auto w-full h-12 p-2 border border-slate-500 rounded-lg"
-                    placeholder="Enter Transaction Description"
-                  />
-                  <div className="h-3 text-sm text-red-500">
-                    {errors.description && <span>{errors.description.message}</span>}
-                  </div>
-                </div>
+        <div className="w-full h-screen flex justify-center items-center">
+          <div className="w-2/5 bg-white p-8 shadow-lg rounded-lg">
+            <h1 className="text-center font-bold text-4xl text-gray-800 mb-8">Add Transaction</h1>
+            <form onSubmit={handleSubmit(handleAddTransaction)} className="space-y-6">
+              {/* Expense Name */}
+              <div>
+                <input
+                  type="text"
+                  {...register('name', {
+                    required: { value: true, message: '**Required Field' },
+                    pattern: {
+                      value: /^[a-zA-Z ]+$/,
+                      message: 'Invalid name format',
+                    },
+                  })}
+                  className="w-full h-12 p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+                  placeholder="Expense Name"
+                />
+                {errors.name && <span className="text-sm text-red-500">{errors.name.message}</span>}
+              </div>
 
-                {/* Submit Button */}
-                <div className="w-4/5 mx-auto my-4">
-                  <button
-                    disabled={isSubmitting}
-                    type="submit"
-                    className="bg-blue-500 p-3 text-center text-white hover:bg-blue-800 active:scale-95 w-full"
-                  >
-                    Add Transaction
-                  </button>
-                </div>
-              </form>
-            </div>
+              {/* Category Dropdown */}
+              <div>
+                <CategoryDropdown onDataPass={handleCategory} />
+              </div>
+
+              {/* Amount */}
+              <div>
+                <input
+                  type="number"
+                  {...register('amount', {
+                    required: { value: true, message: '**Required Field' },
+                    pattern: {
+                      value: /^[0-9]+$/,
+                      message: 'Enter a valid amount',
+                    },
+                  })}
+                  className="w-full h-12 p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+                  placeholder="Amount"
+                />
+                {errors.amount && <span className="text-sm text-red-500">{errors.amount.message}</span>}
+              </div>
+
+              {/* Date */}
+              <div>
+                <input
+                  type="date"
+                  {...register('date', {
+                    required: { value: true, message: '**Required Field' },
+                  })}
+                  className="w-full h-12 p-3 border border-gray-300 rounded-lg text-gray-500 focus:border-blue-500 focus:outline-none"
+                />
+                {errors.date && <span className="text-sm text-red-500">{errors.date.message}</span>}
+              </div>
+
+              {/* Description */}
+              <div>
+                <input
+                  type="text"
+                  {...register('description', {
+                    required: { value: true, message: '**Required Field' },
+                    pattern: {
+                      value: /^[a-zA-Z 0-9]+$/,
+                      message: 'Invalid description',
+                    },
+                  })}
+                  className="w-full h-12 p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+                  placeholder="Description"
+                />
+                {errors.description && <span className="text-sm text-red-500">{errors.description.message}</span>}
+              </div>
+
+              {/* Submit Button */}
+              <div>
+                <button
+                  disabled={isSubmitting}
+                  type="submit"
+                  className="w-full h-12 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 active:bg-blue-700 focus:outline-none transition-all duration-300"
+                >
+                  {isSubmitting ? 'Adding...' : 'Add Transaction'}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

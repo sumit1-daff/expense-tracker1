@@ -36,7 +36,7 @@ const CategoryDropdown = ({ onDataPass }) => {
     <div className="flex justify-between">
       <div className="relative box-border mr-2 w-1/2 inline-block">
         <div
-          className="border rounded-lg  border-slate-500 bg-white p-3 cursor-pointer"
+          className="border rounded-lg  border-gray-300 bg-white p-3 cursor-pointer"
           onClick={() => setIsCategoryOpen(!isCategoryOpen)}
         >
           {selectedCategory || <span className="text-gray-400">Category</span>}
@@ -58,7 +58,7 @@ const CategoryDropdown = ({ onDataPass }) => {
 
       <div className="relative box-border ml-2 w-1/2 inline-block">
         <div
-          className={`border rounded-lg  border-slate-500 bg-white p-3 ${
+          className={`border rounded-lg  border-gray-300 bg-white p-3 ${
             selectedCategory ? 'cursor-pointer' : 'cursor-not-allowed'
           }`}
           onClick={() => selectedCategory && setIsSubcategoryOpen(!isSubcategoryOpen)}

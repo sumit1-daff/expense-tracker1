@@ -63,7 +63,7 @@ export default function Login() {
           <input
             autoComplete="off"
             type="email"
-            value={'sngsumit@gmail.com'}
+            value={'sngsumit2003@gmail.com'}
 
             className="email border-solid border-2 outline-none border-gray-300 focus:border-gray-500 w-full h-12 md:h-15 p-4"
             placeholder="Enter your registered Email"
