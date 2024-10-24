@@ -10,6 +10,7 @@ router.post("/logout", userController.logout);
 router.post("/login",userController.authenticateUser);
 router.get('/user-details',authMiddleware,userController.getDetails);
 router.post('/update-profile',authMiddleware,validateUpdate,userController.updateProfile);
+router.get('/verify-email',userController.verifyEmail);
 router.post('/change-password', authMiddleware,validatePassword,authenticatePassword,userController.changePassword);
 router.get("/is_protected", authMiddleware, async (req, res) => {
     res.status(200).json({success  :true});

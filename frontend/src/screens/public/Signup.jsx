@@ -87,6 +87,7 @@ export default function () {
               <div className="flex w-full">
                 <input
                   autoComplete="off"
+                  value="Sumit Singh"
                   className="email border-solid border-2 outline-none border-gray-300 focus:border-gray-500 w-full h-12 md:h-15 p-4"
                   placeholder="Enter your Full name"
                   {...register("name", {
@@ -112,6 +113,7 @@ export default function () {
               <div className="mt-4">
                 <input
                   autoComplete="off"
+                  value="sinsumit2003@gmail.com"
                   type="email"
                   className="email border-solid border-2 outline-none border-gray-300 focus:border-gray-500 w-full h-12 md:h-15 p-4"
                   placeholder="Enter your Email"
@@ -138,6 +140,7 @@ export default function () {
                 <input
                   autoComplete="off"
                   type="password"
+                  value = "sumit@123"
                   className="mail border-solid border-2 outline-none border-gray-300 focus:border-gray-500 w-full h-12 md:h-15 p-4 "
                   placeholder="Enter your password"
                   {...register("password", {
@@ -162,6 +165,7 @@ export default function () {
                 <input
                   autoComplete="off"
                   type="password"
+                  value="sumit@123"
                   className="mail border-solid border-2 outline-none border-gray-300 focus:border-gray-500 w-full h-12 md:h-15 p-4 "
                   placeholder="Confirm password"
                   {...register("confirm_password", {

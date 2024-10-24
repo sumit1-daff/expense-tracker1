@@ -18,6 +18,7 @@ import Services from "./screens/public/Services";
 import AddTransaction from "./screens/protected/AddTransaction";
 import Transactions from "./screens/protected/Transactions";
 import UserProfile from "./screens/protected/UserProfile";
+import VerifyEmail from "./screens/public/VerifyEmail";
 function App() {
   return (
     <Router>
@@ -37,6 +38,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/services" element={<Services />} />
+        <Route path='/verify-email/:token' element={<VerifyEmail/>} />
       </Routes>
     </Router>
   );
