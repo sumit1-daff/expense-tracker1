@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import SideDrawer from '../../components/SideDrawer';
-import UpdateAccount from '../../components/UpdateAccount';
+import SideDrawer from "../../components/SideDrawer";
+import UpdateAccount from "../../components/UpdateAccount";
 import ChangePassword from "../../components/ChangePassword";
 
 export default function UserProfile() {
@@ -32,11 +32,9 @@ export default function UserProfile() {
 
   return (
     <div className="flex h-screen bg-gray-100">
-    
       <div className="fixed top-0 left-0 bottom-0 w-64">
         <SideDrawer />
       </div>
-
 
       <div className="flex flex-col w-full ml-64 p-10 items-center">
         <h1 className="text-4xl font-semibold mb-8">Account Details</h1>
@@ -54,8 +52,8 @@ export default function UserProfile() {
             <p className="text-lg text-gray-600">{user.email}</p>
           </div>
 
-       
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+         <div className="flex justify-center">
+         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
             <div>
               <h3 className="text-xl font-medium">Name</h3>
               <p className="text-lg text-gray-700">{user.name}</p>
@@ -77,8 +75,7 @@ export default function UserProfile() {
               </p>
             </div>
           </div>
-
-          
+         </div>
           <div className="flex justify-end gap-6">
             <ChangePassword />
             <UpdateAccount />

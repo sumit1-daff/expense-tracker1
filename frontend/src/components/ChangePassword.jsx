@@ -58,7 +58,7 @@ export default function ChangePassword() {
   return (
     <div>
       <button
-        className="bg-blue-500 text-white w-40 h-12 rounded-lg"
+        className="bg-blue-500 text-white hover:bg-blue-800 active:scale-95 w-40 h-10 rounded-lg"
         onClick={() => setModalOpen(true)}
       >
         Change Password

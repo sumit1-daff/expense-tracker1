@@ -6,8 +6,8 @@ const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedSubcategory, setSelectedSubcategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState(null);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isSubcategoryOpen, setIsSubcategoryOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -114,11 +114,9 @@ const Transactions = () => {
           },
         }
       );
-      if (response) {
-        const filteredTransaction = await response.json();
-        setTransactions(filteredTransaction);
-        setResetAvailable(true)
-      }
+      const filteredTransaction = await response.json();
+      setTransactions(filteredTransaction);
+      setResetAvailable(true);
     } catch(err){
       console.error("Error occurered ", err);
     }
@@ -131,7 +129,6 @@ const Transactions = () => {
     setSelectedDate(null);
   }
   return (
-    <>
       <div className="flex">
         <div style={{ position: "fixed", left: 0, top: 0, bottom: 0, width: "250px" }}>
         <SideDrawer />
@@ -280,7 +277,6 @@ const Transactions = () => {
           </div>
         </div>
       </div>
-    </>
   );
 };
 
