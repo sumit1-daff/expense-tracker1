@@ -39,7 +39,7 @@ exports.authenticateUser = async (req, res) => {
       { _id: user._id, username: user.email },
       process.env.JWT_SECRET,
       {
-        expiresIn: "1h",
+        expiresIn: "1d",
       }
     );
     const options = {

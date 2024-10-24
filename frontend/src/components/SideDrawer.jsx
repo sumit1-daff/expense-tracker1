@@ -26,7 +26,7 @@ export default function SideDrawer(props) {
       console.log("Some error occurred", err);
     }
   };
-  const isActive = (path) => location.pathname === path ? 'bg-blue-500 text-white rounded-3xl' : '';
+  const isActive = (path) => location.pathname === path ? 'bg-blue-500 text-white text-xl shadow-lg' : '';
 
   return (
       <div className="h-screen border-solid border-2 shadow-xl w-60 justify-center bg-white">
@@ -57,6 +57,7 @@ export default function SideDrawer(props) {
           </Link>
         </div>
         <div className="mt-20">
+
           <Link onClick={handleLogout} to="/logout">
             <div className={isActive('/logout')}>
               <DrawerItem icon={<IoIosLogOut />} title="Log Out" />

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
-
+import DeleteAccount from '../components/DeleteAccount';
 export default function ChangePassword() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [name , setName] = useState("sumit");
@@ -27,6 +27,7 @@ export default function ChangePassword() {
       const result = await response.json();
       if(response.ok){
         alert("Data updated successfully");
+        setErrorMessage({});
         setModalOpen(false);
       }else{
         setErrorMessage(result);
@@ -36,6 +37,7 @@ export default function ChangePassword() {
       console.log("Error occurred", error);
     }
   };
+
 
   return (
     <div>
@@ -88,7 +90,9 @@ export default function ChangePassword() {
             >
               Save Changes
             </button>
+
           </form>
+            <DeleteAccount />
         </Modal>
       </div>
     </div>
