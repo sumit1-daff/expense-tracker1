@@ -3,6 +3,8 @@ const User = model.User;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodeMailer = require('nodemailer');
+const generateAccessToken = require('../services/token/generateAccessToken.js');
+const generateRefreshToken = require('../services/token/generateRefreshToken.js');
 const {checkEmail} = require("../services/users/checkEmail.js");
 const {createUser} = require("../services/users/createUser.js");
 const mongoose = require('mongoose');
@@ -22,6 +24,10 @@ exports.logout = async (req, res) => {
     httpOnly: true,
     secure: true,
   });
+  res.clearCookie("refreshToken",{
+    httpOnly : true,
+    secure : true,
+  })
   res.status(200).json({ message: "logged out !!" });
 };
 
@@ -36,25 +42,21 @@ exports.authenticateUser = async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid credentials." });
     }
-
-    const token = jwt.sign(
-      { _id: user._id, username: user.email },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "1d",
-      }
-    );
+    
     const options = {
       secure: true,
       httpOnly: true,
-      maxAge: 3600000,
+      maxAge: 5*60*1000,
     };
     const userResponse = {
       _id: user._id,
       email: user.email,
       name: user.name,
     };
-    res.cookie("authToken", token, options);
+    const accesstoken =  await generateAccessToken(userResponse);
+    const refreshToken = await  generateRefreshToken(userResponse);
+    res.cookie("authToken", accesstoken, options)
+    .cookie("refreshToken",refreshToken,options);
     return res.status(200).json({
       message: "User authenticated",
       user: userResponse,

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, Navigate } from "react-router-dom";
 
-export default function ProtectedRoute() {
-  const [isLoggedIn, setIsLoggedIn] = useState(null); 
-  
-  const checkProtected = async () => {
+export default function PublicRoute() {
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
+
+  const checkAuthentication = async () => {
     try {
       const response = await fetch("http://localhost:3000/auth/is_protected", {
         method: 'GET',
@@ -21,12 +21,12 @@ export default function ProtectedRoute() {
   };
 
   useEffect(() => {
-    checkProtected(); 
+    checkAuthentication();
   }, []);
 
   if (isLoggedIn === null) {
     return <div>Loading .... </div>;
   }
 
-  return isLoggedIn ? <Outlet /> : <Navigate to="/" />;
+  return isLoggedIn ? <Navigate to="/dashboard" /> : <Outlet />;
 }

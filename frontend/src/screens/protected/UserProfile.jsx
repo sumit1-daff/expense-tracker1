@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import SideDrawer from "../../components/SideDrawer";
 import UpdateAccount from "../../components/UpdateAccount";
 import ChangePassword from "../../components/ChangePassword";
@@ -10,8 +10,9 @@ export default function UserProfile() {
     createdAt: new Date(),
     updatedAt: new Date(),
   });
+  const [triggerFetch, setTriggerFetch] = useState(false);
 
-  const fetchUser = async () => {
+  const fetchUser = useCallback(async () => {
     try {
       const response = await fetch("http://localhost:3000/auth/user-details", {
         method: "GET",
@@ -24,11 +25,15 @@ export default function UserProfile() {
     } catch (error) {
       console.error("Error in fetching user details", error);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchUser();
-  }, [<UpdateAccount />]);
+  }, [fetchUser, triggerFetch]);
+
+  const handleUpdate = () => {
+    setTriggerFetch(prev => !prev);  // Toggle state to re-run fetchUser
+  };
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -52,33 +57,34 @@ export default function UserProfile() {
             <p className="text-lg text-gray-600">{user.email}</p>
           </div>
 
-         <div className="flex justify-center">
-         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-            <div>
-              <h3 className="text-xl font-medium">Name</h3>
-              <p className="text-lg text-gray-700">{user.name}</p>
-            </div>
-            <div>
-              <h3 className="text-xl font-medium">Email</h3>
-              <p className="text-lg text-gray-700">{user.email}</p>
-            </div>
-            <div>
-              <h3 className="text-xl font-medium">Created At</h3>
-              <p className="text-lg text-gray-700">
-                {new Date(user.createdAt).toLocaleDateString()}
-              </p>
-            </div>
-            <div>
-              <h3 className="text-xl font-medium">Updated At</h3>
-              <p className="text-lg text-gray-700">
-                {new Date(user.updatedAt).toLocaleDateString()}
-              </p>
+          <div className="flex justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+              <div>
+                <h3 className="text-xl font-medium">Name</h3>
+                <p className="text-lg text-gray-700">{user.name}</p>
+              </div>
+              <div>
+                <h3 className="text-xl font-medium">Email</h3>
+                <p className="text-lg text-gray-700">{user.email}</p>
+              </div>
+              <div>
+                <h3 className="text-xl font-medium">Created At</h3>
+                <p className="text-lg text-gray-700">
+                  {new Date(user.createdAt).toLocaleDateString()}
+                </p>
+              </div>
+              <div>
+                <h3 className="text-xl font-medium">Updated At</h3>
+                <p className="text-lg text-gray-700">
+                  {new Date(user.updatedAt).toLocaleDateString()}
+                </p>
+              </div>
             </div>
           </div>
-         </div>
+
           <div className="flex justify-end gap-6">
             <ChangePassword />
-            <UpdateAccount />
+            <UpdateAccount onEdit={handleUpdate} />
           </div>
         </div>
       </div>
