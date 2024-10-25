@@ -5,19 +5,27 @@ export default function ForgotPassword() {
   const [isModalOpen, setModalOpen] = useState(false);
     const [isConfirm, setConfirm] = useState(false);
     const [password, setPassword] = useState('');
+    const [error,setError] = useState();
     const handleDelete = async ()=>{
+      e.preventDefault();
         try{
+          console.log("delete account function");
             console.log(password);
             const response = await fetch('http://localhost:3000/auth/delete-account',{
-                fetch : "POST",
+                method : "POST",
                 credentials : "include",
-                body : JSON.stringify(password),
+                body : JSON.stringify({password}),
                 headers : {
                     "Content-type" : "application/json"
                 }
             });
+            const result = await response.json();
+            console.log(result);
             if(response.ok){
                 
+            }else{
+              setError(result.message);
+
             }
         }catch(error){
             console.log("error occured",error);
@@ -47,6 +55,7 @@ export default function ForgotPassword() {
             <p>Enter your password to delete your account</p>
             <form onSubmit={handleDelete}>
                 <input className="border border-gray-300 my-5 h-12 w-full p-2 rounded-lg" type="password" placeholder="Enter your password" onChange={(e)=> setPassword(e.target.value)} />
+                {error && <div>{error}</div>}
             <div className="mt-4 justify-end flex gap-2">
             <button onClick={()=>{setConfirm(false); setModalOpen(false)}} className="bg-transparent w-20 h-10 border-2 p-2 border-gray-300 active:scale-95 rounded-lg">Cancel</button>
             <button type="submit" className="bg-red-500 w-20 h-10 border-none p-2 text-white hover:bg-red-700 rounded-lg active:scale-95">Confirm</button>

@@ -19,7 +19,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/addtransaction" element={<AddTransaction />} />
@@ -28,8 +27,6 @@ function App() {
           <Route path="/profile" element={<UserProfile />} />
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Route>
-
-        {/* Public Routes */}
         <Route element={<PublicRoute />}>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

@@ -10,6 +10,7 @@ router.post("/signup",userController.addUser);
 router.post("/logout", userController.logout);
 router.post("/login",userController.authenticateUser);
 router.get('/user-details',authMiddleware,userController.getDetails);
+router.post('/delete-account',authMiddleware, authenticatePassword, userController.deleteAccount);
 router.post('/update-profile',authMiddleware,validateUpdate,userController.updateProfile);
 router.post('/change-password', authMiddleware,validatePassword,authenticatePassword,userController.changePassword);
 router.get("/is_protected",verifyToken, async (req, res) => {

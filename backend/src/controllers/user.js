@@ -46,7 +46,6 @@ exports.authenticateUser = async (req, res) => {
     const options = {
       secure: true,
       httpOnly: true,
-      maxAge: 5*60*1000,
     };
     const userResponse = {
       _id: user._id,
@@ -110,4 +109,8 @@ exports.updateProfile = async (req, res) =>{
   console.error("Error occurred",error);
  }
 
+}
+
+exports.deleteAccount = async (req, res) =>{
+  console.log("Inside the deleteAccount ");
 }
