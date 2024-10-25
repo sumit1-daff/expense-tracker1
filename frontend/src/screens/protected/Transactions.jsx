@@ -276,7 +276,7 @@ const Transactions = () => {
             </table>
           </div>
         </div>
-            <button onClick={()=> navigate('/addtransaction')} style={{"borderRadius" : "100%"}} className="bg-blue-500 flex items-center justify-center fixed text-white text-4xl w-20 h-20 bottom-4 right-10" title="Add New"><FaPlus /></button>
+            <button onClick={()=> navigate('/addtransaction')} style={{"borderRadius" : "100%"}} className="bg-blue-500 hover:bg-blue-800 hover:scale-110 flex items-center justify-center fixed text-white text-2xl w-16 h-16 bottom-4 right-10" title="Add New"><FaPlus /></button>
       </div>
   );
 };

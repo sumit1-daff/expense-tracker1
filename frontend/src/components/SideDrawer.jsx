@@ -9,6 +9,7 @@ import { IoIosLogOut } from "react-icons/io";
 export default function SideDrawer(props) {
   const location = useLocation();
   const navigate = useNavigate();
+
   const handleLogout = async () => {
     try {
       let response = await fetch("http://localhost:3000/auth/logout", {
@@ -24,16 +25,14 @@ export default function SideDrawer(props) {
       console.log("Some error occurred", err);
     }
   };
-  const isActive = (path) =>
-    location.pathname === path
-      ? "bg-blue-500 text-white text-xl shadow-lg"
-      : "";
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <div className="h-screen border-solid border-2 shadow-xl w-60 justify-center bg-white">
       <div
         onClick={() => navigate("/")}
-        className="text-center  p-4 text-3xl font-bold flex items-center "
+        className="text-center p-4 text-3xl font-bold flex items-center"
       >
         <p className="text-center">
           Expense
@@ -43,9 +42,11 @@ export default function SideDrawer(props) {
       <div className="my-5">
         <Link to="/dashboard">
           <div
-            className={`${isActive(
-              "/dashboard"
-            )} flex justify-center m-auto rounded-3xl w-4/5 my-5 p-5 items-center `}
+            className={`${
+              isActive("/dashboard")
+                ? "bg-blue-500 text-white text-xl shadow-lg"
+                : "hover:bg-gray-100"
+            } flex justify-center m-auto rounded-3xl w-4/5 my-5 p-5 items-center`}
           >
             <span className="mr-2">
               <LuLayoutDashboard />
@@ -55,9 +56,11 @@ export default function SideDrawer(props) {
         </Link>
         <Link to="/addtransaction">
           <div
-            className={`${isActive(
-              "/addtransaction"
-            )} flex justify-center m-auto rounded-3xl w-4/5 my-5 p-5 items-center `}
+            className={`${
+              isActive("/addtransaction")
+                ? "bg-blue-500 text-white text-xl shadow-lg"
+                : "hover:bg-gray-100"
+            } flex justify-center m-auto rounded-3xl w-4/5 my-5 p-5 items-center`}
           >
             <span className="mr-2">
               <IoIosAddCircleOutline />
@@ -69,7 +72,9 @@ export default function SideDrawer(props) {
           <div
             className={`${
               isActive("/transactions") || isActive("/edit-transaction/")
-            } flex justify-center m-auto rounded-3xl w-4/5 my-5 p-5 items-center `}
+                ? "bg-blue-500 text-white text-xl shadow-lg"
+                : "hover:bg-gray-100"
+            } flex justify-center m-auto rounded-3xl w-4/5 my-5 p-5 items-center`}
           >
             <span className="mr-2">
               <GrTransaction />
@@ -79,9 +84,11 @@ export default function SideDrawer(props) {
         </Link>
         <Link to="/profile">
           <div
-            className={`${isActive(
-              "/profile"
-            )} flex justify-center m-auto rounded-3xl w-4/5 my-5 p-5 items-center `}
+            className={`${
+              isActive("/profile")
+                ? "bg-blue-500 text-white text-xl shadow-lg"
+                : "hover:bg-gray-100"
+            } flex justify-center m-auto rounded-3xl w-4/5 my-5 p-5 items-center`}
           >
             <span className="mr-2">
               <MdManageAccounts />
@@ -92,13 +99,17 @@ export default function SideDrawer(props) {
       </div>
       <div className="mt-20">
         <Link onClick={handleLogout} to="/logout">
-          <div className={isActive("/logout")}>
-            <div className="flex justify-center m-auto w-40 my-5 p-5 items-center">
-              <span className="mr-2">
-                <IoIosLogOut />
-              </span>
-              Log Out
-            </div>
+          <div
+            className={`${
+              isActive("/logout")
+                ? "bg-blue-500 text-white text-xl shadow-lg"
+                : "hover:bg-gray-100"
+            } flex justify-center rounded-3xl m-auto w-40 my-5 p-5 items-center`}
+          >
+            <span className="mr-2">
+              <IoIosLogOut />
+            </span>
+            Log Out
           </div>
         </Link>
       </div>
