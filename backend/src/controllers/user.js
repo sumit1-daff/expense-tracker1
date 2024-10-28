@@ -27,10 +27,10 @@ exports.addUser = async (req, res) => {
     const transporter = nodeMailer.createTransport({
       host: 'smtp.gmail.com',
       port: 587,
-      secure: false,  // true for 465, false for other ports
+      secure: false,  
       auth: {
         user: 'sumit.test2409@gmail.com', 
-        pass: process.env.MAIL_PASSWORD
+        pass: process.env.APP_PASSWORD,
       }
     });
 
@@ -42,7 +42,7 @@ exports.addUser = async (req, res) => {
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
-      console.log("Seding a mail");
+      console.log("Sending a mail");
       if (error) {
         console.log(error);
         return res.status(500).json({ message: "Error sending email" });
