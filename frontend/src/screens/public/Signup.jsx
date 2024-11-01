@@ -11,6 +11,9 @@ export default function () {
   } = useForm();
   const navigate = useNavigate();
   const [emailError,setEmailError] = useState(null);
+  const [nameError, setNameError] = useState(null);
+  const [passwordError, setPasswordError] = useState(null);
+  const [confPasswordError, setConfPasswordError] = useState(null);
   const onSubmit = async (data) => {
     try {
       const response = await fetch("http://localhost:3000/auth/signup", {
@@ -21,21 +24,26 @@ export default function () {
         },
       })
       const result = await response.json();
+      console.log(result);
       if (response.ok) {
         reset();
         alert("User added successfully!!!");
         const {email, password} = data;
-        const response2 = await authenticateUser(email, password);
-        if(response2.ok){
+        const loginResponse = await authenticateUser(email, password);
+        if(loginResponse.ok){
           navigate('/dashboard');
-          location.reload();
         }else{
           console.log("Error in redirecting to the dashboard");
         }
       }else if(result.message === 'User with Email already exists'){
          setEmailError("User already Exists!!");
+      }else if(result.message === "Validation Failed"){
+        setEmailError(result.errors.email);
+        setNameError(result.errors.name);
+        setPasswordError(result.errors.password);
+        setConfPasswordError(result.errors.confirmPassword);
       }
-       else {
+      else {
         alert("Some error occurred.");
       }
     } catch (err) {
@@ -87,102 +95,53 @@ export default function () {
               <div className="flex w-full">
                 <input
                   autoComplete="off"
-                  value="Sumit Singh"
+                  // value="Sumit Singh"
                   className="email border-solid border-2 outline-none border-gray-300 focus:border-gray-500 w-full h-12 md:h-15 p-4"
                   placeholder="Enter your Full name"
-                  {...register("name", {
-                    required: { value: true, message: "**Required Field" },
-                    minLength: {
-                      value: 4,
-                      message: "The minimum length of user's name should be 4",
-                    },
-                    pattern: {
-                      value: /^[a-zA-Z ]+$/,
-                      message: "Name can only contain letters.",
-                    },
-                  })}
+                  {...register("name")}
                 />
               </div>
-              <div className="h-4 flex">
-                  {errors.name && (
-                    <span className="text-red-500">
-                      {errors.name.message}
-                    </span>
-                  )}
+              <div className="h-4 text-red-500">
+                  {nameError && <span>{nameError}</span>}
                 </div>
               <div className="mt-4">
                 <input
                   autoComplete="off"
-                  value="sinsumit2003@gmail.com"
+                  // value="sinsumit2003@gmail.com"
                   type="email"
                   className="email border-solid border-2 outline-none border-gray-300 focus:border-gray-500 w-full h-12 md:h-15 p-4"
                   placeholder="Enter your Email"
-                  {...register("email", {
-                    required: { value: true, message: "**Required Field" },
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: "Invalid email address",
-                    },
-                  })}
+                  {...register("email")}
                 />
               </div>
-              <div className="h-4 w-full">
-                {errors.email && (
-                  <span className="text-red-500 w-1/2">
-                    {errors.email.message}
-                  </span>
-                )}
-                { emailError &&  (<span className="text-red-500 w-1/2">
-                    {emailError}
-                  </span>)}
+              <div className="h-4 text-red-500">
+                {emailError &&  <span>{emailError}</span>}
               </div>
               <div className="mt-4">
                 <input
                   autoComplete="off"
                   type="password"
-                  value = "sumit@123"
+                  // value = "sumit@123"
                   className="mail border-solid border-2 outline-none border-gray-300 focus:border-gray-500 w-full h-12 md:h-15 p-4 "
                   placeholder="Enter your password"
-                  {...register("password", {
-                    required: { value: true, message: "**Required Field" },
-                    pattern: {
-                      value:
-                        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                      message:
-                        "Password should be atleast 8 character long and have special characters.",
-                    },
-                  })}
+                  {...register("password")}
                 />
               </div>
-              <div className="h-4 w-full">
-                {errors.password && (
-                  <span className="text-red-500 w-1/2">
-                    {errors.password.message}
-                  </span>
-                )}
+              <div className="h-4 text-red-500">
+               {passwordError && <span>{passwordError}</span>}
               </div>
               <div className="mt-4">
                 <input
                   autoComplete="off"
                   type="password"
-                  value="sumit@123"
+                  // value="sumit@123"
                   className="mail border-solid border-2 outline-none border-gray-300 focus:border-gray-500 w-full h-12 md:h-15 p-4 "
                   placeholder="Confirm password"
-                  {...register("confirm_password", {
-                    required: { value: true, message: "**Required Field" },
-                    validate: (value) => {
-                      const password = watch("password");
-                      return value === password || "Passwords do not match";
-                    },
-                  })}
+                  {...register("confirm_password")}
                 />
               </div>
-              <div className="h-4 w-full">
-                {errors.confirm_password && (
-                  <span className="text-red-500 w-1/2">
-                    {errors.confirm_password.message}
-                  </span>
-                )}
+              <div className="h-4 text-red-500">
+               {confPasswordError && <span>{confPasswordError}</span>}
               </div>
               <div className="w-full mt-2">
                 <button
