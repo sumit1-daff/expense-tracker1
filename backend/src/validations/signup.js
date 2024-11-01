@@ -1,12 +1,17 @@
 const Joi = require("joi");
 
 const signUpSchema = Joi.object({
-  name: Joi.string()
-    .min(4)
+    name: Joi.string()
+    .min(3)
+    .max(30)
+    .pattern(/^[a-zA-Z\s]+$/)
     .required()
+    .label("Transaction Name")
     .messages({
-      "string.empty": "Name is required",
-      "string.min": "Name must be at least 4 characters",
+      "string.empty": "Transaction name is required.",
+      "string.min": "Transaction name must be at least 3 characters long.",
+      "string.max": "Transaction name cannot be longer than 30 characters.",
+      "string.pattern.base": "Transaction name can only contain letters and spaces.",
     }),
   email: Joi.string()
     .email({ tlds: { allow: false } })
