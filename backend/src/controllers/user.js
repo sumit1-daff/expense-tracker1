@@ -2,11 +2,12 @@ const model = require("../models/usersModel.js");
 const User = model.User;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const nodeMailer = require('nodemailer');
 const generateAccessToken = require('../services/token/generateAccessToken.js');
 const generateRefreshToken = require('../services/token/generateRefreshToken.js');
 const {checkEmail} = require("../services/users/checkEmail.js");
 const {createUser} = require("../services/users/createUser.js");
+const sendEmail = require('../services/email/signup.js');
+const sendResetPasswordLink = require('../services/email/forgotPassword.js');
 const mongoose = require('mongoose');
 
 
@@ -18,32 +19,10 @@ exports.addUser = async (req, res) => {
       return res.status(400).json({ message: "User with Email already exists" });
     }
     const user = await createUser(req.body);
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    const transporter = nodeMailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 587,
-      secure: false,  
-      auth: {
-        user: 'sumit.test2409@gmail.com', 
-        pass: process.env.APP_PASSWORD,
-      }
-    });
-
-    const mailOptions = {
-      from: 'sumit.test2409@gmail.com',
-      to: user.email,
-      subject: 'Verify your Email',
-      text: `Click on the link to verify your mail: http://localhost:3000/auth/verify-email?token=${token} \n\nIf you didn't register, you can ignore this email.`
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.log(error);
-        return res.status(500).json({ message: "Error sending email" });
-      }
-      return res.status(200).json({ message: "Verification link sent to your email" });
-    });
-    await user.save();
+    const emailSent = await sendEmail(user);
+    if(emailSent){
+      await user.save();
+    }
   } catch (error) {
     console.error("Error adding user:", error);
     return res.status(400).json({ message: "Error creating user" });
@@ -173,4 +152,18 @@ exports.deleteAccount = async (req, res) =>{
     console.error("Error occurred while deleting the account", err);
   }
 
+}
+
+exports.forgotPassword = async (req, res)=>{
+  const { email } = req.body;
+  const isUser = await checkEmail(email);
+  if(!isUser){
+    return res.status(401).json({error : "Email not found"});
+  }
+  const resetLink = sendResetPasswordLink(email);
+  if(resetLink){
+    console.log("mail sent to the email");
+  }
+
+  return res.status(200).json({message : "Forgot password successfull"});
 }

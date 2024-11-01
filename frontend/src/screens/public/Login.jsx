@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ForgotPassword from "../../components/ForgotPassword";
 
 export default function Login() {
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+  const { register, handleSubmit, formState: { isSubmitting } } = useForm();
     const [authError, setAuthError] = useState(null);
     const [emailError, setEmailError] = useState('');
     const [passwordError,setPasswordError] = useState('');
@@ -27,6 +27,7 @@ export default function Login() {
     };
   
     const authenticateUser = async (email, password) => {
+      console.log("authenticate user");
       try {
         let response = await fetch('http://localhost:3000/auth/login', {
           method: "POST",
@@ -103,9 +104,9 @@ export default function Login() {
               Login
             </button>
           </div>
+        </form>
           <div className="text-right mt-2"><ForgotPassword/></div>
           <div className="underline text-blue-500 decoration-2 text-center mt-5 hover:text-blue-800"><Link to={'/signup'}>Don't have an Account? Sign Up</Link></div>
-        </form>
       </div>
       <hr className="border-gray-200 border w-1/2 mt-6" />
       <div className="text-center w-full mt-2">

@@ -3,17 +3,37 @@ import Modal from "./Modal";
 
 export default function ForgotPassword() {
   const [isModalOpen, setModalOpen] = useState(false);
-  const [email, setEmail] = useState("");
-
-  const handleForgotPassword = (e) => {
+  const [email, setEmail] = useState("sngsumit2003@gmail.com");
+  const [emailError, setEmailError] = useState('');
+  const handleForgotPassword = async (e) => {
     e.preventDefault();
-    setModalOpen(false);
+    try{
+      const response = await fetch('http://localhost:3000/auth/forgot-password',{
+        method : "POST",
+        body : JSON.stringify({email}),
+        headers : {
+          "Content-type" : "application/json"
+        },
+        credentials : 'include',
+      });
+      const result = await response.json();
+      console.log(result);
+      if(result.error){
+        setEmailError(result.error);
+      }
+      if(response.ok){
+        console.log("mail sent to your registered email id");
+        setModalOpen(false);
+      }
+    }catch(err){
+      console.error("Error occurred ",err);
+    }
   };
 
   return (
     <div>
       <button
-        className="text-blue-500 underline"
+        className="text-blue-500 underline hover:text-blue-800"
         onClick={() => setModalOpen(true)}
       >
         Forgot Password?
@@ -23,7 +43,7 @@ export default function ForgotPassword() {
         <h2 className="text-2xl font-bold mb-4">Reset Password</h2>
         <form onSubmit={handleForgotPassword}>
           <div className="mb-4">
-            <label className="block text-start text-sm font-medium text-gray-700">
+            <label className="block text-start text-md font-medium text-gray-700">
               Enter your email
             </label>
             <input
@@ -34,6 +54,9 @@ export default function ForgotPassword() {
               placeholder="Email"
               required
             />
+          <div className="h-4 text-md text-red-500 text-left p-1">
+            {emailError}
+          </div>
           </div>
           <button
             type="submit"
