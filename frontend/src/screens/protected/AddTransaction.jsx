@@ -7,6 +7,7 @@ export default function AddExpense() {
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm();
   const [category, setCategory] = useState('');
   const [subcategory, setSubcategory] = useState('');
+  const [error, setError] = useState({});
 
   const handleAddTransaction = async (data) => {
     try {
@@ -23,10 +24,15 @@ export default function AddExpense() {
         },
         credentials: 'include',
       });
+      const result = await response.json();
+      console.log(result);
 
       if (response.ok) {
         alert('Transaction added!');
         reset();
+      } else if (result.message === "Validation Failed") {
+        console.log("Validation error detected");
+        setError(result.errors);
       } else {
         alert('Transaction could not be added');
         console.log('Transaction not added');
@@ -49,21 +55,15 @@ export default function AddExpense() {
           <div className="w-2/5 bg-white p-8 shadow-lg rounded-lg">
             <h1 className="text-center font-bold text-4xl text-gray-800 mb-8">Add Transaction</h1>
             <form onSubmit={handleSubmit(handleAddTransaction)} className="space-y-6">
-              {/* Expense Name */}
+              {/* Transaction Name */}
               <div>
                 <input
                   type="text"
-                  {...register('name', {
-                    required: { value: true, message: '**Required Field' },
-                    pattern: {
-                      value: /^[a-zA-Z ]+$/,
-                      message: 'Invalid name format',
-                    },
-                  })}
+                  {...register('name')}
                   className="w-full h-12 p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
-                  placeholder="Expense Name"
+                  placeholder="Transaction Name"
                 />
-                {errors.name && <span className="text-sm text-red-500">{errors.name.message}</span>}
+                {error.name && <span className="text-sm text-red-500">{error.name}</span>}
               </div>
 
               {/* Category Dropdown */}
@@ -75,46 +75,32 @@ export default function AddExpense() {
               <div>
                 <input
                   type="number"
-                  {...register('amount', {
-                    required: { value: true, message: '**Required Field' },
-                    pattern: {
-                      value: /^[0-9]+$/,
-                      message: 'Enter a valid amount',
-                    },
-                  })}
+                  {...register('amount')}
                   className="w-full h-12 p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
                   placeholder="Amount"
                 />
-                {errors.amount && <span className="text-sm text-red-500">{errors.amount.message}</span>}
+                {error.amount && <span className="text-sm text-red-500">{error.amount}</span>}
               </div>
 
               {/* Date */}
               <div>
                 <input
                   type="date"
-                  {...register('date', {
-                    required: { value: true, message: '**Required Field' },
-                  })}
+                  {...register('date')}
                   className="w-full h-12 p-3 border border-gray-300 rounded-lg text-gray-500 focus:border-blue-500 focus:outline-none"
                 />
-                {errors.date && <span className="text-sm text-red-500">{errors.date.message}</span>}
+                {error.date && <span className="text-sm text-red-500">{error.date}</span>}
               </div>
 
               {/* Description */}
               <div>
                 <input
                   type="text"
-                  {...register('description', {
-                    required: { value: true, message: '**Required Field' },
-                    pattern: {
-                      value: /^[a-zA-Z 0-9]+$/,
-                      message: 'Invalid description',
-                    },
-                  })}
+                  {...register('description')}
                   className="w-full h-12 p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
                   placeholder="Description"
                 />
-                {errors.description && <span className="text-sm text-red-500">{errors.description.message}</span>}
+                {error.description && <span className="text-sm text-red-500">{error.description}</span>}
               </div>
 
               {/* Submit Button */}

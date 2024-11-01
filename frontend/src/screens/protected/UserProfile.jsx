@@ -5,8 +5,8 @@ import ChangePassword from "../../components/ChangePassword";
 
 export default function UserProfile() {
   const [user, setUser] = useState({
-    name: "John Doe",
-    email: "johndoe@gmail.com",
+    name: "User",
+    email: "user@email.com",
     createdAt: new Date(),
     updatedAt: new Date(),
   });

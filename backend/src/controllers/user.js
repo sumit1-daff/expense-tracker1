@@ -12,18 +12,13 @@ const mongoose = require('mongoose');
 
 exports.addUser = async (req, res) => {
   try {
-    console.log("creating the user");
     const emailExists = await checkEmail(req.body);
     if (emailExists) {
       console.log("user already exits");
       return res.status(400).json({ message: "User with Email already exists" });
     }
-    console.log("Creating the user by create user funciton");
     const user = await createUser(req.body);
-    console.log("Creating token");
-    console.log(user);
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
     const transporter = nodeMailer.createTransport({
       host: 'smtp.gmail.com',
       port: 587,
@@ -42,12 +37,10 @@ exports.addUser = async (req, res) => {
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
-      console.log("Sending a mail");
       if (error) {
         console.log(error);
         return res.status(500).json({ message: "Error sending email" });
       }
-      console.log("mail sent sucessulyy");
       return res.status(200).json({ message: "Verification link sent to your email" });
     });
     await user.save();
