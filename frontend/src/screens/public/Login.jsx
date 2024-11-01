@@ -6,15 +6,24 @@ import ForgotPassword from "../../components/ForgotPassword";
 export default function Login() {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
     const [authError, setAuthError] = useState(null);
+    const [emailError, setEmailError] = useState('');
+    const [passwordError,setPasswordError] = useState('');
     const navigate = useNavigate();  
     const onSubmit = async (data) => {
       const { username, password } = data;
       let response = await authenticateUser(username, password);
+      const result = await response.json();
       if (response.ok) {
         navigate('/dashboard');
-      } else {
-        setAuthError("Invalid credentials, please try again.");
       }
+      else if(result.message === "Validation Failed"){
+          setEmailError(result.errors.email);
+          setPasswordError(result.errors.password);
+        }
+      else{
+        setAuthError("Invalid credentials. Please try again");
+      }
+      
     };
   
     const authenticateUser = async (email, password) => {
@@ -64,21 +73,13 @@ export default function Login() {
             autoComplete="off"
             type="email"
             value={'sngsumit2003@gmail.com'}
-
             className="email border-solid border-2 outline-none border-gray-300 focus:border-gray-500 w-full h-12 md:h-15 p-4"
             placeholder="Enter your registered Email"
-            {...register("username", {
-              required: { value: true, message: "**Required Field" },
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: "Invalid email address"
-              },
-              minLength: { value: 4, message: "The minimum length of username should be 4" }
-            })}
+            {...register("username")}
           />
           </div>
-          <div className="h-8">
-             {errors.username && <span className="text-red-500">{errors.username.message}</span>}
+          <div className="h-8 text-red-500">
+             {emailError && <span>{emailError}</span>}
          </div>
           <div>
              <input
@@ -87,11 +88,11 @@ export default function Login() {
             value = {"sumit@1234"}
             className="mail border-solid border-2 outline-none border-gray-300 focus:border-gray-500 w-full h-12 md:h-15 p-4 "
             placeholder="Enter your password"
-            {...register("password", { required: true })}
+            {...register("password")}
           />
           </div>
-         <div className="h-8">
-           {errors.password && <span className="text-red-500">**Required Field</span>}
+         <div className="h-8 text-red-500">
+            {passwordError && <span>{passwordError}</span>}
           </div>
           <div className="w-full">
             <button

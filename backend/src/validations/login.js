@@ -16,8 +16,8 @@ const loginSchema = Joi.object({
       }),
   });
 
-const validateLogin = async(req, res , next)=>{
-    const {error} = loginSchema.validate(req.body, { abortEarly: false });
+const validateLogin = (req, res , next)=>{
+    const { error } = loginSchema.validate(req.body, { abortEarly: false });
     let errors = {
         email: null,
         password: null,
@@ -33,8 +33,7 @@ const validateLogin = async(req, res , next)=>{
         });
       }
     if(error){
-        console.log("Validation failed");
-        return res.status(401).json(errors);
+        return res.status(404).json({message : "Validation Failed",errors});
     }
     next();
 }
