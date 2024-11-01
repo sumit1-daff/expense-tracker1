@@ -1,14 +1,15 @@
 const express = require("express");
 const userController = require("../controllers/user.js");
 const {authenticatePassword} = require('../middlewares/authenticatePassword.js');
-const {validatePassword} = require('../middlewares/validatePassword.js');
+const {validatePassword} = require('../validations/changePassword.js');
 const { authMiddleware } = require("../middlewares/authMiddleware.js");
-const validateUpdate = require('../middlewares/validateUpdate.js');
+const validateUpdate = require('../validations/updateProfile.js');
 const verifyToken = require('../middlewares/verifyToken.js');
+const validateLogin = require('../validations/login.js');
 router = express.Router();
 router.post("/signup",userController.addUser);
 router.post("/logout", userController.logout);
-router.post("/login",userController.authenticateUser);
+router.post("/login",validateLogin,userController.authenticateUser);
 router.get('/user-details',authMiddleware,userController.getDetails);
 router.post('/delete-account',authMiddleware, authenticatePassword, userController.deleteAccount);
 router.post('/update-profile',authMiddleware,validateUpdate,userController.updateProfile);

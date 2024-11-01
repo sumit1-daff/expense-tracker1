@@ -2,78 +2,60 @@ const jwt = require("jsonwebtoken");
 const generateAccessToken = require("../services/token/generateAccessToken");
 
 const verifyToken = async (req, res, next) => {
-  const token = req.cookies.authToken;
+  const accessToken = req.cookies.authToken;
   const refreshToken = req.cookies.refreshToken;
 
-  // Helper function to respond with 403 status and message
-  const sendAccessDenied = () => {
-    return res.status(403).json({ message: "Access Denied" });
+  const sendAccessDenied = (message = "Access Denied") => {
+    return res.status(403).json({ message, success: false });
   };
 
-  // If no access token, check for refresh token
-  if (!token) {
-    if (!refreshToken) {
-      return sendAccessDenied();
-    }
+  const attemptTokenRefresh = () => {
+    if (!refreshToken) return sendAccessDenied("No refresh token available");
 
-    // Verify the refresh token
     jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, user) => {
       if (err) {
         console.error("Invalid refresh token", err.message);
-        return res.status(403).json({ message: "Invalid refresh token", success: false });
+        res.clearCookie("authToken"); // Clear invalid tokens
+        res.clearCookie("refreshToken");
+        return sendAccessDenied("Invalid refresh token");
       }
 
-      // Generate a new access token if refresh token is valid
       const newAccessToken = generateAccessToken(user);
       res.cookie("authToken", newAccessToken, {
         httpOnly: true,
         secure: true,
-        maxAge: 5 * 60 * 1000,
+        maxAge: 5 * 60 * 1000, // 5 minutes
       });
 
-      req.user = user; // Assign user data from refresh token
-      next(); // Proceed to the next middleware or route handler
-    });
-  } else {
-    // Verify the access token
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-      if (err) {
-        // Check if the error is due to token expiration
-        if (err.name === "TokenExpiredError") {
-          console.log("Access token expired. Attempting to refresh...");
-
-          // Try to refresh the token with the refresh token
-          if (!refreshToken) {
-            return sendAccessDenied(); // No refresh token, access denied
-          }
-
-          jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, user) => {
-            if (err) {
-              console.error("Invalid refresh token", err.message);
-              return res.status(403).json({ message: "Invalid refresh token", success: false });
-            }
-
-            // Generate a new access token
-            const newAccessToken = generateAccessToken(user);
-            res.cookie("authToken", newAccessToken, {
-              httpOnly: true,
-              secure: true,
-              maxAge: 5 * 60 * 1000,
-            });
-
-            req.user = user; // Assign user data from refresh token
-            next(); // Proceed to the next middleware or route handler
-          });
-        } else {
-          console.log("Access token invalid.", err.message);
-          return res.status(403).json({ message: "Invalid access token", success: false });
+      jwt.verify(newAccessToken, process.env.JWT_SECRET, (err, verifiedUser) => {
+        if (err) {
+          console.error("Error verifying new access token", err.message);
+          return sendAccessDenied("Error verifying access token");
         }
-      } else {
-        req.user = user; // Token is valid, assign user data
-        next(); // Proceed to the next middleware or route handler
-      }
+        req.user = verifiedUser;
+        next();
+      });
     });
+  };
+
+  if (!accessToken) {
+    console.log("No access token, attempting to refresh...");
+    return attemptTokenRefresh();
   }
+
+  jwt.verify(accessToken, process.env.JWT_SECRET, (err, user) => {
+    if (err) {
+      if (err.name === "TokenExpiredError") {
+        console.log("Access token expired. Attempting to refresh...");
+        return attemptTokenRefresh();
+      }
+      console.log("Invalid access token.", err.message);
+      return sendAccessDenied("Invalid access token");
+    }
+
+    req.user = user;
+    next();
+  });
 };
 
 module.exports = verifyToken;

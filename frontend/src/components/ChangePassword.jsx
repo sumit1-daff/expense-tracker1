@@ -37,6 +37,7 @@ export default function ChangePassword() {
         setNewpassword('');
         setConfirmpassword('');
         setErrorMessage('');
+        setModalOpen(false);
       } else if (result.message === "Invalid password") {
         setErrorMessage((prevState) => ({
           ...prevState,
@@ -70,7 +71,6 @@ export default function ChangePassword() {
             <div className="mb-4">
               <input
                 type="password"
-                value={currentPassword}
                 onChange={(e) => setCurrentpassword(e.target.value)}
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Enter current pasword"
@@ -85,7 +85,6 @@ export default function ChangePassword() {
             <div className="mb-4">
               <input
                 type="password"
-                value={newPassword}
                 onChange={(e) => setNewpassword(e.target.value)}
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 placeholder="New Password"
@@ -101,7 +100,6 @@ export default function ChangePassword() {
               <input
               title="Password must be 8 character long and combination of alphabet, number and special character"
                 type="password"
-                value={confirmPassword}
                 onChange={(e) => setConfirmpassword(e.target.value)}
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Confirm Password"

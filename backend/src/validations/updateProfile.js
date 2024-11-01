@@ -24,7 +24,7 @@ const nameAndEmailSchema = Joi.object({
     }),
 });
 
-const valiadteUpdatedetails = (formData) => {
+const validateUpdatedetails = (formData) => {
   const { error } = nameAndEmailSchema.validate(formData, { abortEarly: false });
   let errors = {
     nameError: null,
@@ -45,4 +45,13 @@ const valiadteUpdatedetails = (formData) => {
   return errors;
 };
 
-module.exports = valiadteUpdatedetails;
+const validateUpdate = async (req, res , next) =>{
+  const errors = validateUpdatedetails(req.body);
+  if(errors.emailError || errors.nameError){
+      return res.status(300).json(errors);
+  }
+  next();
+}
+
+
+module.exports = validateUpdate;

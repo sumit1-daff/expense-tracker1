@@ -87,6 +87,9 @@ exports.authenticateUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email: { $eq: email } });
+    // if (!user || user.isDeleted) {
+    //   return res.status(401).json({ message: "Invalid credentials." });
+    // }
     if (!user) {
       return res.status(401).json({ message: "Invalid credentials." });
     }
@@ -164,5 +167,17 @@ exports.updateProfile = async (req, res) =>{
 }
 
 exports.deleteAccount = async (req, res) =>{
-  console.log("Inside the deleteAccount ");
+  const {_id} = req.user;
+  try{
+    const user = await User.findById(_id);
+  if(!user){
+    return res.status(404).json({message : "User not found"});
+  }
+  await User.findOneAndUpdate({_id},{status : false , isDeleted : true},{new :true});
+  this.logout(req, res);
+  return;
+  }catch(err){
+    console.error("Error occurred while deleting the account", err);
+  }
+
 }
