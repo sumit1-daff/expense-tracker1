@@ -7,11 +7,19 @@ exports.addTransactions = async (req, res) =>{
     res.status(200).json({message : 'Transaction added '});
 }
 
-exports.getTransactions = async (req, res) =>{
-    const {_id} = req.user;
-    const transactions = await Transaction.find({owner : _id});
-    res.status(200).json(transactions);
-}
+exports.getTransactions = async (req, res) => {
+    const { _id } = req.user;
+
+    try {
+        const transactions = await Transaction.find({ owner: _id })
+            .sort({ date: -1 });
+        res.status(200).json(transactions);
+    } catch (error) {
+        console.error("Error fetching transactions:", error);
+        res.status(500).json({ message: "Error fetching transactions" });
+    }
+};
+
 
 exports.getTransaction = async (req, res) =>{
     const {id} =  req.params;

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import SideDrawer from "../../components/SideDrawer";
 import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
+import { MdOutlineModeEditOutline, MdDelete } from "react-icons/md";
+
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,6 +15,7 @@ const Transactions = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [resetAvailable, setResetAvailable] = useState(false);
   const navigate = useNavigate();
+
   const fetchTransactions = async () => {
     try {
       const response = await fetch(
@@ -24,9 +27,7 @@ const Transactions = () => {
           },
         }
       );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+      if (!response.ok) throw new Error("Network response was not ok");
       const data = await response.json();
       setTransactions(data);
     } catch (error) {
@@ -36,19 +37,15 @@ const Transactions = () => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchTransactions();
   }, []);
 
-  const handleEdit = (id) => {
-    navigate(`/edit-transaction/${id}`);
-  };
+  const handleEdit = (id) => navigate(`/edit-transaction/${id}`);
 
   const handleDelete = async (id) => {
-    const confirmation = confirm(
-      "Are you sure you want to delete this transaction?"
-    );
-    if (confirmation) {
+    if (confirm("Are you sure you want to delete this transaction?")) {
       try {
         const response = await fetch(
           `http://localhost:3000/transactions/delete-transaction/${id}`,
@@ -60,12 +57,9 @@ const Transactions = () => {
             },
           }
         );
-        if (response.ok) {
-          fetchTransactions();
-        } 
+        if (response.ok) fetchTransactions();
       } catch (err) {
-        console.log(err);
-        console.log("Error occurred during deleting the transaction");
+        console.log("Error occurred during deleting the transaction", err);
       }
     }
   };
@@ -86,9 +80,9 @@ const Transactions = () => {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
-    setSelectedSubcategory(""); // Reset subcategory when a new category is selected
+    setSelectedSubcategory("");
     setIsCategoryOpen(false);
-    setIsSubcategoryOpen(false); // Close subcategory dropdown
+    setIsSubcategoryOpen(false);
   };
 
   const handleSubcategorySelect = (subcategory) => {
@@ -117,167 +111,165 @@ const Transactions = () => {
       const filteredTransaction = await response.json();
       setTransactions(filteredTransaction);
       setResetAvailable(true);
-    } catch(err){
-      console.error("Error occurered ", err);
+    } catch (err) {
+      console.error("Error occurred", err);
     }
   };
-  const handleResetFilter = async () =>{
+
+  const handleResetFilter = async () => {
     fetchTransactions();
     setResetAvailable(false);
-    setSelectedCategory('');
-    setSelectedSubcategory('');
+    setSelectedCategory("");
+    setSelectedSubcategory("");
     setSelectedDate(null);
-  }
-  return (
-      <div className="flex">
-        <div style={{ position: "fixed", left: 0, top: 0, bottom: 0, width: "250px" }}>
-        <SideDrawer />
-        </div>
-        <div className="w-2/3 flex flex-col my-10 items-center ml-96">
-          <h1 className="text-5xl font-bold mt-5 mb-20">Transactions History</h1>
-          <div className="w-full flex flex-col jusitfy-center">
-            <div className="h-14 flex w-full justify-between mb-7">
-              <div className="h-12">
-                <input
-                  value={selectedDate ? selectedDate : ''}
-                  onChange={(e) => {
-                    setSelectedDate(e.target.value);
-                  }}
-                  type="month"
-                  placeholder="Month"
-                  className="h-12 mb-2 mr-2 border border-slate-300 rounded-lg p-2"
-                />
-              </div>
-              <div className="flex w-2/3 ">
-                <div className="relative box-border mr-2 w-60 inline-block">
-                  <div
-                    className="border rounded-lg border-slate-500 bg-white p-3 cursor-pointer"
-                    onClick={() => setIsCategoryOpen(!isCategoryOpen)}
-                  >
-                    {selectedCategory || (
-                      <span className="text-gray-400">Category</span>
-                    )}
-                  </div>
-                  {isCategoryOpen && (
-                    <ul className="absolute left-0 mt-1 w-full border border-gray-300 bg-white z-10">
-                      {categories.map((category, index) => (
-                        <li
-                          key={index}
-                          className="p-3 cursor-pointer hover:bg-blue-500 hover:text-white"
-                          onClick={() => handleCategorySelect(category)}
-                        >
-                          {category}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
+  };
 
-                <div className="relative box-border mx-2 w-60 inline-block">
-                  <div
-                    className={`border rounded-lg border-slate-500 bg-white p-3 ${
-                      selectedCategory ? "cursor-pointer" : "cursor-not-allowed"
-                    }`}
-                    onClick={() =>
-                      selectedCategory &&
-                      setIsSubcategoryOpen(!isSubcategoryOpen)
-                    }
-                  >
-                    {selectedSubcategory ||
-                      (selectedCategory ? (
-                        <span>Sub Category ({selectedCategory})</span>
-                      ) : (
-                        <span className="text-gray-400">Sub Category</span>
-                      ))}
-                  </div>
-                  {isSubcategoryOpen && selectedCategory && (
-                    <ul className="absolute left-0 mt-1 w-full border border-gray-300 bg-white z-10">
-                      {subcategories[selectedCategory].map(
-                        (subcategory, index) => (
-                          <li
-                            key={index}
-                            className="p-3 cursor-pointer hover:bg-blue-500 hover:text-white"
-                            onClick={() => handleSubcategorySelect(subcategory)}
-                          >
-                            {subcategory}
-                          </li>
-                        )
-                      )}
-                    </ul>
-                  )}
+  return (
+    <div className="flex">
+      <div style={{ position: "fixed", left: 0, top: 0, bottom: 0, width: "250px" }}>
+        <SideDrawer />
+      </div>
+      <div className="flex flex-col my-10 items-center ml-80 w-3/4">
+        <h1 className="text-5xl font-bold mt-5 mb-10">Transactions History</h1>
+        <div className="w-full flex flex-col items-center">
+          <div className="flex w-11/12 justify-between mb-5">
+            <input
+              value={selectedDate || ""}
+              onChange={(e) => setSelectedDate(e.target.value)}
+              type="month"
+              placeholder="Month"
+              className="h-12 mb-2 mr-2 border border-slate-300 rounded-lg p-2"
+            />
+            <div className="flex w-2/3 gap-2">
+              <div className="relative w-60">
+                <div
+                  className="border rounded-lg border-slate-500 bg-white p-3 cursor-pointer"
+                  onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+                >
+                  {selectedCategory || <span className="text-gray-400">Category</span>}
                 </div>
+                {isCategoryOpen && (
+                  <ul className="absolute left-0 mt-1 w-full border border-gray-300 bg-white z-10">
+                    {categories.map((category, index) => (
+                      <li
+                        key={index}
+                        className="p-3 cursor-pointer hover:bg-blue-500 hover:text-white"
+                        onClick={() => handleCategorySelect(category)}
+                      >
+                        {category}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
-              <div className="flex gap-2">
-             {resetAvailable &&  <button
-                onClick={handleResetFilter}
-                className={`bg-red-500 w-20 hover:bg-red-800 active:scale-90 h-12 p-2 text-white rounded-lg`}
-              >
-                Reset
-              </button> }
+              <div className="relative w-60">
+                <div
+                  className={`border rounded-lg border-slate-500 bg-white p-3 ${
+                    selectedCategory ? "cursor-pointer" : "cursor-not-allowed"
+                  }`}
+                  onClick={() => selectedCategory && setIsSubcategoryOpen(!isSubcategoryOpen)}
+                >
+                  {selectedSubcategory ||
+                    (selectedCategory ? (
+                      <span>Sub Category ({selectedCategory})</span>
+                    ) : (
+                      <span className="text-gray-400">Sub Category</span>
+                    ))}
+                </div>
+                {isSubcategoryOpen && selectedCategory && (
+                  <ul className="absolute left-0 mt-1 w-full border border-gray-300 bg-white z-10">
+                    {subcategories[selectedCategory].map((subcategory, index) => (
+                      <li
+                        key={index}
+                        className="p-3 cursor-pointer hover:bg-blue-500 hover:text-white"
+                        onClick={() => handleSubcategorySelect(subcategory)}
+                      >
+                        {subcategory}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+            <div className="flex gap-2">
+              {resetAvailable && (
+                <button
+                  onClick={handleResetFilter}
+                  className="bg-red-500 w-20 hover:bg-red-800 h-12 p-2 text-white rounded-lg"
+                >
+                  Reset
+                </button>
+              )}
               <button
                 onClick={handleFilter}
-                className="bg-blue-500 w-20 hover:bg-blue-800 active:scale-90 h-12 p-2 text-white rounded-lg"
+                className="bg-blue-500 w-20 hover:bg-blue-800 h-12 p-2 text-white rounded-lg"
               >
                 Filter
               </button>
-              </div>
             </div>
-            <table className="border border-black" border="1" cellPadding="10">
-              <thead>
-                <tr>
-                  <th className="border border-black">Transaction Name</th>
-                  <th className="border border-black">Type</th>
-                  <th className="border border-black">Category</th>
-                  <th className="border border-black">Amount</th>
-                  <th className="border border-black">Date</th>
-                  <th className="border border-black">Description</th>
-                  <th className="border border-black">Options</th>
-                </tr>
-              </thead>
-              <tbody>
-                {transactions.map((transaction) => (
-                  <tr key={transaction._id}>
-                    <td className="text-center font-light p-5 border border-black">
-                      {transaction.title}
-                    </td>
-                    <td className="text-center font-light p-5 border border-black">
-                      {transaction.transaction_type}
-                    </td>
-                    <td className="text-center font-light p-5 border border-black">
-                      {transaction.category}
-                    </td>
-                    <td className="text-center font-light p-5 border border-black">
-                      {transaction.amount}
-                    </td>
-                    <td className="text-center font-light p-5 border border-black">
-                      {new Date(transaction.date).toLocaleDateString()}
-                    </td>
-                    <td className="text-center font-light p-5 border border-black">
-                      {transaction.description}
-                    </td>
-                    <td className="text-center font-light p-5 border border-black">
-                      <span
-                        className="text-green-500 hover:text-green-800 hover:underline cursor-pointer"
-                        onClick={() => handleEdit(transaction._id)}
-                      >
-                        Edit
-                      </span>{" "}
-                      /{" "}
-                      <span
-                        className="text-red-500 hover:text-red-800 hover:underline cursor-pointer"
-                        onClick={() => handleDelete(transaction._id)}
-                      >
-                        Delete
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
           </div>
+          <table className="border border-black mx-auto w-11/12">
+            <thead>
+              <tr>
+                <th className="border border-black p-2">Transaction Name</th>
+                <th className="border border-black p-2">Type</th>
+                <th className="border border-black p-2">Category</th>
+                <th className="border border-black p-2">Amount</th>
+                <th className="border border-black p-2">Date</th>
+                <th className="border border-black p-2">Description</th>
+                <th className="border border-black p-2">Options</th>
+              </tr>
+            </thead>
+            <tbody>
+              {transactions.map((transaction) => (
+                <tr key={transaction._id}>
+                  <td className="text-center font-light p-5 border border-black">
+                    {transaction.title}
+                  </td>
+                  <td className="text-center font-light p-5 border border-black">
+                    {transaction.transaction_type}
+                  </td>
+                  <td className="text-center font-light p-5 border border-black">
+                    {transaction.category}
+                  </td>
+                  <td className="text-center font-light p-5 border border-black">
+                    {transaction.amount}
+                  </td>
+                  <td className="text-center font-light p-5 border border-black">
+                    {new Date(transaction.date).toLocaleDateString()}
+                  </td>
+                  <td className="text-center font-light p-5 border border-black">
+                    {transaction.description}
+                  </td>
+                  <td className="text-center font-light p-5 border border-black">
+                    <div className="flex justify-center gap-2">
+                      <MdOutlineModeEditOutline
+                        className="text-green-500 hover:text-green-800 cursor-pointer"
+                        onClick={() => handleEdit(transaction._id)}
+                        title="Edit"
+                      />
+                      <MdDelete
+                        className="text-red-500 hover:text-red-800 cursor-pointer"
+                        onClick={() => handleDelete(transaction._id)}
+                        title="Delete"
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-            <button onClick={()=> navigate('/addtransaction')} style={{"borderRadius" : "100%"}} className="bg-blue-500 hover:bg-blue-800 hover:scale-110 flex items-center justify-center fixed text-white text-2xl w-16 h-16 bottom-4 right-10" title="Add New"><FaPlus /></button>
       </div>
+      <button
+        onClick={() => navigate("/addtransaction")}
+        style={{ borderRadius: "100%" }}
+        className="bg-blue-500 hover:bg-blue-800 hover:scale-110 flex items-center justify-center fixed text-white text-2xl w-16 h-16 bottom-4 right-10"
+        title="Add New"
+      >
+        <FaPlus />
+      </button>
+    </div>
   );
 };
 

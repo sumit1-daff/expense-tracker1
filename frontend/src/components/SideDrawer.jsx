@@ -32,7 +32,7 @@ export default function SideDrawer(props) {
     <div className="h-screen border-solid border-2 shadow-xl w-60 justify-center bg-white">
       <div
         onClick={() => navigate("/")}
-        className="text-center p-4 text-3xl font-bold flex items-center"
+        className="text-center p-4 text-3xl font-bold flex items-center cursor-pointer"
       >
         <p className="text-center">
           Expense
