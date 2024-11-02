@@ -84,6 +84,7 @@ export default function SignUp() {
           <div>
             <input
               autoComplete="off"
+              value={"sumit singh"}
               className="w-full h-12 p-4 border-2 border-gray-300 outline-none focus:border-gray-500"
               placeholder="Enter your Full name"
               {...register("name")}
@@ -93,6 +94,7 @@ export default function SignUp() {
           <div>
             <input
               autoComplete="off"
+              value={"sumit.test2409@gmail.com"}
               type="email"
               className="w-full h-12 p-4 border-2 border-gray-300 outline-none focus:border-gray-500"
               placeholder="Enter your Email"
@@ -103,6 +105,7 @@ export default function SignUp() {
           <div>
             <input
               autoComplete="off"
+              value={"Sumit@1234"}
               type="password"
               className="w-full h-12 p-4 border-2 border-gray-300 outline-none focus:border-gray-500"
               placeholder="Enter your password"
@@ -114,6 +117,7 @@ export default function SignUp() {
             <input
               autoComplete="off"
               type="password"
+              value={"Sumit@1234"}
               className="w-full h-12 p-4 border-2 border-gray-300 outline-none focus:border-gray-500"
               placeholder="Confirm password"
               {...register("confirmPassword")}
