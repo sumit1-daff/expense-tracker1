@@ -17,7 +17,7 @@ const sendResetLink = async (email) =>{
       from: process.env.EMAIL_ID,
       to: email,
       subject: 'Reset Password Link',
-      text: `Click on the link to reset your password: http://localhost:5173/reset-password/${token} \n\nIf you didn't register, you can ignore this email.`
+      text: `Click on the link to reset your password: ${process.env.REACT_APP_CLIENT_URL}/reset-password/${token} \n\nIf you didn't register, you can ignore this email.`
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
