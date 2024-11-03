@@ -12,7 +12,7 @@ export default function SideDrawer(props) {
 
   const handleLogout = async () => {
     try {
-      let response = await fetch("http://localhost:3000/auth/logout", {
+      let response = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/logout`, {
         method: "POST",
         credentials: "include",
       });
