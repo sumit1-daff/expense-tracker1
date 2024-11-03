@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function ForgotPassword() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -22,7 +23,7 @@ export default function ForgotPassword() {
       });
       const result = await response.json();
       if (response.ok) {
-        alert("Account deleted successfully. Redirecting to the home page");
+        toast.success("Account deleted.",{autoClose : 2000});
         setModalOpen(false);
         navigate('/');
       } else {
@@ -35,6 +36,7 @@ export default function ForgotPassword() {
 
   return (
     <div>
+      <ToastContainer position="top-center" />
       <button
         className="w-full bg-red-500 text-white py-2 px-4 my-2 rounded-md hover:bg-red-600"
         onClick={() => { setModalOpen(true) }}

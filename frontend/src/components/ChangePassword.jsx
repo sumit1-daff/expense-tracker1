@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function ChangePassword() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -32,7 +33,7 @@ export default function ChangePassword() {
       );
       const result = await response.json();
       if (response.ok) {
-        alert("Password Changed Successfully");
+        toast.success("Password Changed Successfully",{autoClose : 2000});
         setCurrentpassword('');
         setNewpassword('');
         setConfirmpassword('');
@@ -44,6 +45,7 @@ export default function ChangePassword() {
           currentPasswordError: result.message,
         }));
       }else{
+        toast.error("Could not change Password");
         setErrorMessage((prevState)=>({
           ...prevState,
           currentPasswordError : result.currentPasswordError,
@@ -52,12 +54,14 @@ export default function ChangePassword() {
         }));
       }
     } catch (error) {
+      toast.error("Error Occurred. Please try again later");
       console.log("Error occurred", error);
     }
   };
 
   return (
     <div>
+      <ToastContainer position="top-center" />
       <button
         className="bg-blue-500 text-white hover:bg-blue-800 active:scale-95 w-40 h-10 rounded-lg"
         onClick={() => setModalOpen(true)}

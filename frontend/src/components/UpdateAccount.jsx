@@ -1,100 +1,103 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
 import DeleteAccount from '../components/DeleteAccount';
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function ChangePassword() {
   const [isModalOpen, setModalOpen] = useState(false);
-  const [name , setName] = useState("sumit");
+  const [name, setName] = useState("sumit");
   const [email, setEmail] = useState('sngsumit2003@gmail.com');
   const [errorMessage, setErrorMessage] = useState({
-    nameError : null,
-    emailError : null,
+    nameError: null,
+    emailError: null,
   });
-  const data = {
-    name : name,
-    email : email
-  }
-  const handleEdit = async () => {
-    event.preventDefault();
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
     try {
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/update-profile`,{
-        method : "POST",
-        body : JSON.stringify(data),
-        credentials : "include",
-        headers : {
-          "Content-type" : "application/json"
-        }
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/update-profile`, {
+        method: "POST",
+        body: JSON.stringify({ name, email }),
+        credentials: "include",
+        headers: {
+          "Content-type": "application/json",
+        },
       });
+
       const result = await response.json();
-      if(response.ok){
-        alert("Data updated successfully");
+
+      if (response.ok) {
+        toast.success("Data updated successfully", { autoClose: 2000 });
         setErrorMessage({});
         setModalOpen(false);
-      }else{
+      } else {
         setErrorMessage(result);
       }
-
     } catch (error) {
-      console.log("Error occurred", error);
+      console.error("Error occurred", error);
+      toast.error("An error occurred. Please try again.");
     }
   };
 
-
   return (
     <div>
+      {/* ToastContainer ideally should be in App.js for a single instance across the app */}
       <button
-        className="bg-blue-500 text-white w-40 h-10 rounded-lg hover:bg-blue-800 active:scale-95 "
+        className="bg-blue-500 text-white w-40 h-10 rounded-lg hover:bg-blue-800 active:scale-95"
         onClick={() => setModalOpen(true)}
       >
         Edit
       </button>
-      <div className="text-center">
-        <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
-          <h2 className="text-2xl font-bold mb-4">Edit Account Details</h2>
-          <form onSubmit={handleEdit}>
-            <div className="mb-4 text-left">
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter Full Name"
-                required
-              />
-              <div className="h-8 text-sm text-red-500 text-left p-1">
-                {errorMessage.nameError && (
-                  <span>{errorMessage.nameError}</span>
-                )}
-              </div>
-            </div>
-            <div className="mb-4 text-left">
-              <label htmlFor="email">Email</label>
-              <input
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter your email"
-                required
-              />
-               <div className="h-8 text-sm text-red-500 text-left p-1">
-                {errorMessage.emailError && (
-                  <span>{errorMessage.emailError}</span>
-                )}
-              </div>
-            </div>
-            
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
-            >
-              Save Changes
-            </button>
 
-          </form>
-            <DeleteAccount />
-        </Modal>
-      </div>
+      <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+        <h2 className="text-2xl font-bold mb-4">Edit Account Details</h2>
+        <form onSubmit={handleEdit}>
+          <div className="mb-4 text-left">
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter Full Name"
+              required
+            />
+            {errorMessage.nameError && (
+              <div className="h-8 text-sm text-red-500 text-left p-1">
+                {errorMessage.nameError}
+              </div>
+            )}
+          </div>
+
+          <div className="mb-4 text-left">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter your email"
+              required
+            />
+            {errorMessage.emailError && (
+              <div className="h-8 text-sm text-red-500 text-left p-1">
+                {errorMessage.emailError}
+              </div>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+          >
+            Save Changes
+          </button>
+        </form>
+
+        {/* DeleteAccount Component */}
+        <DeleteAccount />
+      </Modal>
     </div>
   );
 }

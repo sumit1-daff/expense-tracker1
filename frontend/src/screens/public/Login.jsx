@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import ForgotPassword from "../../components/ForgotPassword";
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function Login() {
   const { register, handleSubmit, formState: { isSubmitting } } = useForm();
@@ -14,6 +15,7 @@ export default function Login() {
       let response = await authenticateUser(username, password);
       const result = await response.json();
       if (response.ok) {
+        toast.success("User Login Successful");
         navigate('/dashboard');
       }
       else if(result.message === "Validation Failed"){
@@ -21,6 +23,7 @@ export default function Login() {
           setPasswordError(result.errors.password);
         }
       else{
+        toast.error("Invalid Credentials");
         setAuthError("Invalid credentials. Please try again");
       }
       

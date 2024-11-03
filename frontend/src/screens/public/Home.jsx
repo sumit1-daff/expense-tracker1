@@ -1,6 +1,11 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
+import { ToastContainer , toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import  { Toaster } from 'react-hot-toast';
 export default function Home({ isLoggedIn }) {
+  const notify = () => toast("Wow so easy!");
+  const hotNotify = () => toast('Here is your toast.');
   return (
     <>
       {!isLoggedIn ? (
@@ -20,6 +25,12 @@ export default function Home({ isLoggedIn }) {
       ) : (
         <div>Welcome to the home page!!!</div>
       )}
+       <button className="bg-blue-500 p-2 text-white ml-96 mt-10" onClick={notify}>Notify!</button>
+        <ToastContainer />
+        <div>
+      <button className="bg-blue-500 p-2 text-white ml-96 mt-10" onClick={hotNotify}>Make me a toast</button>
+      <Toaster />
+    </div>
     </>
   );
 }

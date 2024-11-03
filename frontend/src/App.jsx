@@ -1,6 +1,7 @@
 import React from "react";
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import toast, { Toaster } from 'react-hot-toast';
 import Login from "./screens/public/Login";
 import Signup from "./screens/public/Signup";
 import DashBoard from "./screens/protected/DashBoard";
@@ -20,6 +21,7 @@ import ResetPassword from "./screens/public/ResetPassword";
 function App() {
   return (
     <Router>
+      <Toaster position="top-center" reverseOrder={false} />
       <Routes>
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<DashBoard />} />
