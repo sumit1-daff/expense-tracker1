@@ -16,7 +16,7 @@ export default function ChangePassword() {
   const handleEdit = async () => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/auth/update-profile',{
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/update-profile`,{
         method : "POST",
         body : JSON.stringify(data),
         credentials : "include",

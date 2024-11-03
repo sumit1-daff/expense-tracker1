@@ -20,7 +20,7 @@ export default function ChangePassword() {
     event.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:3000/auth/change-password",
+        `${import.meta.env.VITE_SERVER_URL}/auth/change-password`,
         {
           method: "POST",
           credentials: "include",

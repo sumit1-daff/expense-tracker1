@@ -7,11 +7,11 @@ export default function PublicRoute() {
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
-        const response = await fetch("http://localhost:3000/auth/is_protected", {
+        const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/is_protected`, {
           method: 'GET',
           credentials: 'include',
         });
-        setIsLoggedIn(response.ok); // Set login state based on response
+        setIsLoggedIn(response.ok); 
       } catch (error) {
         setIsLoggedIn(false);
       }
@@ -21,7 +21,7 @@ export default function PublicRoute() {
   }, []);
 
   if (isLoggedIn === null) {
-    return <div>Loading .... </div>; // Show loading state
+    return <div>Loading .... </div>; 
   }
 
   return isLoggedIn ? <Navigate to="/dashboard" /> : <Outlet />;

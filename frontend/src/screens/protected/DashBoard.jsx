@@ -45,7 +45,7 @@ export default function DashBoard() {
   const fetchTransactions = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3000/transactions/get-transactions",
+        `${import.meta.env.VITE_SERVER_URL}/transactions/get-transactions`,
         {
           credentials: "include",
           headers: {

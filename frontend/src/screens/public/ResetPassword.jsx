@@ -15,7 +15,7 @@ export default function ResetPassword() {
         console.log(formData);
         console.log(token);
         try {
-            const response = await fetch('http://localhost:3000/auth/reset-password', {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/reset-password`, {
                 method: "POST",
                 credentials: "include",
                 headers: {

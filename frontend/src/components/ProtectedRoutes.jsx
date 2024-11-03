@@ -7,7 +7,7 @@ export default function ProtectedRoute() {
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
-        const response = await fetch("http://localhost:3000/auth/is_protected", {
+        const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/is_protected`, {
           method: 'GET',
           credentials: 'include',
         });

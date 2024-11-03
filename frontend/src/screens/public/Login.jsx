@@ -29,7 +29,7 @@ export default function Login() {
     const authenticateUser = async (email, password) => {
       console.log("authenticate user");
       try {
-        let response = await fetch('http://localhost:3000/auth/login', {
+        let response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

@@ -19,7 +19,7 @@ const Transactions = () => {
   const fetchTransactions = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3000/transactions/get-transactions",
+        `${import.meta.env.VITE_SERVER_URL}/transactions/get-transactions`,
         {
           credentials: "include",
           headers: {
@@ -48,7 +48,7 @@ const Transactions = () => {
     if (confirm("Are you sure you want to delete this transaction?")) {
       try {
         const response = await fetch(
-          `http://localhost:3000/transactions/delete-transaction/${id}`,
+          `${import.meta.env.VITE_SERVER_URL}/transactions/delete-transaction/${id}`,
           {
             method: "DELETE",
             credentials: "include",
@@ -98,7 +98,7 @@ const Transactions = () => {
     };
     try {
       const response = await fetch(
-        `http://localhost:3000/transactions/get-transactions/filter`,
+        `${import.meta.env.VITE_SERVER_URL}/transactions/get-transactions/filter`,
         {
           method: "POST",
           body: JSON.stringify(filterArray),

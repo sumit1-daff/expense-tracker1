@@ -11,7 +11,7 @@ app.use(cookieParser());
 dotenv.config();
 
 const corsOption = {
-  origin: process.env.CLIENT_URL,
+  origin: process.env.REACT_APP_CLIENT_URL,
   credentials: true,
 };
 app.use(cors(corsOption));

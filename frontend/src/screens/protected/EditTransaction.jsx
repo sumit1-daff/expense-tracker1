@@ -27,7 +27,7 @@ export default function EditTransaction() {
   const fetchTransaction = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/transactions/get-transaction/${id}`, {
+        `${import.meta.env.VITE_SERVER_URL}/transactions/get-transaction/${id}`, {
           credentials: 'include',
         }
       );
@@ -73,7 +73,7 @@ export default function EditTransaction() {
         transaction_type: selectedCategory,
         category: selectedSubcategory,
       };
-      const response = await fetch(`http://localhost:3000/transactions/update-transaction/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/transactions/update-transaction/${id}`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

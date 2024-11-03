@@ -16,7 +16,7 @@ export default function AddExpense() {
         category,
         subcategory,
       };
-      const response = await fetch('http://localhost:3000/transactions/addtransaction', {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/transactions/addtransaction`, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {

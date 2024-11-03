@@ -14,7 +14,7 @@ export default function UserProfile() {
 
   const fetchUser = useCallback(async () => {
     try {
-      const response = await fetch("http://localhost:3000/auth/user-details", {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/user-details`, {
         method: "GET",
         credentials: "include",
       });

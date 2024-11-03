@@ -29,7 +29,7 @@ function App() {
           <Route path="/profile" element={<UserProfile />} />
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Route>
-        {/* <Route element={<PublicRoute />}> */}
+        <Route element={<PublicRoute />}>
           <Route path='/reset-password/:token' element={<ResetPassword/>}/>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
@@ -38,7 +38,7 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/services" element={<Services />} />
         <Route path='/verify-email/:token' element={<VerifyEmail/>} />
-        {/* </Route> */}
+        </Route>
       </Routes>
     </Router>
   );

@@ -12,7 +12,7 @@ export default function ForgotPassword() {
   const handleDelete = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/auth/delete-account', {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/delete-account`, {
         method: "POST",
         credentials: "include",
         body: JSON.stringify({ password }),

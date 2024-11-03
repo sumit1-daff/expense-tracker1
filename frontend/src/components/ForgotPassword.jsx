@@ -10,7 +10,7 @@ export default function ForgotPassword() {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:3000/auth/forgot-password",
+        `${import.meta.env.VITE_SERVER_URL}/auth/forgot-password`,
         {
           method: "POST",
           body: JSON.stringify({ email }),

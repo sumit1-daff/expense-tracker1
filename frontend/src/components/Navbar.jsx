@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 export default function Navbar({ isLoggedIn }) {
   const handleLogOut = async () => {
     try {
-      let response = await fetch("http://localhost:3000/auth/logout", {
+      let response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/logout`, {
         method: "POST",
         credentials: "include",
       });
