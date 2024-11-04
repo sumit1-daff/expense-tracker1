@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SideDrawer from '../../components/SideDrawer';
 import { useForm } from 'react-hook-form';
 import CategoryDropdown from '../../components/CategoryDropdown';
+import toast from 'react-hot-toast';
 
 export default function AddExpense() {
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm();
@@ -28,16 +29,17 @@ export default function AddExpense() {
       console.log(result);
 
       if (response.ok) {
-        alert('Transaction added!');
+        toast.success("Transaction added successfully");
         reset();
       } else if (result.message === "Validation Failed") {
         console.log("Validation error detected");
         setError(result.errors);
       } else {
-        alert('Transaction could not be added');
+        toast.error("Transaction could not be added");
         console.log('Transaction not added');
       }
     } catch (err) {
+      toast.error("Transaction could not be added");
       console.log('Some error occurred', err);
     }
   };

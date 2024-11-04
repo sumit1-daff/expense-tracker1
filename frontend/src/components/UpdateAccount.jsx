@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
 import DeleteAccount from '../components/DeleteAccount';
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-hot-toast";
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function ChangePassword() {

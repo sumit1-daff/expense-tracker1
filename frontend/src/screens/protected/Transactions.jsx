@@ -3,6 +3,7 @@ import SideDrawer from "../../components/SideDrawer";
 import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import { MdOutlineModeEditOutline, MdDelete } from "react-icons/md";
+import toast from "react-hot-toast";
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
@@ -41,7 +42,7 @@ const Transactions = () => {
   useEffect(() => {
     fetchTransactions();
   }, []);
-
+  
   const handleEdit = (id) => navigate(`/edit-transaction/${id}`);
 
   const handleDelete = async (id) => {
@@ -57,8 +58,12 @@ const Transactions = () => {
             },
           }
         );
-        if (response.ok) fetchTransactions();
+        if (response.ok) {
+          toast.success("Transaction Deleted");
+          fetchTransactions();
+        }
       } catch (err) {
+        toast.error("Error Occurred");
         console.log("Error occurred during deleting the transaction", err);
       }
     }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useParams, useNavigate } from 'react-router-dom';
 
 export default function ResetPassword() {
@@ -27,12 +28,15 @@ export default function ResetPassword() {
             if (response.ok) {
                 console.log("Password reset successful");
                 alert("Password Reset successful. Redirecting to the login page");
+                toast.success("Password Changed. Redirecting to Login Page", {autoClose : 4000});
                 setFormData({});
                 navigate('/login');
             } else {
+                toast.error("Password Reset failed");
                 console.log("Password reset failed");
             }
         } catch (error) {
+            toast.error("Password Reset failed");
             console.error("Error resetting password:", error);
         }
     }

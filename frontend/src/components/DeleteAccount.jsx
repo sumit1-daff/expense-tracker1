@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-hot-toast"
 
 export default function ForgotPassword() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -36,7 +36,6 @@ export default function ForgotPassword() {
 
   return (
     <div>
-      <ToastContainer position="top-center" />
       <button
         className="w-full bg-red-500 text-white py-2 px-4 my-2 rounded-md hover:bg-red-600"
         onClick={() => { setModalOpen(true) }}

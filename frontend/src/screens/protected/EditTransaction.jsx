@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SideDrawer from "../../components/SideDrawer";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 export default function EditTransaction() {
   const {
@@ -33,7 +34,6 @@ export default function EditTransaction() {
       );
       if (response.ok) {
         const result = await response.json();
-        console.log(result);
         const formattedTransaction = {
           ...result,
           name: result.title,
@@ -43,7 +43,7 @@ export default function EditTransaction() {
         setSelectedSubcategory(formattedTransaction.category);
         reset(formattedTransaction);
       } else {
-        alert("Some error occurred");
+        toast.error("Some error occurred");
       }
     } catch (err) {
       console.error("Some error occurred", err);
@@ -84,7 +84,7 @@ export default function EditTransaction() {
       const result = await response.json();
       
       if (response.ok) {
-        alert("Data updated successfully!");
+        toast.success("Transaction Updated");
         navigate('/transactions');
       } else if (result.message === "Validation Failed") {
         setTransactionError(result.errors); // Update error state with backend validation errors

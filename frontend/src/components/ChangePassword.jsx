@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 export default function ChangePassword() {
   const [isModalOpen, setModalOpen] = useState(false);
-  const [currentPassword, setCurrentpassword] = useState("");
-  const [newPassword, setNewpassword] = useState("");
-  const [confirmPassword, setConfirmpassword] = useState("");
+  const [currentPassword, setCurrentpassword] = useState("Sumit@1234");
+  const [newPassword, setNewpassword] = useState("Sumit@1234");
+  const [confirmPassword, setConfirmpassword] = useState("Sumit@1234");
   const [errorMessage, setErrorMessage] = useState({
     currentPasswordError: null,
     newPasswordError: null,
@@ -61,7 +61,6 @@ export default function ChangePassword() {
 
   return (
     <div>
-      <ToastContainer position="top-center" />
       <button
         className="bg-blue-500 text-white hover:bg-blue-800 active:scale-95 w-40 h-10 rounded-lg"
         onClick={() => setModalOpen(true)}
@@ -75,6 +74,7 @@ export default function ChangePassword() {
             <div className="mb-4">
               <input
                 type="password"
+                value={currentPassword}
                 onChange={(e) => setCurrentpassword(e.target.value)}
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Enter current pasword"
@@ -89,6 +89,7 @@ export default function ChangePassword() {
             <div className="mb-4">
               <input
                 type="password"
+                value={newPassword}
                 onChange={(e) => setNewpassword(e.target.value)}
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 placeholder="New Password"
@@ -104,6 +105,7 @@ export default function ChangePassword() {
               <input
               title="Password must be 8 character long and combination of alphabet, number and special character"
                 type="password"
+                value={confirmPassword}
                 onChange={(e) => setConfirmpassword(e.target.value)}
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Confirm Password"

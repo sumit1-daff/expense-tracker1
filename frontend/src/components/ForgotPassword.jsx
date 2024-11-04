@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
+import toast from "react-hot-toast";
 
 export default function ForgotPassword() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -21,14 +22,15 @@ export default function ForgotPassword() {
         }
       );
       const result = await response.json();
-      console.log(result);
       if (result.error) {
         setEmailError(result.error);
       }
       if (response.ok) {
+        toast.success("Reset Link sent to your email");
         setEmailSent(true);
       }
     } catch (err) {
+      toast.error("Error Occurred");
       console.error("Error occurred ", err);
     }
   };

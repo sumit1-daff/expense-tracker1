@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 export default function SignUp() {
   const {
@@ -26,7 +27,7 @@ export default function SignUp() {
 
       if (response.ok) {
         reset();
-        alert("User added successfully!!!");
+        toast.success("User Created Succesfully");
         const { email, password } = data;
         const loginResponse = await authenticateUser(email, password);
         if (loginResponse.ok) {
@@ -39,7 +40,7 @@ export default function SignUp() {
       } else if (result.message === "Validation Failed") {
         setFormErrors(result.errors);
       } else {
-        alert("Some error occurred.");
+        toast.error("Error occurred.");
       }
     } catch (err) {
       console.log(err);

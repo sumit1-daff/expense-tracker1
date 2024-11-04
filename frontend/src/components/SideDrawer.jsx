@@ -5,6 +5,7 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import { GrTransaction } from "react-icons/gr";
 import { MdManageAccounts } from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
+import toast from "react-hot-toast";
 
 export default function SideDrawer(props) {
   const location = useLocation();
@@ -17,11 +18,11 @@ export default function SideDrawer(props) {
         credentials: "include",
       });
       if (response.ok) {
+        toast.success("User Log Out");
         navigate("/");
-      } else {
-        console.log("Some error occurred during log out");
       }
     } catch (err) {
+      toast.error("Error Occurred");
       console.log("Some error occurred", err);
     }
   };
