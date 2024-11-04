@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, Navigate } from "react-router-dom";
 
-export default function ProtectedRoute() {
+export default function PublicRoute() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
 
   useEffect(() => {
@@ -11,12 +11,7 @@ export default function ProtectedRoute() {
           method: 'GET',
           credentials: 'include',
         });
-
-        if (response.ok) {
-          setIsLoggedIn(true);
-        } else {
-          setIsLoggedIn(false);
-        }
+        setIsLoggedIn(response.ok); 
       } catch (error) {
         setIsLoggedIn(false);
       }
@@ -26,8 +21,8 @@ export default function ProtectedRoute() {
   }, []);
 
   if (isLoggedIn === null) {
-    return <div>Loading .... </div>; // Show loading state
+    return <div>Loading .... </div>; 
   }
 
-  return isLoggedIn ? <Outlet /> : <Navigate to="/" />; // Redirect to home if not logged in
+  return isLoggedIn ? <Navigate to="/dashboard" /> : <Outlet />;
 }

@@ -11,22 +11,22 @@ app.use(cookieParser());
 dotenv.config();
 
 const corsOption = {
-  origin: process.env.CLIENT_URL,
+  origin: process.env.REACT_APP_CLIENT_URL,
   credentials: true,
 };
-app.use(cors(corsOption))
+app.use(cors(corsOption));
 
 async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/expense-tracker").then(()=>{
     console.log("Db connected Successfully");
   })
 }
-main()
-app.use("/auth/", authRouter);
-app.use('/transactions/',transactionRouter);
+main();
+
+app.use("/auth", authRouter);
+app.use('/transactions',transactionRouter);
+
 app.get("/", (req, res) => {
-  // res.cookie("cookie","cookievalue");
-  // res.cookie("sumit","singh");
   res.send("BACKEND FOR THE EXPENSE TRACKER APP");
 });
 
