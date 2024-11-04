@@ -31,6 +31,13 @@ const CategoryDropdown = ({ onDataPass }) => {
       });
     }
   }, [selectedCategory, selectedSubcategory, onDataPass]);
+  
+  useState(()=>{
+    if(resetTrigger){
+      setCategory('');
+      setSubcategory('');
+    }
+  })
 
   return (
     <div className="flex justify-between">

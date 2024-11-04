@@ -3,12 +3,12 @@ import SideDrawer from '../components/SideDrawer';
 import { useForm } from 'react-hook-form';
 import CategoryDropdown from '../components/CategoryDropdown';
 
-export default function AddExpense() {
+export default function AddTransaction() {
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm();
 
   const [category, setCategory] = useState('');
   const [subcategory, setSubcategory] = useState('');
-
+  const resetTrigger = false;
   const handleAddTransaction = async (data) => {
     try {
       const formData = {
@@ -23,10 +23,10 @@ export default function AddExpense() {
           'Content-type': 'application/json',
         },
       });
-
       if (response.ok) {
         alert('Transaction added!');
         reset();
+        resetTrigger = true;
         setCategory('');
         setSubcategory(''); 
       } else {
@@ -70,7 +70,7 @@ export default function AddExpense() {
                   </div>
                 </div>
                 <div className="w-4/5 mx-auto my-4">
-                  <CategoryDropdown onDataPass={handleCategory} />
+                  <CategoryDropdown resetTrigger ={resetTrigger} onDataPass={handleCategory} />
                 </div>
                 <div className="w-4/5 mx-auto my-4">
                   <input
