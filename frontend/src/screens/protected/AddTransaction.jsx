@@ -61,6 +61,7 @@ export default function AddExpense() {
               <div>
                 <input
                   type="text"
+                  autoComplete='off'
                   {...register('name')}
                   className="w-full h-12 p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
                   placeholder="Transaction Name"
@@ -77,6 +78,7 @@ export default function AddExpense() {
               <div>
                 <input
                   type="number"
+                  autoComplete='off'
                   {...register('amount')}
                   className="w-full h-12 p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
                   placeholder="Amount"
@@ -88,6 +90,7 @@ export default function AddExpense() {
               <div>
                 <input
                   type="date"
+                  autoComplete='off'
                   {...register('date')}
                   className="w-full h-12 p-3 border border-gray-300 rounded-lg text-gray-500 focus:border-blue-500 focus:outline-none"
                 />
@@ -98,6 +101,7 @@ export default function AddExpense() {
               <div>
                 <input
                   type="text"
+                  autoComplete='off'
                   {...register('description')}
                   className="w-full h-12 p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
                   placeholder="Description"
