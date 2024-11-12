@@ -32,13 +32,6 @@ const CategoryDropdown = ({ onDataPass }) => {
     }
   }, [selectedCategory, selectedSubcategory, onDataPass]);
   
-  useState(()=>{
-    if(resetTrigger){
-      setCategory('');
-      setSubcategory('');
-    }
-  })
-
   return (
     <div className="flex justify-between">
       <div className="relative box-border mr-2 w-1/2 inline-block">
