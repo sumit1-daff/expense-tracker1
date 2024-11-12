@@ -86,40 +86,39 @@ const Transactions = () => {
     ],
   };
   
-  const handleDownload = () =>{
+  const handleDownload = () => {
     const doc = new jsPDF();
-    doc.text("Transaction History",10,10);
+    doc.text("Transaction History", 10, 10);
     doc.setFontSize(10);
     const columns = [
       "Transaction Name",
-      " Amount",
+      "Amount",
       "Type",
       "Category",
       "Date",
       "Description"
     ];
-    console.log(transactions);
-    const rows = transactions.map(transaction =>{
+    const rows = transactions.map(transaction => [
       transaction.title,
       transaction.amount,
       transaction.transaction_type,
       transaction.category,
       new Date(transaction.date).toLocaleDateString(),
       transaction.description
-    });
-
-    autoTable(doc,{
-      head : [columns],
-      body : rows,
-      startY : 25,
-      styles : {halign : 'center', fontSize : 10},
-      headStyles : {
-        fillColor : [0,0,0]
+    ]);
+  
+    // Add table to PDF
+    autoTable(doc, {
+      head: [columns],
+      body: rows,
+      startY: 25,
+      styles: { halign: 'center', fontSize: 10 },
+      headStyles: {
+        fillColor: [0, 0, 0]
       },
     });
-
     doc.save("Transactions.pdf");
-  }
+  };
   
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
@@ -166,7 +165,6 @@ const Transactions = () => {
     setSelectedSubcategory("");
     setSelectedDate(null);
   };
-
   return (
     <div className="flex">
       <div style={{ position: "fixed", left: 0, top: 0, bottom: 0, width: "250px" }}>
@@ -276,7 +274,7 @@ const Transactions = () => {
                     {transaction.category}
                   </td>
                   <td className="text-center font-light p-5 border border-black">
-                    {transaction.amount}
+                   ₹ {transaction.amount}
                   </td>
                   <td className="text-center font-light p-5 border border-black">
                     {new Date(transaction.date).toLocaleDateString()}
@@ -308,7 +306,7 @@ const Transactions = () => {
         onClick={() => handleDownload()}
         style={{ borderRadius: "100%" }}
         className="bg-green-500 hover:bg-green-800 hover:scale-110 flex items-center justify-center fixed text-white text-2xl w-16 h-16 bottom-24 right-10"
-        title="Add New"
+        title="Download History"
       >
         <FaDownload />
         </button>

@@ -58,12 +58,10 @@ export default function DashBoard() {
       }
       const data = await response.json();
 
-      // Sort transactions by date in descending order
       const sortedTransactions = data.sort(
         (a, b) => new Date(b.date) - new Date(a.date)
       );
 
-      // Set the most recent 4 transactions
       setTransactions(sortedTransactions.slice(0, 4));
 
       const aggregateByMonth = (transactions, type) => {
@@ -182,7 +180,7 @@ export default function DashBoard() {
                     : "text-red-500"
                 }`}
               >
-                {transaction.amount}
+                ₹ {transaction.amount}
               </p>
               <p className="text-sm my-1">{transaction.description}</p>
               <p className="text-sm">
