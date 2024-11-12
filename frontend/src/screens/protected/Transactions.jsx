@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import { MdOutlineModeEditOutline, MdDelete } from "react-icons/md";
 import toast from "react-hot-toast";
+import { FaDownload } from "react-icons/fa";
+import jsPDF from 'jspdf';
+import autoTable from "jspdf-autotable";
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
@@ -82,7 +85,42 @@ const Transactions = () => {
       "Other",
     ],
   };
+  
+  const handleDownload = () =>{
+    const doc = new jsPDF();
+    doc.text("Transaction History",10,10);
+    doc.setFontSize(10);
+    const columns = [
+      "Transaction Name",
+      " Amount",
+      "Type",
+      "Category",
+      "Date",
+      "Description"
+    ];
+    console.log(transactions);
+    const rows = transactions.map(transaction =>{
+      transaction.title,
+      transaction.amount,
+      transaction.transaction_type,
+      transaction.category,
+      new Date(transaction.date).toLocaleDateString(),
+      transaction.description
+    });
 
+    autoTable(doc,{
+      head : [columns],
+      body : rows,
+      startY : 25,
+      styles : {halign : 'center', fontSize : 10},
+      headStyles : {
+        fillColor : [0,0,0]
+      },
+    });
+
+    doc.save("Transactions.pdf");
+  }
+  
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
     setSelectedSubcategory("");
@@ -266,6 +304,14 @@ const Transactions = () => {
           </table>
         </div>
       </div>
+      <button
+        onClick={() => handleDownload()}
+        style={{ borderRadius: "100%" }}
+        className="bg-green-500 hover:bg-green-800 hover:scale-110 flex items-center justify-center fixed text-white text-2xl w-16 h-16 bottom-24 right-10"
+        title="Add New"
+      >
+        <FaDownload />
+        </button>
       <button
         onClick={() => navigate("/addtransaction")}
         style={{ borderRadius: "100%" }}
