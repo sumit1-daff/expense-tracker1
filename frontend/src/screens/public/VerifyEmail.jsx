@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { URLS } from '../../routes/apiEndPoints';
 
 const VerifyEmail = () => {
   const {token} = useParams();
@@ -7,7 +8,7 @@ const VerifyEmail = () => {
   const navigate = useNavigate();
   const verifyEmail = async ()=>{
     console.log("Inside the verify email");
-    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/verify-email/${token}`,{
+    const response = await fetch(URLS.verifyEmail(token),{
       method : "GET",
       credentials : 'include',
     });

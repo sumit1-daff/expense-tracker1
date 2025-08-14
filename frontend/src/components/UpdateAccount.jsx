@@ -3,6 +3,7 @@ import Modal from "./Modal";
 import DeleteAccount from '../components/DeleteAccount';
 import { toast } from "react-hot-toast";
 import 'react-toastify/dist/ReactToastify.css';
+import { URLS } from "../routes/apiEndPoints";
 
 export default function ChangePassword() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -16,7 +17,7 @@ export default function ChangePassword() {
   const handleEdit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/update-profile`, {
+      const response = await fetch(URLS.updateProfile, {
         method: "POST",
         body: JSON.stringify({ name, email }),
         credentials: "include",

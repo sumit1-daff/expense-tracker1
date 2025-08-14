@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, Navigate } from "react-router-dom";
+import { URLS } from "../routes/apiEndPoints";
 
 export default function ProtectedRoute() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
@@ -7,7 +8,7 @@ export default function ProtectedRoute() {
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/is_protected`, {
+        const response = await fetch(URLS.isProtected, {
           method: 'GET',
           credentials: 'include',
         });

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast"
+import { URLS } from "../routes/apiEndPoints";
 
 export default function ForgotPassword() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -13,7 +14,7 @@ export default function ForgotPassword() {
   const handleDelete = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/delete-account`, {
+      const response = await fetch(URLS.deleteAccount, {
         method: "POST",
         credentials: "include",
         body: JSON.stringify({ password }),

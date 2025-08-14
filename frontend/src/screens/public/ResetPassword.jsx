@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useParams, useNavigate } from 'react-router-dom';
+import { URLS } from '../../routes/apiEndPoints';
 
 export default function ResetPassword() {
     const {token} = useParams();
@@ -16,7 +17,7 @@ export default function ResetPassword() {
         console.log(formData);
         console.log(token);
         try {
-            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/reset-password`, {
+            const response = await fetch(URLS.resetPassword, {
                 method: "POST",
                 credentials: "include",
                 headers: {

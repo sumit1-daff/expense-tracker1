@@ -1,15 +1,16 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { URLS } from "../routes/apiEndPoints";
 export default function Navbar({ isLoggedIn }) {
+  const navigate = useNavigate();
   const handleLogOut = async () => {
     try {
-      let response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/logout`, {
+      let response = await fetch(URLS.logout, {
         method: "POST",
         credentials: "include",
       });
       if (response.ok) {
         location.reload();
-        const navigate = useNavigate();
         navigate("/");
         isLoggedIn = false;
       } else {

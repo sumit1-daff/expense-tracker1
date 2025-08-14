@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
 import { toast } from "react-hot-toast";
+import { URLS } from "../routes/apiEndPoints";
 
 export default function ChangePassword() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -21,7 +22,7 @@ export default function ChangePassword() {
     event.preventDefault();
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/auth/change-password`,
+        URLS.changePassword,
         {
           method: "POST",
           credentials: "include",

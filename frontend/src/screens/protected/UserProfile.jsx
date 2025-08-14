@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import SideDrawer from "../../components/SideDrawer";
 import UpdateAccount from "../../components/UpdateAccount";
 import ChangePassword from "../../components/ChangePassword";
+import { URLS } from "../../routes/apiEndPoints";
 
 export default function UserProfile() {
   const [user, setUser] = useState({
@@ -14,7 +15,7 @@ export default function UserProfile() {
 
   const fetchUser = useCallback(async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/user-details`, {
+      const response = await fetch(URLS.userDetails, {
         method: "GET",
         credentials: "include",
       });

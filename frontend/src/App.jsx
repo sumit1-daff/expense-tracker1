@@ -17,32 +17,35 @@ import Transactions from "./screens/protected/Transactions";
 import UserProfile from "./screens/protected/UserProfile";
 import VerifyEmail from "./screens/public/VerifyEmail";
 import ResetPassword from "./screens/public/ResetPassword";
+import { ROUTES } from "./routes/routes";
 
 function App() {
   return (
-    <Router>
-      <Toaster position="top-center" reverseOrder={false} />
-      <Routes>
-        <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<DashBoard />} />
-          <Route path="/addtransaction" element={<AddTransaction />} />
-          <Route path="/transactions" element={<Transactions />} />
-          <Route path="/edit-transaction/:id" element={<EditTransaction />} />
-          <Route path="/profile" element={<UserProfile />} />
-          <Route path="*" element={<Navigate to="/dashboard" />} />
-        </Route>
-        <Route element={<PublicRoute />}>
-          <Route path='/reset-password/:token' element={<ResetPassword/>}/>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<ContactUs />} />
-          <Route path="/services" element={<Services />} />
-        <Route path='/verify-email/:token' element={<VerifyEmail/>} />
-        </Route>
-      </Routes>
-    </Router>
+   <Router>
+  <Toaster position="top-center" reverseOrder={false} />
+  <Routes>
+    <Route element={<ProtectedRoute />}>
+      <Route path={ROUTES.DASHBOARD} element={<DashBoard />} />
+      <Route path={ROUTES.ADD_TRANSACTION} element={<AddTransaction />} />
+      <Route path={ROUTES.TRANSACTIONS} element={<Transactions />} />
+      <Route path={ROUTES.EDIT_TRANSACTION} element={<EditTransaction />} />
+      <Route path={ROUTES.PROFILE} element={<UserProfile />} />
+      <Route path={ROUTES.WILDCARD} element={<Navigate to={ROUTES.DASHBOARD} />} />
+    </Route>
+
+    <Route element={<PublicRoute />}>
+      <Route path={ROUTES.RESET_PASSWORD} element={<ResetPassword />} />
+      <Route path={ROUTES.LOGIN} element={<Login />} />
+      <Route path={ROUTES.SIGNUP} element={<Signup />} />
+      <Route path={ROUTES.HOME} element={<Home />} />
+      <Route path={ROUTES.ABOUT} element={<About />} />
+      <Route path={ROUTES.CONTACT} element={<ContactUs />} />
+      <Route path={ROUTES.SERVICES} element={<Services />} />
+      <Route path={ROUTES.VERIFY_EMAIL} element={<VerifyEmail />} />
+    </Route>
+  </Routes>
+</Router>
+
   );
 }
 
