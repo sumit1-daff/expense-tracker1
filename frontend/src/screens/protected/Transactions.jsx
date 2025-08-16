@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { FaDownload } from "react-icons/fa";
 import jsPDF from 'jspdf';
 import autoTable from "jspdf-autotable";
+import { URLS } from "../../routes/apiEndPoints";
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
@@ -23,7 +24,7 @@ const Transactions = () => {
   const fetchTransactions = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/transactions/get-transactions`,
+        URLS.getTransaction,
         {
           credentials: "include",
           headers: {
@@ -52,7 +53,7 @@ const Transactions = () => {
     if (confirm("Are you sure you want to delete this transaction?")) {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_SERVER_URL}/transactions/delete-transaction/${id}`,
+          URLS.deleteTransaction(id),
           {
             method: "DELETE",
             credentials: "include",
@@ -140,7 +141,7 @@ const Transactions = () => {
     };
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/transactions/get-transactions/filter`,
+        URLS.filterTransaction,
         {
           method: "POST",
           body: JSON.stringify(filterArray),

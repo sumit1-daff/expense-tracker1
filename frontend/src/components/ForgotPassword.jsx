@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
 import toast from "react-hot-toast";
+import { URLS } from "../routes/apiEndPoints";
 
 export default function ForgotPassword() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -11,7 +12,7 @@ export default function ForgotPassword() {
     e.preventDefault();
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/auth/forgot-password`,
+        URLS.forgotPassword,
         {
           method: "POST",
           body: JSON.stringify({ email }),

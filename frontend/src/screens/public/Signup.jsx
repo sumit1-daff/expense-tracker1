@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { URLS } from "../../routes/apiEndPoints";
 
 export default function SignUp() {
   const {
@@ -15,7 +16,7 @@ export default function SignUp() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/signup`, {
+      const response = await fetch(URLS.signUp, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -50,7 +51,7 @@ export default function SignUp() {
 
   const authenticateUser = async (email, password) => {
     try {
-      let response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/login`, {
+      let response = await fetch(URLS.login, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

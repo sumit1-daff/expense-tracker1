@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import ForgotPassword from "../../components/ForgotPassword";
 import toast, { Toaster } from 'react-hot-toast';
+import { URLS } from "../../routes/apiEndPoints";
 
 export default function Login() {
   const { register, handleSubmit, formState: { isSubmitting } } = useForm();
@@ -32,7 +33,7 @@ export default function Login() {
     const authenticateUser = async (email, password) => {
       console.log("authenticate user");
       try {
-        let response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/login`, {
+        let response = await fetch(URLS.login, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

@@ -6,6 +6,7 @@ import { GrTransaction } from "react-icons/gr";
 import { MdManageAccounts } from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
 import toast from "react-hot-toast";
+import { URLS } from "../routes/apiEndPoints";
 
 export default function SideDrawer(props) {
   const location = useLocation();
@@ -13,7 +14,7 @@ export default function SideDrawer(props) {
 
   const handleLogout = async () => {
     try {
-      let response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/logout`, {
+      let response = await fetch(URLS.logout, {
         method: "POST",
         credentials: "include",
       });
